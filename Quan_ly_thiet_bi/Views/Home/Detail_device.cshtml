@@ -1,0 +1,103 @@
+﻿@model Quan_ly_thiet_bi.Models.EF.DEVICE
+@{
+    ViewBag.Title = "Detail_device";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Chi tiết thiết bị</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-bordered" id="dataTable" style="width:50%;float:left;" cellspacing="0">
+                <tr>
+                    <td>Tên thiết bị:</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.DeviceName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Model:</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Model">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Serial:</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Serial">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nhà cung cấp:</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.VendorName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nhóm thiết bị</td>
+                    <td>
+                        <select class="form-control">
+                            <option value="@Model.DeviceGroup">
+                                @*@foreach (var item in list_group)
+                                    {
+                                        if (Model.DeviceGroup == item.ID_GROUP)
+                                        {
+                                            @item.NAME
+                                        }
+                                    }*@
+                                @Model.DeviceGroup
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số lượng</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Qty">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ngày sửa chữa:</td>
+                    <td>
+                        <input type="datetime" class="form-control" value="@Model.DateMaintenance">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mục đích</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Remark">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ghi chú</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Purpose">
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-bordered" id="dataTable" style="width:50%;" cellspacing="0">
+                <tr>
+                    <td>Nhân viên</td>
+                    <td>
+                        <input type="text" class="form-control" value="@Model.Creator">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hình ảnh</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ngày nhập thiết bị</td>
+                    <td>
+                        <input type="date" class="form-control" value="@Model.Updatetime">
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
