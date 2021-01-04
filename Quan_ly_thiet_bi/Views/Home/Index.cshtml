@@ -12,9 +12,19 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div style="float:right;">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        <i class="fa fa-plus"> Thêm mới</i>
-                    </button>
+                    @{
+                        var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                    }
+                    @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                    {
+                        var id_rule = session.ID_RULE;
+                        if (id_rule == "R001")
+                        {
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
+                                <i class="fa fa-plus"> Thêm mới</i>
+                            </button>
+                        }
+                    }
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,7 +39,15 @@
                                 <th style="color:black;">Số lượng</th>
                                 <th style="color:black;">Kế hoạch sửa chữa</th>
                                 <th style="color:black;">Nhân viên</th>
-                                <th style="color:black;">Thao tác</th>
+                                @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                {
+                                    var id_rule = session.ID_RULE;
+                                    if (id_rule == "R001")
+                                    {
+                                        <th style="color:black;">Thao tác</th>
+                                    }
+                                }
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -47,10 +65,20 @@
                                     <td>@items.Qty</td>
                                     <td>@items.DateMaintenance</td>
                                     <td>@items.Creator</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModaledit"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
-                                    </td>
+                                    
+                                        @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                        {
+                                            var id_rule = session.ID_RULE;
+                                            if (id_rule == "R001")
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            }
+                                        }
+                                       
+                                    
                                 </tr>
                             }
 
@@ -58,154 +86,92 @@
                     </table>
                 </div>
             </div>
-        </div>
     </div>
-    <!--Modal edit-->
-    <div class="modal fade" id="myModaledit" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-12" style="display:none;">
-                        <label></label>
-                        <input type="text" class="form-control" id="Id1" name="Id1" />
+        <!-- Modal add-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="col-12" style="margin:5px 0px;">
-                        <label>Tên thiết bị:</label>
-                        <input type="text" class="form-control" required id="DeviceName1" name="DeviceName1" />
-                    </div>
-                    <div class="container-modal" style="margin:5px 0px;">
-                        <div class="col-6" style="float:left;">
-                            <label>Model</label>
-                            <input type="text" class="form-control" required id="Model1" name="Model1" />
-                        </div>
-                        <div class="col-6" style="float:left;">
-                            <label>Serial</label>
-                            <input type="text" class="form-control" required id="Serial1" name="Serial1" />
-                        </div>
-                    </div>
-                    <div class="container-modal" style="margin:5px 0px;">
-                        <div class="col-6" style="float:left;">
-                            <label>Nhà cung cấp:</label>
-                            <input type="text" class="form-control" required id="VendorName1" name="VendorName1" />
-                        </div>
-                        <div class="col-6" style="float:left;">
-                            <label>Số lượng:</label>
-                            <input type="text" class="form-control" required id="Qty1" name="Qty1" />
-                        </div>
-                    </div>
-                    <div class="container-modal" style="margin:5px 0px;">
-                        <div class="col-6" style="float:left;">
-                            <label>Nhóm thiết bị:</label>
-                            <select class="form-control" id="DeviceGroup1" name="DeviceGroup1">
-                                @foreach (var ca in list_group)
-                                {
-                                    <option value="@ca.ID_GROUP">@ca.NAME</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-6" style="float:left;">
-                            <label>Mục đích:</label>
-                            <input type="text" class="form-control" required id="Purpose1" name="Purpose1" />
-                        </div>
-                    </div>
-                    <div class="container-modal" style="margin:5px 0px;">
-                        <div class="col-6" style="float:left;">
-                            <label>Kế hoạch sửa chữa:</label>
-                            <input type="date" class="form-control" id="DateMaintenance1" name="DateMaintenance1" />
-                        </div>
-                        <div class="col-6" style="float:left;">
-                            <label>Ghi chú:</label>
-                            <input type="text" class="form-control" required id="Remark1" name="Remark1" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                    @*<button type="submit" name="submit" class="btn btn-success" data-dismiss="modal" id="btn_Edit" value="Lưu">Lưu</button>*@
-                    <input type="submit" name="submit" id="bt_sua" class="btn btn-primary" value="Lưu" />
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!-- Modal add-->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="col-12" style="display:none;">
-                    <label></label>
-                    <input type="text" class="form-control" id="Id" name="Id" />
-                </div>
-                <div class="col-12" style="margin:5px 0px;">
-                    <label>Tên thiết bị:</label>
-                    <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" />
-                </div>
-                <div class="container-modal" style="margin:5px 0px;">
-                    <div class="col-6" style="float:left;">
-                        <label>Model</label>
-                        <input type="text" class="form-control" placeholder="Model" required id="Model" name="Model" />
-                    </div>
-                    <div class="col-6" style="float:left;">
-                        <label>Serial</label>
-                        <input type="text" class="form-control" placeholder="Serial" required id="Serial" name="Serial" />
-                    </div>
-                </div>
-                <div class="container-modal" style="margin:5px 0px;">
-                    <div class="col-6" style="float:left;">
-                        <label>Nhà cung cấp:</label>
-                        <input type="text" class="form-control" placeholder="Nhà cung cấp" required id="VendorName" name="VendorName" />
-                    </div>
-                    <div class="col-6" style="float:left;">
-                        <label>Số lượng:</label>
-                        <input type="text" class="form-control" placeholder="Số lượng" required id="Qty" name="Qty" />
-                    </div>
-                </div>
-                <div class="container-modal" style="margin:5px 0px;">
-                    <div class="col-6" style="float:left;">
-                        <label>Nhóm thiết bị:</label>
-                        <select class="form-control" id="DeviceGroup" name="DeviceGroup">
-                            @foreach (var ca in list_group)
-                            {
-                                <option value="@ca.ID_GROUP">@ca.NAME</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-6" style="float:left;">
-                        <label>Mục đích:</label>
-                        <input type="text" class="form-control" placeholder="Mục đích" required id="Purpose" name="Purpose" />
-                    </div>
-                </div>
-                <div class="container-modal" style="margin:5px 0px;">
-                    <div class="col-6" style="float:left;">
-                        <label>Kế hoạch sửa chữa:</label>
-                        <input type="date" class="form-control" id="DateMaintenance" name="DateMaintenance" />
-                    </div>
-                    <div class="col-6" style="float:left;">
-                        <label>Ghi chú:</label>
-                        <input type="text" class="form-control" placeholder="" required id="Remark" name="Remark" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
-                @*<input type="submit" name="submit" class="btn btn-primary" id="bt_them" value="Thêm" />*@
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="modal-body">
+                        <div class="col-12" style="display:none;">
+                            <label></label>
+                            <input type="text" class="form-control" id="Id" name="Id" />
 
+                        </div>
+                        <div class="col-12" style="margin:5px 0px;">
+                            <label>Tên thiết bị:</label>
+                            <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" />
+                        </div>
+                        <div class="container-modal" style="margin:5px 0px;">
+                            <div class="col-6" style="float:left;">
+                                <label>Model</label>
+                                <input type="text" class="form-control" placeholder="Model" required id="Model" name="Model" />
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Serial</label>
+                                <input type="text" class="form-control" placeholder="Serial" required id="Serial" name="Serial" />
+                            </div>
+                        </div>
+                        <div class="container-modal" style="margin:5px 0px;">
+                            <div class="col-6" style="float:left;">
+                                <label>Nhà cung cấp:</label>
+                                <input type="text" class="form-control" placeholder="Nhà cung cấp" required id="VendorName" name="VendorName" />
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Số lượng:</label>
+                                <input type="text" class="form-control" placeholder="Số lượng" required id="Qty" name="Qty" />
+                            </div>
+                        </div>
+                        <div class="container-modal" style="margin:5px 0px;">
+                            <div class="col-6" style="float:left;">
+                                <label>Nhóm thiết bị:</label>
+                                <select class="form-control" id="DeviceGroup" name="DeviceGroup">
+                                    @foreach (var ca in list_group)
+                                    {
+                                        <option value="@ca.ID_GROUP">@ca.NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Mục đích:</label>
+                                <input type="text" class="form-control" placeholder="Mục đích" required id="Purpose" name="Purpose" />
+                            </div>
+                        </div>
+                        <div class="container-modal" style="margin:5px 0px;">
+                            <div class="col-6" style="float:left;">
+                                <label>Kế hoạch sửa chữa:</label>
+                                <input type="date" class="form-control" id="DateMaintenance" name="DateMaintenance" />
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Ghi chú:</label>
+                                <input type="text" class="form-control" placeholder="" required id="Remark" name="Remark" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                        @*<input type="submit" name="submit" class="btn btn-primary" id="bt_them" value="Thêm" />*@
+                        <input type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     </div>
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script>
+    $(document).ready(function () {
+        $("btn_add_click").click(function () {
+            $("#btn_sua").hide();
+        });
+    })
     $("body").on("click", "#btn_Add", function () {
+        
         if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
             alert("Hãy nhập giá trị!");
         }
@@ -257,10 +223,9 @@
             }
         });
     }
-   
     function Sua(el) {
         event.preventDefault();
-        $("#bt_sua").show();
+        $("#btn_sua").show();
         var id = el.parentNode.parentNode.cells[1].textContent;
         $.ajax({
             url: "/Home/Get_device/?Id=" + id,
@@ -268,16 +233,16 @@
             dataType: 'json',
             success: function (data) {
                 var json = JSON.parse(data);
-                $("#Id1").val(json.Id)
-                $("#DeviceName1").val(json.DeviceName);
-                $("#Model1").val(json.Model);
-                $("#Serial1").val(json.Serial);
-                $("#VendorName1").val(json.VendorName);
-                $("#Qty1").val(json.Qty);
-                $("#DeviceGroup1").val(json.DeviceGroup);
-                $("#Purpose1").val(json.Purpose);
-                $("#Remark1").val(json.Remark);
-                $("#DateMaintenance1").val(json.DateMaintenance);
+                $("#Id").val(json.Id)
+                $("#DeviceName").val(json.DeviceName);
+                $("#Model").val(json.Model);
+                $("#Serial").val(json.Serial);
+                $("#VendorName").val(json.VendorName);
+                $("#Qty").val(json.Qty);
+                $("#DeviceGroup").val(json.DeviceGroup);
+                $("#Purpose").val(json.Purpose);
+                $("#Remark").val(json.Remark);
+                $("#DateMaintenance").val(json.DateMaintenance);
             },
             error: function (err) {
                 alert("Error: " + err.responseText);

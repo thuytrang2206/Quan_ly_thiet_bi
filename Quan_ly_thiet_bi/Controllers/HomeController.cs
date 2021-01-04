@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using Quan_ly_thiet_bi.Models.EF;
 using Newtonsoft.Json;
+using Quan_ly_thiet_bi.Models;
+using Quan_ly_thiet_bi.Common;
 
 namespace Quan_ly_thiet_bi.Controllers
 {
@@ -19,6 +21,7 @@ namespace Quan_ly_thiet_bi.Controllers
             var model = dao.List_Device();
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
+
             return View(model);
         }
         public JsonResult Insert_device(DEVICE dev)
@@ -26,6 +29,8 @@ namespace Quan_ly_thiet_bi.Controllers
             string id = Guid.NewGuid().ToString();
             dev.Id = id;
             dev.IsUsing = true;
+            
+           
             db.DEVICEs.Add(dev);
             db.SaveChanges();
             if (id != null)
@@ -88,6 +93,13 @@ namespace Quan_ly_thiet_bi.Controllers
                     d.Qty = dev.Qty;
                     d.Purpose = dev.Purpose;
                     d.Remark = dev.Remark;
+                    string id_his = Guid.NewGuid().ToString();
+                    his.ID_HISTORY = id_his;
+                    his.ID_DEVICE = dev.Id;
+                    his.UPDATE_CHECK = dev.DateMaintenance;
+                    his.QUANTITY = dev.Qty;
+                    his.STATUS = TaskType.Repair.ToString();
+                    db.HISTORies.Add(his);
                     db.SaveChanges();
                     dev = null;
                 }
@@ -103,8 +115,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 var model = dao.List_Device();
                 List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
                 ViewBag.list_group = list_group;
-                return View("Index", model);
+              return View("Index", model);
             }
+           
         }
     }
 }
