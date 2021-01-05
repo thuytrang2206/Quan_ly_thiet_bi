@@ -12,7 +12,7 @@ namespace Quan_ly_thiet_bi.Controllers
 {
     public class LoginController : Controller
     {
-        Manager_deviceModel db = new Manager_deviceModel();
+        Manager_device db = new Manager_device();
         // GET: Login
         public ActionResult Index()
         {
@@ -22,7 +22,7 @@ namespace Quan_ly_thiet_bi.Controllers
         {
             if (ModelState.IsValid)
             {
-                string err = "";
+              
                 string password = Encryptor.MD5Hash(model.PASSWORD);
                 var dao = new UserDao();
                 var result = dao.Login(model.NAME, password);
@@ -38,9 +38,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 }
                 else
                 {
-                    err = "Mật khẩu hoặc tên đăng nhập không đúng!";
+                    ModelState.AddModelError("", "Mật khẩu hoặc tên đăng nhập không đúng!");
                 }
-                ViewBag.Error = "<span class='text-danger'>" + err + "</span>";
+               
             }
             return View("Index");
         }

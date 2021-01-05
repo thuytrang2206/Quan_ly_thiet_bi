@@ -9,7 +9,7 @@ namespace Quan_ly_thiet_bi.Controllers
 {
     public class Group_deviceController : Controller
     {
-        Manager_deviceModel db = new Manager_deviceModel();
+        Manager_device db = new Manager_device();
         // GET: Group_device
         public ActionResult Index()
         {

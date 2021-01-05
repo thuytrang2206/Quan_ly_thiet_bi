@@ -11,19 +11,29 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div style="float:right;">
+                    @{
+                        var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                    }
                     <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                         <i class="fa fa-plus"> Thêm mới</i>
                     </button>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0">
                         <thead>
                             <tr>
                                 <th style="color:black;">STT</th>
                                 <th style="display:none;"></th>
                                 <th style="color:black;">Tên nhóm thiết bị</th>
                                 <th style="color:black;">Mô tả</th>
+                                @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                {
+                                    var id_rule = session.ID_RULE;
+                                    if (id_rule == "R001")
+                                    {
                                 <th style="color:black;">Thao tác</th>
+                                    }
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -36,10 +46,17 @@
                                     <td style="display:none;">@items.ID_GROUP</td>
                                     <td><a href="/Admin_/Chi_tiet_thiet_bi/@items.ID_GROUP">@items.NAME</a></td>
                                     <td></td>
+                                        @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                            {
+                                                var id_rule = session.ID_RULE;
+                                                if (id_rule == "R001")
+                                                {
                                     <td>
                                         <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
                                     </td>
+                                                }
+                                            }
                                 </tr>
                             }
 

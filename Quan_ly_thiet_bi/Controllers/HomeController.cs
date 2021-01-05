@@ -13,26 +13,33 @@ namespace Quan_ly_thiet_bi.Controllers
 {
     public class HomeController : Controller
     {
-        Manager_deviceModel db = new Manager_deviceModel();
+        Manager_device db = new Manager_device();
         // GET: Home
         public ActionResult Index()
         {
-            var dao = new Device();
-            var model = dao.List_Device();
-            List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
-            ViewBag.list_group = list_group;
+            if(Session["USER_SESSION"]== null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var dao = new Device();
+                var model = dao.List_Device();
+                List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+                ViewBag.list_group = list_group;
 
-            return View(model);
+                return View(model);
+            }
+            
         }
         public JsonResult Insert_device(DEVICE dev)
         {
             string id = Guid.NewGuid().ToString();
             dev.Id = id;
             dev.IsUsing = true;
-            
-           
+            var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+            dev.Creator = session.ID_USER;
             db.DEVICEs.Add(dev);
-            db.SaveChanges();
             if (id != null)
             {
                 HISTORY his = new HISTORY();
@@ -43,8 +50,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 his.QUANTITY = dev.Qty;
                 his.STATUS = TaskType.New.ToString();
                 db.HISTORies.Add(his);
-                db.SaveChanges();
+               
             }
+            db.SaveChanges();
             return Json(dev);
         }
         public ActionResult Detail_device(string id)
@@ -69,10 +77,11 @@ namespace Quan_ly_thiet_bi.Controllers
             db.SaveChanges();
             return (Json(JsonRequestBehavior.AllowGet));
         }
-        public ActionResult Get_device(string id)
+   
+        public ActionResult Getdevice(string Id)
         {
             JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-            var d = db.DEVICEs.SingleOrDefault(x => x.Id == id);
+            var d = db.DEVICEs.SingleOrDefault(x => x.Id == Id);
             var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }

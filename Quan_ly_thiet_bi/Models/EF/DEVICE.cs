@@ -49,6 +49,8 @@ namespace Quan_ly_thiet_bi.Models.EF
 
         public DateTime? CreateDate { get; set; }
 
+        
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? DateMaintenance { get; set; }
 
         [StringLength(50)]

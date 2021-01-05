@@ -27,7 +27,7 @@
                     }
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0">
                         <thead>
                             <tr>
                                 <th style="color:black;">STT</th>
@@ -63,22 +63,19 @@
                                     <td>@items.Serial</td>
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
-                                    <td>@items.DateMaintenance</td>
+                                    <td>@Html.DisplayFor(m=>items.DateMaintenance)</td>
                                     <td>@items.Creator</td>
-                                    
                                         @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                         {
                                             var id_rule = session.ID_RULE;
                                             if (id_rule == "R001")
                                             {
                                                 <td>
-                                                    <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id" id="btn_edit"><i class="fas fa-edit"></i></button>
                                                     <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             }
                                         }
-                                       
-                                    
                                 </tr>
                             }
 
@@ -92,7 +89,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
                     </div>
                     <div class="modal-body">
                         <div class="col-12" style="display:none;">
@@ -151,9 +148,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
-                        @*<input type="submit" name="submit" class="btn btn-primary" id="bt_them" value="Thêm" />*@
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close" >Đóng</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Thêm</button>
                         <input type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu" />
                     </div>
                 </div>
@@ -164,89 +160,4 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $("btn_add_click").click(function () {
-            $("#btn_sua").hide();
-        });
-    })
-    $("body").on("click", "#btn_Add", function () {
-        
-        if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
-            alert("Hãy nhập giá trị!");
-        }
-        else {
-            var DeviceName = $("#DeviceName");
-            var Model = $("#Model");
-            var Serial = $("#Serial");
-            var VendorName = $("#VendorName");
-            var Qty = $("#Qty");
-            var DeviceGroup = $("#DeviceGroup");
-            var Purpose = $("#Purpose");
-            var Remark = $("#Remark");
-            var DateMaintenance = $("#DateMaintenance");
-            $.ajax({
-                type: "POST",
-                url: "/Home/Insert_device",
-                data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Remark:"' + Remark.val() + '",DateMaintenance:"'+DateMaintenance.val()+'"}',
-                contentType: "application/json charset=utf-8",
-                datatype: "json",
-                success: function () {
-                    var newrow = $("#dataTable tr:last-child");
-                    window.location.reload();
-                    DeviceName.val() = "";
-                    Model.val() = "";
-                    Serial.val() = "";
-                    VendorName.val() = "";
-                    Qty.val() = "";
-                    DeviceGroup.val() = "";
-                    Purpose.val() = "";
-                    Remark.val() = "";
-                    DateMaintenance.val() = "";
-                }
-            });
-        }
-    });
-    function Xoa(el) {
-        var id = el.parentNode.parentNode.cells[1].textContent;
-        $.ajax({
-            url: '/Home/Delete_Device/?id=' + id,
-            type: 'POST',
-            dataType: 'json',
-            success: function () {
-                alert("Xóa thành công");
-                window.location.reload();
-            },
-            error: function () {
-                alert("Xóa thất bại");
-                window.location.reload();
-            }
-        });
-    }
-    function Sua(el) {
-        event.preventDefault();
-        $("#btn_sua").show();
-        var id = el.parentNode.parentNode.cells[1].textContent;
-        $.ajax({
-            url: "/Home/Get_device/?Id=" + id,
-            type: "GET",
-            dataType: 'json',
-            success: function (data) {
-                var json = JSON.parse(data);
-                $("#Id").val(json.Id)
-                $("#DeviceName").val(json.DeviceName);
-                $("#Model").val(json.Model);
-                $("#Serial").val(json.Serial);
-                $("#VendorName").val(json.VendorName);
-                $("#Qty").val(json.Qty);
-                $("#DeviceGroup").val(json.DeviceGroup);
-                $("#Purpose").val(json.Purpose);
-                $("#Remark").val(json.Remark);
-                $("#DateMaintenance").val(json.DateMaintenance);
-            },
-            error: function (err) {
-                alert("Error: " + err.responseText);
-            }
-        });
-    }
-</script>
+<script src="~/Scripts/device.js"></script>

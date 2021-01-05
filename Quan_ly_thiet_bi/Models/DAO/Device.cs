@@ -8,10 +8,10 @@ namespace Quan_ly_thiet_bi.Models.DAO
 {
     public class Device
     {
-        Manager_deviceModel db = null;
+        Manager_device db = null;
         public Device()
         {
-            db = new Manager_deviceModel();
+            db = new Manager_device();
         }
         public IEnumerable<DEVICE> List_Device()
         {

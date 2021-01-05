@@ -5,9 +5,9 @@ namespace Quan_ly_thiet_bi.Models.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Manager_deviceModel : DbContext
+    public partial class Manager_device : DbContext
     {
-        public Manager_deviceModel()
+        public Manager_device()
             : base("name=Manager_device")
         {
         }

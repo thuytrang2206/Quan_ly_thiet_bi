@@ -11,78 +11,73 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <table class="table table-bordered" id="dataTable" style="width:50%;float:left;" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0" >
                 <tr>
                     <td>Tên thiết bị:</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.DeviceName">
+                        @Model.DeviceName
                     </td>
                 </tr>
                 <tr>
                     <td>Model:</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Model">
+                        @Model.Model
                     </td>
                 </tr>
                 <tr>
                     <td>Serial:</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Serial">
+                        @Model.Serial
                     </td>
                 </tr>
                 <tr>
                     <td>Nhà cung cấp:</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.VendorName">
+                        @Model.VendorName
                     </td>
                 </tr>
                 <tr>
                     <td>Nhóm thiết bị</td>
                     <td>
-                        <select class="form-control">
-                            <option value="@Model.DeviceGroup">
-                                @*@foreach (var item in list_group)
+                                @foreach (var item in list_group)
+                                {
+                                    if (Model.DeviceGroup==item.ID_GROUP)
                                     {
-                                        if (Model.DeviceGroup == item.ID_GROUP)
-                                        {
-                                            @item.NAME
-                                        }
-                                    }*@
-                                @Model.DeviceGroup
-                            </option>
-                        </select>
+                                     @item.NAME
+                                    }
+                                }
                     </td>
                 </tr>
                 <tr>
                     <td>Số lượng</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Qty">
+                        @Model.Qty
                     </td>
                 </tr>
                 <tr>
                     <td>Ngày sửa chữa:</td>
                     <td>
-                        <input type="datetime" class="form-control" value="@Model.DateMaintenance">
+                        @Model.DateMaintenance
                     </td>
                 </tr>
                 <tr>
                     <td>Mục đích</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Remark">
+                        @Model.Remark
                     </td>
                 </tr>
                 <tr>
                     <td>Ghi chú</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Purpose">
+                       @Model.Purpose
                     </td>
                 </tr>
             </table>
-            <table class="table table-bordered" id="dataTable" style="width:50%;" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
                 <tr>
                     <td>Nhân viên</td>
                     <td>
-                        <input type="text" class="form-control" value="@Model.Creator">
+                       @Model.Creator
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +87,7 @@
                 <tr>
                     <td>Ngày nhập thiết bị</td>
                     <td>
-                        <input type="date" class="form-control" value="@Model.Updatetime">
+                      @Model.Updatetime
                     </td>
                 </tr>
 

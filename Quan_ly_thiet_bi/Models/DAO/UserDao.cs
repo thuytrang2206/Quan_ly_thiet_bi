@@ -8,10 +8,10 @@ namespace Quan_ly_thiet_bi.Models.DAO
 {
     public class UserDao
     {
-        Manager_deviceModel db = null;
+        Manager_device db = null;
         public UserDao()
         {
-            db = new Manager_deviceModel();
+            db = new Manager_device();
         }
         public USER getbyID(string NAME)
         {
@@ -27,8 +27,7 @@ namespace Quan_ly_thiet_bi.Models.DAO
             else
             {
                 return 1;
-                
-            }
+            }            
         }
     }
 }
