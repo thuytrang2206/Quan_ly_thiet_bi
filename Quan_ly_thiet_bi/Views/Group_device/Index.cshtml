@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<form method="post" action="/Group_device/Edit_groupdevice">
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
@@ -14,24 +14,24 @@
                     @{
                         var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                     }
-                    <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
                         <i class="fa fa-plus"> Thêm mới</i>
                     </button>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
                         <thead>
                             <tr>
-                                <th style="color:black;">STT</th>
-                                <th style="display:none;"></th>
-                                <th style="color:black;">Tên nhóm thiết bị</th>
-                                <th style="color:black;">Mô tả</th>
+                                <th >STT</th>
+                                <th style="display:none;" ></th>
+                                <th >Tên nhóm thiết bị</th>
+                                <th >Mô tả</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
                                     var id_rule = session.ID_RULE;
                                     if (id_rule == "R001")
                                     {
-                                <th style="color:black;">Thao tác</th>
+                                        <th style="color:black;">Thao tác</th>
                                     }
                                 }
                             </tr>
@@ -45,18 +45,18 @@
                                     <td>@i</td>
                                     <td style="display:none;">@items.ID_GROUP</td>
                                     <td><a href="/Admin_/Chi_tiet_thiet_bi/@items.ID_GROUP">@items.NAME</a></td>
-                                    <td></td>
-                                        @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
-                                            {
-                                                var id_rule = session.ID_RULE;
-                                                if (id_rule == "R001")
-                                                {
-                                    <td>
-                                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                                }
-                                            }
+                                    <td>@items.DESCIPTION</td>
+                                    @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                    {
+                                        var id_rule = session.ID_RULE;
+                                        if (id_rule == "R001")
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.ID_GROUP" id="btn_edit"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        }
+                                    }
                                 </tr>
                             }
 
@@ -82,36 +82,33 @@
                         <label>Tên nhóm thiết bị:</label>
                         <input type="text" class="form-control" placeholder="Tên thiết bị" required id="NAME" name="NAME" />
                     </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Mô tả:</label>
+                        <input type="text" class="form-control" required id="DESCIPTION" name="DESCIPTION" />
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
                     <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                    <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
                 </div>
             </div>
         </div>
     </div>
+</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
+<script src="~/Scripts/group_device.js"></script>
 <script>
-    $("body").on("click", "#btn_Add", function () {
-        if ($("#NAME").val() == "" ) {
-            alert("Hãy nhập giá trị!");
-        }
-        else {
-            var NAME = $("#NAME");
-            $.ajax({
-                type: "POST",
-                url: "/Group_device/Insert_groupdevice",
-                data: '{NAME:"' + NAME.val() + '"}',
-                contentType: "application/json charset=utf-8",
-                datatype: "json",
-                success: function () {
-                    var newrow = $("#dataTable tr:last-child");
-                    window.location.reload();
-                    NAME.val() = "";
-                }
-            });
-        }
-    });
+    $(document).ready(function () {
+        $("#btn_edit").click(function () {
+            $("#btn_Add").hide();
+        });
+    })
+    $(document).ready(function () {
+        $("#btn_add_click").click(function () {
+            $("#btn_sua").hide();
+        });
+    })
 </script>
 

@@ -1,0 +1,161 @@
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.USER>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_rule= (List<Quan_ly_thiet_bi.Models.EF.RULE>)ViewBag.list_rule;
+}
+
+<form method="post" action="/Group_device/Edit_groupdevice">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Danh sách nhân viên</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div style="float:right;">
+                    @{
+                        var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                    }
+                    <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
+                        <i class="fa fa-plus"> Thêm mới</i>
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th style="display:none;"></th>
+                                <th >Tên nhân viên</th>
+                                <th >Mật khẩu</th>
+                                <th>Quyền</th>
+                                @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                {
+                                    var id_rule = session.ID_RULE;
+                                    if (id_rule == "R001")
+                                    {
+                                        <th style="color:black;">Thao tác</th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 0; }
+                            @foreach (var items in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td style="display:none;">@items.ID_USER</td>
+                                    <td><a href="/Admin_/Chi_tiet_thiet_bi/@items.ID_USER">@items.NAME</a></td>
+                                    <td>@items.PASSWORD</td>
+                                    <td>
+                                        @foreach (var r in list_rule)
+                                        {
+                                            if(r.ID_RULE== @items.ID_RULE)
+                                            {
+                                                @r.NAME
+                                            }
+                                        }
+                                    
+                                    </td>
+                                    @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                    {
+                                        var id_rule = session.ID_RULE;
+                                        if (id_rule == "R001")
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.ID_USER" id="btn_edit"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12" style="display:none;">
+                        <label></label>
+                        <input type="text" class="form-control" id="ID_USER" name="ID_USER" />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Tên nhân viên:</label>
+                        <input type="text" class="form-control" required id="NAME" name="NAME" />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Mật khẩu:</label>
+                        <input type="password" class="form-control" required id="PASSWORD" name="PASSWORD" />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Quyền:</label>
+                        <select class="form-control" id="ID_RULE" name="ID_RULE">
+                            @foreach (var rule in list_rule)
+                            {
+                                <option value="@rule.ID_RULE">@rule.NAME</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                    <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn_edit").click(function () {
+            $("#btn_Add").hide();
+        });
+    })
+    $(document).ready(function () {
+        $("#btn_add_click").click(function () {
+            $("#btn_sua").hide();
+        });
+    })
+
+    $("body").on("click", "#btn_Add", function () {
+
+        if ($("#NAME").val() == "" || $("#PASSWORD").val() == "") {
+            alert("Hãy nhập giá trị!");
+        }
+        else {
+            var NAME = $("#NAME");
+            var PASSWORD =CryptoJS.MD5($("#PASSWORD"));
+            var ID_RULE = $("#ID_RULE");
+            $.ajax({
+                type: "POST",
+                url: "/User/Insert_user",
+                data: '{NAME:"' + NAME.val() + '",PASSWORD:"' + PASSWORD.val() + '",ID_RULE:"' + ID_RULE.val() + '"}',
+                contentType: "application/json charset=utf-8",
+                datatype: "json",
+                success: function () {
+                    var newrow = $("#dataTable tr:last-child");
+                    window.location.reload();
+                    NAME.val() = "";
+                    PASSWORD.val() = "";
+                    ID_RULE.val() = "";
+                }
+            });
+        }
+    });
+</script>

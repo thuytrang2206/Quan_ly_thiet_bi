@@ -53,10 +53,11 @@ $("body").on("click", "#btn_Add", function () {
         var Purpose = $("#Purpose");
         var Remark = $("#Remark");
         var DateMaintenance = $("#DateMaintenance");
+        var Image1 = $("#Image1");
         $.ajax({
             type: "POST",
             url: "/Home/Insert_device",
-            data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Remark:"' + Remark.val() + '",DateMaintenance:"' + DateMaintenance.val() + '"}',
+            data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Remark:"' + Remark.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '"}',
             contentType: "application/json charset=utf-8",
             datatype: "json",
             success: function () {
@@ -71,6 +72,7 @@ $("body").on("click", "#btn_Add", function () {
                 Purpose.val() = "";
                 Remark.val() = "";
                 DateMaintenance.val() = "";
+                Image1.val() = "";
             }
         });
     }
@@ -111,6 +113,7 @@ function Sua(el) {
             $("#Purpose").val(json.Purpose);
             $("#Remark").val(json.Remark);
             $("#DateMaintenance").val(json.DateMaintenance);
+           
         },
         error: function (err) {
             alert("Error: " + err.responseText);

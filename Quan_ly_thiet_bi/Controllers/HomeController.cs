@@ -27,7 +27,8 @@ namespace Quan_ly_thiet_bi.Controllers
                 var model = dao.List_Device();
                 List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
                 ViewBag.list_group = list_group;
-
+                List<USER> list_user = db.USERs.ToList();
+                ViewBag.list_user = list_user;
                 return View(model);
             }
             
@@ -49,8 +50,8 @@ namespace Quan_ly_thiet_bi.Controllers
                 his.UPDATE_CHECK = dev.DateMaintenance;
                 his.QUANTITY = dev.Qty;
                 his.STATUS = TaskType.New.ToString();
+                his.ID_USER = dev.Creator;
                 db.HISTORies.Add(his);
-               
             }
             db.SaveChanges();
             return Json(dev);
@@ -73,6 +74,8 @@ namespace Quan_ly_thiet_bi.Controllers
             his.UPDATE_CHECK = device.DateMaintenance;
             his.QUANTITY = device.Qty;
             his.STATUS = TaskType.Remove.ToString();
+            var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+            his.ID_USER = session.ID_USER;
             db.HISTORies.Add(his);
             db.SaveChanges();
             return (Json(JsonRequestBehavior.AllowGet));
@@ -102,12 +105,15 @@ namespace Quan_ly_thiet_bi.Controllers
                     d.Qty = dev.Qty;
                     d.Purpose = dev.Purpose;
                     d.Remark = dev.Remark;
+                    var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                    d.Creator = session.ID_USER;
                     string id_his = Guid.NewGuid().ToString();
                     his.ID_HISTORY = id_his;
                     his.ID_DEVICE = dev.Id;
                     his.UPDATE_CHECK = dev.DateMaintenance;
                     his.QUANTITY = dev.Qty;
                     his.STATUS = TaskType.Repair.ToString();
+                    his.ID_USER = dev.Creator;
                     db.HISTORies.Add(his);
                     db.SaveChanges();
                     dev = null;
@@ -116,6 +122,8 @@ namespace Quan_ly_thiet_bi.Controllers
                 var model = dao.List_Device();
                 List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
                 ViewBag.list_group = list_group;
+                List<USER> list_user = db.USERs.ToList();
+                ViewBag.list_user = list_user;
                 return View("Index", model);
             }
             else
@@ -124,7 +132,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 var model = dao.List_Device();
                 List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
                 ViewBag.list_group = list_group;
-              return View("Index", model);
+                List<USER> list_user = db.USERs.ToList();
+                ViewBag.list_user = list_user;
+                return View("Index", model);
             }
            
         }
