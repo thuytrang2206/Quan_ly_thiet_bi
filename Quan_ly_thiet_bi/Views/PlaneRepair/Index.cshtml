@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container-fluid">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane1">Tháng 1</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane2">Tháng 2</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane3">Tháng 3</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane4">Tháng 4</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane5">Tháng 5</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane6">Tháng 6</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane7">Tháng 7</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane8">Tháng 8</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane9">Tháng 9</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane10">Tháng 10</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane11">Tháng 11</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane12">Tháng 12</button>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800"></h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable-plane1" @*width="100%"*@ cellspacing="0" style="color:black;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Ngày
+                                </th>
+                                @{ 
+                                    int year = DateTime.Now.Year;
+                                    int month = DateTime.Now.Month;
+                                    int day = DateTime.DaysInMonth(year,month);
+                                }
+                               @for (day=1; day<= DateTime.DaysInMonth(year, month); day++)
+                               {
+                                   <td>@day</td>
+                               }
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                                        {
+                                            if (item.DateMaintenance.Value.Day == day)
+                                            {
+                                                <td style="background-color:yellow;">
+                                                    @item.DeviceName
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" id="dataTable-plane2" @*width="100%"*@ cellspacing="0" style="color:black;">
+                        @*<thead>
+                            <tr>
+                                <th>
+                                    Ngày
+                                </th>
+                                @{
+                                    int year = DateTime.Now.Year;
+                                    int month = DateTime.Now.Month;
+                                    int day = DateTime.DaysInMonth(year, month);
+                                }
+                                @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                                {
+                                    <td>@day</td>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td></td>
+                                    @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                                    {
+                                        if (item.DateMaintenance.Value.Day == day)
+                                        {
+                                            <td style="background-color:yellow;">
+                                                @item.DeviceName
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </tbody>*@
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+

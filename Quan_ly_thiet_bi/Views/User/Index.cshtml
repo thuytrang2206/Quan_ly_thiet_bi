@@ -111,7 +111,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                    <button type="submit" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
                     <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
                 </div>
             </div>
@@ -120,7 +120,7 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/hmac-md5.min.js" integrity="sha512-gy8JaBxTrtIxNLe1FfMAXey61VjQk3Af4EyY/EpVfmWPH16iCgdRZMHEFgKIyxMrarlc6+rDf6WneGL4SWqnpg==" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $("#btn_edit").click(function () {
@@ -140,7 +140,7 @@
         }
         else {
             var NAME = $("#NAME");
-            var PASSWORD =CryptoJS.MD5($("#PASSWORD"));
+            var PASSWORD = CryptoJS.MD5($("#PASSWORD")).toString();
             var ID_RULE = $("#ID_RULE");
             $.ajax({
                 type: "POST",

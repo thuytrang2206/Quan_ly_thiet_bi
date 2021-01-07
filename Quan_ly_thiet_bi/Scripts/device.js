@@ -96,14 +96,18 @@ function Xoa(el) {
 function Sua(el) {
     event.preventDefault();
     $("#btn_sua").show();
+
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
         url: "/Home/Getdevice/?Id=" + id,
         type: "GET",
         dataType: 'json',
         success: function (data) {
+           
             var json = JSON.parse(data);
-            $("#Id").val(json.Id)
+            const d = new Date(json.DateMaintenance);
+            const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+            $("#Id").val(json.Id);
             $("#DeviceName").val(json.DeviceName);
             $("#Model").val(json.Model);
             $("#Serial").val(json.Serial);
@@ -112,8 +116,7 @@ function Sua(el) {
             $("#DeviceGroup").val(json.DeviceGroup);
             $("#Purpose").val(json.Purpose);
             $("#Remark").val(json.Remark);
-            $("#DateMaintenance").val(json.DateMaintenance);
-           
+            $("#DateMaintenance").val(formattedDate);
         },
         error: function (err) {
             alert("Error: " + err.responseText);
