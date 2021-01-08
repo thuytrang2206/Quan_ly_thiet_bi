@@ -21,5 +21,9 @@ namespace Quan_ly_thiet_bi.Models.DAO
         {
             return db.DEVICEs.Find(id);
         }
+        public List<DEVICE> Thong_ke_thang(int x)
+        {
+            return db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == x).ToList();
+        }
     }
 }

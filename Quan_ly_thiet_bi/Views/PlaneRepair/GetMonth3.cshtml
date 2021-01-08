@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
+@{
+    ViewBag.Title = "GetMonth3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane1">Tháng 1</button>
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800"></h1>
+
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 3</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -24,9 +22,9 @@
                                 int month = DateTime.Now.Month;
                                 int day = DateTime.DaysInMonth(year, month);
                             }
-                            @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                            @for (day = 1; day <= 31; day++)
                             {
-                                <td>@day</td>
+                                <th>@day</th>
                             }
                         </tr>
                     </thead>
@@ -58,8 +56,4 @@
         </div>
     </div>
 </div>
-
-
-
-
 

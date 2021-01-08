@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
+@{
+    ViewBag.Title = "GetMonth2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <div class="container-fluid">
-    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dataTable-plane1">Tháng 1</button>
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800"></h1>
+
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 2</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -21,12 +19,17 @@
                             </th>
                             @{
                                 int year = DateTime.Now.Year;
-                                int month = DateTime.Now.Month;
-                                int day = DateTime.DaysInMonth(year, month);
+                                int month = 2;
+                                int days = 0;
+                                if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))    // nam nhuan
+                                { days = 29; }
+                                else
+                                { days = 28; }
+                                int day;
                             }
-                            @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                            @for (day = 1; day <= days; day++)
                             {
-                                <td>@day</td>
+                                <th>@day</th>
                             }
                         </tr>
                     </thead>
@@ -35,7 +38,7 @@
                         {
                             <tr>
                                 <td></td>
-                                @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                                @for (day = 1; day <= days; day++)
                                 {
                                     if (item.DateMaintenance.Value.Day == day)
                                     {
@@ -58,8 +61,4 @@
         </div>
     </div>
 </div>
-
-
-
-
 

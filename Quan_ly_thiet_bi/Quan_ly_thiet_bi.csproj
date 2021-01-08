@@ -2801,6 +2801,9 @@
     <Content Include="Views\Shared\_AcountLogin.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\PlaneRepair\Index.cshtml" />
+    <Content Include="Views\PlaneRepair\GetMonth1.cshtml" />
+    <Content Include="Views\PlaneRepair\GetMonth2.cshtml" />
+    <Content Include="Views\PlaneRepair\GetMonth3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
