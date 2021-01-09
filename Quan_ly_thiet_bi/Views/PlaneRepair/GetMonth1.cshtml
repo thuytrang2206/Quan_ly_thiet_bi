@@ -33,10 +33,11 @@
                                 {
                                     if (item.DateMaintenance.Value.Day == day)
                                     {
-                                        if (item.Updater != "")
+                                        if (item.Updater != null)
                                         {
                                             <td style="background-color:#1cc88a;">
                                                 <a href="/PlaneRepair/Detail_plan_repair/@item.Id">  @item.DeviceName</a>
+                                                (@item.Updater)
                                             </td>
                                         }
                                         else {

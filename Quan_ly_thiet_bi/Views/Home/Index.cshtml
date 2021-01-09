@@ -198,10 +198,11 @@
             var Location = $("#Location");
             var DateMaintenance = $("#DateMaintenance");
             var Image1 = $("#Image1");
+            var Status = $("#Status")
             $.ajax({
                 type: "POST",
                 url: "/Home/Insert_device",
-                data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Location:"' + Location.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '"}',
+                data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Location:"' + Location.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status.val() + '"}',
                 contentType: "application/json charset=utf-8",
                 datatype: "json",
                 success: function () {
@@ -217,6 +218,7 @@
                     Location.val() = "";
                     DateMaintenance.val() = "";
                     Image1.val() = "";
+                    Status.val() = "";
                 }
             });
         }
