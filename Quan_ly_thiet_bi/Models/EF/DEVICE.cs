@@ -42,20 +42,24 @@ namespace Quan_ly_thiet_bi.Models.EF
         public string VendorName { get; set; }
 
         [StringLength(50)]
+        public string Location { get; set; }
+
+        [StringLength(50)]
         public string Purpose { get; set; }
 
         [StringLength(50)]
         public string Creator { get; set; }
 
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? CreateDate { get; set; }
 
-        
-        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? DateMaintenance { get; set; }
 
         [StringLength(50)]
         public string Updater { get; set; }
 
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? Updatetime { get; set; }
 
         public int? Qty { get; set; }
@@ -68,6 +72,9 @@ namespace Quan_ly_thiet_bi.Models.EF
 
         [StringLength(500)]
         public string Image2 { get; set; }
+
+        [StringLength(50)]
+        public string Status { get; set; }
 
         public virtual GROUP_DEVICE GROUP_DEVICE { get; set; }
 

@@ -18,9 +18,7 @@
                                 Ngày
                             </th>
                             @{
-                                int year = DateTime.Now.Year;
-                                int month = DateTime.Now.Month;
-                                int day = DateTime.DaysInMonth(year, month);
+                                int day;
                             }
                             @for (day = 1; day <= 31; day++)
                             {
@@ -33,7 +31,7 @@
                         {
                             <tr>
                                 <td></td>
-                                @for (day = 1; day <= DateTime.DaysInMonth(year, month); day++)
+                                @for (day = 1; day <= 31; day++)
                                 {
                                     if (item.DateMaintenance.Value.Day == day)
                                     {

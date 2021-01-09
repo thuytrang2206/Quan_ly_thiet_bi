@@ -16,7 +16,7 @@ $("body").on("click", "#btn_close", function () {
         var Qty = $("#Qty");
         var DeviceGroup = $("#DeviceGroup");
         var Purpose = $("#Purpose");
-        var Remark = $("#Remark");
+        var Location = $("#Location");
         var DateMaintenance = $("#DateMaintenance");
         $.ajax({
             type: "POST",
@@ -32,51 +32,13 @@ $("body").on("click", "#btn_close", function () {
                 Qty.val() = "";
                 DeviceGroup.val() = "";
                 Purpose.val() = "";
-                Remark.val() = "";
+                Location.val() = "";
                 DateMaintenance.val() = "";
             }
         });
 });
 
-$("body").on("click", "#btn_Add", function () {
 
-    if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
-        alert("Hãy nhập giá trị!");
-    }
-    else {
-        var DeviceName = $("#DeviceName");
-        var Model = $("#Model");
-        var Serial = $("#Serial");
-        var VendorName = $("#VendorName");
-        var Qty = $("#Qty");
-        var DeviceGroup = $("#DeviceGroup");
-        var Purpose = $("#Purpose");
-        var Remark = $("#Remark");
-        var DateMaintenance = $("#DateMaintenance");
-        var Image1 = $("#Image1");
-        $.ajax({
-            type: "POST",
-            url: "/Home/Insert_device",
-            data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Remark:"' + Remark.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '"}',
-            contentType: "application/json charset=utf-8",
-            datatype: "json",
-            success: function () {
-                var newrow = $("#dataTable tr:last-child");
-                window.location.reload();
-                DeviceName.val() = "";
-                Model.val() = "";
-                Serial.val() = "";
-                VendorName.val() = "";
-                Qty.val() = "";
-                DeviceGroup.val() = "";
-                Purpose.val() = "";
-                Remark.val() = "";
-                DateMaintenance.val() = "";
-                Image1.val() = "";
-            }
-        });
-    }
-});
 function Xoa(el) {
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
@@ -115,7 +77,7 @@ function Sua(el) {
             $("#Qty").val(json.Qty);
             $("#DeviceGroup").val(json.DeviceGroup);
             $("#Purpose").val(json.Purpose);
-            $("#Remark").val(json.Remark);
+            $("#Location").val(json.Location);
             $("#DateMaintenance").val(formattedDate);
         },
         error: function (err) {

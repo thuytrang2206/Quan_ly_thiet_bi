@@ -5,6 +5,7 @@
     var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
 }
+ 
 <form method="post" action="/Home/Edit_device">
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -150,8 +151,8 @@
                                 <input type="date" class="form-control" id="DateMaintenance" name="DateMaintenance" />
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Ghi chú:</label>
-                                <input type="text" class="form-control" required id="Remark" name="Remark" />
+                                <label>Vị trí</label>
+                               <input type="text" class="form-control"  id="Location" name="Location" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -159,6 +160,10 @@
                                 <label>Hình ảnh</label>
                                 <input type="text" class="form-control" id="Image1" name="Image1" />
                                 <button type="button" class="btn btn-primary" id="selectImg">Chọn ảnh </button>
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Trạng thái</label><br />
+                                <input type="radio" id="Status" name="Status" value="Đang hoạt động" /> Đang hoạt động
                             </div>
                         </div>
                     </div>
@@ -176,3 +181,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="~/Scripts/device.js"></script>
+<script>
+    $("body").on("click", "#btn_Add", function () {
+
+        if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
+            alert("Hãy nhập giá trị!");
+        }
+        else {
+            var DeviceName = $("#DeviceName");
+            var Model = $("#Model");
+            var Serial = $("#Serial");
+            var VendorName = $("#VendorName");
+            var Qty = $("#Qty");
+            var DeviceGroup = $("#DeviceGroup");
+            var Purpose = $("#Purpose");
+            var Location = $("#Location");
+            var DateMaintenance = $("#DateMaintenance");
+            var Image1 = $("#Image1");
+            $.ajax({
+                type: "POST",
+                url: "/Home/Insert_device",
+                data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Location:"' + Location.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '"}',
+                contentType: "application/json charset=utf-8",
+                datatype: "json",
+                success: function () {
+                    var newrow = $("#dataTable tr:last-child");
+                    window.location.reload();
+                    DeviceName.val() = "";
+                    Model.val() = "";
+                    Serial.val() = "";
+                    VendorName.val() = "";
+                    Qty.val() = "";
+                    DeviceGroup.val() = "";
+                    Purpose.val() = "";
+                    Location.val() = "";
+                    DateMaintenance.val() = "";
+                    Image1.val() = "";
+                }
+            });
+        }
+    });
+</script>

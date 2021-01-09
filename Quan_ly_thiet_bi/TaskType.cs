@@ -7,6 +7,6 @@ namespace Quan_ly_thiet_bi
 {
     public enum TaskType
     {
-        New, Update, Remove, Repair
+        New, Update, Remove, Repair,Pass,NG
     }
 }

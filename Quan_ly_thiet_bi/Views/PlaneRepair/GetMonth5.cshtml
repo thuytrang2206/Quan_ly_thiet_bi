@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
 @{
-    ViewBag.Title = "GetMonth1";
+    ViewBag.Title = "GetMonth5";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid">
-   
-    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 1</h1>
+
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 5</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable-plane1" width="100%" cellspacing="0" style="color:black;">
                     <thead>
-                        <tr style="background-color:#4e73df;">
+                        <tr>
                             <th>
                                 Ngày
                             </th>
@@ -27,24 +27,15 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr >
+                            <tr>
                                 <td></td>
                                 @for (day = 1; day <= 31; day++)
                                 {
                                     if (item.DateMaintenance.Value.Day == day)
                                     {
-                                        if (item.Updater != "")
-                                        {
-                                            <td style="background-color:#1cc88a;">
-                                                <a href="/PlaneRepair/Detail_plan_repair/@item.Id">  @item.DeviceName</a>
-                                            </td>
-                                        }
-                                        else {
                                             <td style="background-color:yellow;">
-                                            <a href="/PlaneRepair/Detail_plan_repair/@item.Id">  @item.DeviceName</a>
-                                          </td>
-                                        }
-
+                                                @item.DeviceName
+                                            </td>
                                     }
                                     else
                                     {
@@ -61,4 +52,5 @@
         </div>
     </div>
 </div>
+
 
