@@ -63,6 +63,10 @@ namespace Quan_ly_thiet_bi.Controllers
             var model = dao.View_detail(id);
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
+            List<HISTORY> list_history = db.HISTORies.ToList();
+            ViewBag.list_history = list_history;
+            List<USER> list_user = db.USERs.ToList();
+            ViewBag.list_user = list_user;
             return View(model);
         }
         public ActionResult Delete_Device(HISTORY his, string id)
@@ -104,10 +108,13 @@ namespace Quan_ly_thiet_bi.Controllers
                     d.DateMaintenance = dev.DateMaintenance;
                     d.VendorName = dev.VendorName;
                     d.Qty = dev.Qty;
+                    d.Location = dev.Location;
                     d.Purpose = dev.Purpose;
-                    d.Remark = dev.Remark;
+                    //d.Remark = dev.Remark;
+                    d.Image1 = dev.Image1;
                     var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                     d.Creator = session.ID_USER;
+                    d.Status = dev.Status;
                     string id_his = Guid.NewGuid().ToString();
                     his.ID_HISTORY = id_his;
                     his.ID_DEVICE = dev.Id;

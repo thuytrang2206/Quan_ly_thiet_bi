@@ -37,8 +37,48 @@ $("body").on("click", "#btn_close", function () {
             }
         });
 });
+$("body").on("click", "#btn_Add", function () {
 
-
+    if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
+        alert("Hãy nhập giá trị!");
+    }
+    else {
+        var DeviceName = $("#DeviceName");
+        var Model = $("#Model");
+        var Serial = $("#Serial");
+        var VendorName = $("#VendorName");
+        var Qty = $("#Qty");
+        var DeviceGroup = $("#DeviceGroup");
+        var Purpose = $("#Purpose");
+        var Location = $("#Location");
+        var DateMaintenance = $("#DateMaintenance");
+        var Image1 = $("#Image1");
+        var Status = $('input[name=Status]:checked').val();
+        //var Status = $("#Status")
+        $.ajax({
+            type: "POST",
+            url: "/Home/Insert_device",
+            data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Location:"' + Location.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status + '"}',
+            contentType: "application/json charset=utf-8",
+            datatype: "json",
+            success: function () {
+                var newrow = $("#dataTable tr:last-child");
+                window.location.reload();
+                DeviceName.val() = "";
+                Model.val() = "";
+                Serial.val() = "";
+                VendorName.val() = "";
+                Qty.val() = "";
+                DeviceGroup.val() = "";
+                Purpose.val() = "";
+                Location.val() = "";
+                DateMaintenance.val() = "";
+                Image1.val() = "";
+                Status.val() = "";
+            }
+        });
+    }
+});
 function Xoa(el) {
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
@@ -65,7 +105,7 @@ function Sua(el) {
         type: "GET",
         dataType: 'json',
         success: function (data) {
-           
+
             var json = JSON.parse(data);
             const d = new Date(json.DateMaintenance);
             const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
@@ -79,6 +119,8 @@ function Sua(el) {
             $("#Purpose").val(json.Purpose);
             $("#Location").val(json.Location);
             $("#DateMaintenance").val(formattedDate);
+            $("#Status").val($('input[name=Status]:checked').val(json.Status));
+            $("#Image1").val(json.Image1);
         },
         error: function (err) {
             alert("Error: " + err.responseText);

@@ -3,6 +3,8 @@
     ViewBag.Title = "Detail_device";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+    var list_history = (List<Quan_ly_thiet_bi.Models.EF.HISTORY>)ViewBag.list_history;
+    var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
 }
 
 <div class="container-fluid">
@@ -77,13 +79,19 @@
                 <tr>
                     <td>Nhân viên</td>
                     <td>
-                       @Model.Creator
+                        @foreach (var item in list_user)
+                        {
+                            if (Model.Creator == item.ID_USER)
+                            {
+                                @item.NAME
+                            }
+                        }
                     </td>
                 </tr>
                 <tr>
                     <td>Hình ảnh</td>
                     <td>
-                    <img src="@Model.Image1" style="width:200px;height:200px;"/>
+                    <img src="@Model.Image1" style="width:200px;height:220px;"/>
                   </td>
                 </tr>
                 <tr>
@@ -93,9 +101,22 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Trạng thái sữa chữa</td>
+                    <td>Tình trạng</td>
                     <td>
-                        @Model.Updater
+                        @Model.Status
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kết quả kiểm tra</td>
+                    <td>
+                        @Model.Updater 
+                       (@foreach (var item_his in list_history)
+                       {
+                           if (item_his.ID_DEVICE == Model.Id && item_his.STATUS == TaskType.Repair.ToString())
+                           {
+                            @item_his.NOTE
+                           }
+                       }) 
                     </td>
                 </tr>
             </table>

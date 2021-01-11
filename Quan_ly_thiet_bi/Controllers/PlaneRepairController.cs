@@ -170,6 +170,10 @@ namespace Quan_ly_thiet_bi.Controllers
             var model = dao.View_detail(Id);
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
+            List<USER> list_user = db.USERs.ToList();
+            ViewBag.list_user = list_user;
+            List<HISTORY> list_history = db.HISTORies.ToList();
+            ViewBag.list_history = list_history;
             return View(model);
         }
         [HttpPost]
@@ -177,6 +181,10 @@ namespace Quan_ly_thiet_bi.Controllers
         {
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
+            List<USER> list_user = db.USERs.ToList();
+            ViewBag.list_user = list_user;
+            List<HISTORY> list_history = db.HISTORies.ToList();
+            ViewBag.list_history = list_history;
             dev.IsUsing = true;
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             dev.Creator = session.ID_USER;
@@ -187,7 +195,6 @@ namespace Quan_ly_thiet_bi.Controllers
                 string id_his = Guid.NewGuid().ToString();
                 his.ID_HISTORY = id_his;
                 his.ID_DEVICE = dev.Id;
-
                 his.UPDATE_CHECK = dev.DateMaintenance;
                 his.STATUS = TaskType.Repair.ToString();
                 his.ID_USER = dev.Creator;

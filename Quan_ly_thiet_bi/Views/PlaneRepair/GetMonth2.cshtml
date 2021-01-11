@@ -19,7 +19,6 @@
                             </th>
                             @{
                                 int year = DateTime.Now.Year;
-                                int month = 2;
                                 int days = 0;
                                 if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))    // nam nhuan
                                 { days = 29; }
@@ -42,9 +41,19 @@
                                 {
                                     if (item.DateMaintenance.Value.Day == day)
                                     {
-                                        <td style="background-color:yellow;">
-                                            @item.DeviceName
-                                        </td>
+                                        if (item.Updater != null)
+                                        {
+                                            <td style="background-color:#1cc88a;">
+                                                <a href="/Home/Detail_device/@item.Id">  @item.DeviceName</a><br />
+                                                (@item.Updater)
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="background-color:yellow;">
+                                                <a href="/PlaneRepair/Detail_plan_repair/@item.Id">  @item.DeviceName</a>
+                                            </td>
+                                        }
                                     }
                                     else
                                     {

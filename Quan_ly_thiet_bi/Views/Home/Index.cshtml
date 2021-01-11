@@ -164,6 +164,7 @@
                             <div class="col-6" style="float:left;">
                                 <label>Trạng thái</label><br />
                                 <input type="radio" id="Status" name="Status" value="Đang hoạt động" /> Đang hoạt động
+                                <input type="radio" id="Status" name="Status" value="Dừng hoạt động" /> Dừng hoạt động
                             </div>
                         </div>
                     </div>
@@ -181,46 +182,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="~/Scripts/device.js"></script>
-<script>
-    $("body").on("click", "#btn_Add", function () {
-
-        if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
-            alert("Hãy nhập giá trị!");
-        }
-        else {
-            var DeviceName = $("#DeviceName");
-            var Model = $("#Model");
-            var Serial = $("#Serial");
-            var VendorName = $("#VendorName");
-            var Qty = $("#Qty");
-            var DeviceGroup = $("#DeviceGroup");
-            var Purpose = $("#Purpose");
-            var Location = $("#Location");
-            var DateMaintenance = $("#DateMaintenance");
-            var Image1 = $("#Image1");
-            var Status = $("#Status")
-            $.ajax({
-                type: "POST",
-                url: "/Home/Insert_device",
-                data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",Serial:"' + Serial.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Purpose:"' + Purpose.val() + '",Location:"' + Location.val() + '",DateMaintenance:"' + DateMaintenance.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status.val() + '"}',
-                contentType: "application/json charset=utf-8",
-                datatype: "json",
-                success: function () {
-                    var newrow = $("#dataTable tr:last-child");
-                    window.location.reload();
-                    DeviceName.val() = "";
-                    Model.val() = "";
-                    Serial.val() = "";
-                    VendorName.val() = "";
-                    Qty.val() = "";
-                    DeviceGroup.val() = "";
-                    Purpose.val() = "";
-                    Location.val() = "";
-                    DateMaintenance.val() = "";
-                    Image1.val() = "";
-                    Status.val() = "";
-                }
-            });
-        }
-    });
-</script>

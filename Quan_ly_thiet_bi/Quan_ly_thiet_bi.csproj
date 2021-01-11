@@ -229,6 +229,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAO\Device.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
+    <Compile Include="Models\DeviceandHistory.cs" />
     <Compile Include="Models\EF\DEVICE.cs" />
     <Compile Include="Models\EF\GROUP_DEVICE.cs" />
     <Compile Include="Models\EF\HISTORY.cs" />
@@ -2769,6 +2770,7 @@
     <Content Include="Scripts\ckfinder.js" />
     <Content Include="Scripts\device.js" />
     <Content Include="Scripts\group_device.js" />
+    <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
