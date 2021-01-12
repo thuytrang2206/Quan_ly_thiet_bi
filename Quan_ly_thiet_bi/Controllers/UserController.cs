@@ -33,6 +33,7 @@ namespace Quan_ly_thiet_bi.Controllers
         {
             string id = Guid.NewGuid().ToString();
             u.ID_USER = id;
+            u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
             db.USERs.Add(u);
             db.SaveChanges();
             return Json(u);

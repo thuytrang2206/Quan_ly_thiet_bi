@@ -39,7 +39,7 @@ $("body").on("click", "#btn_close", function () {
 });
 $("body").on("click", "#btn_Add", function () {
 
-    if ($("#DeviceName").val() == "" || $("#Model").val() == "") {
+    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#Serial").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Purpose").val() == "" || $("#Location").val() == "" || $("#DateMaintenance").val() == "" || $("#Image1").val() == "" || $("#Status").val() == "") {
         alert("Hãy nhập giá trị!");
     }
     else {
@@ -79,6 +79,7 @@ $("body").on("click", "#btn_Add", function () {
         });
     }
 });
+
 function Xoa(el) {
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
@@ -119,8 +120,15 @@ function Sua(el) {
             $("#Purpose").val(json.Purpose);
             $("#Location").val(json.Location);
             $("#DateMaintenance").val(formattedDate);
-            $("#Status").val($('input[name=Status]:checked').val(json.Status));
             $("#Image1").val(json.Image1);
+            $('input[type="radio"][value="Đang hoạt động"]').val();
+            if (json.Status == $('input[type="radio"][value="Đang hoạt động"]').val()) {
+                $('[name=Status][value="Đang hoạt động"]').prop('checked', true);
+
+            }
+            else {
+                $('[name=Status][value="Dừng hoạt động"]').prop('checked', true);
+            }
         },
         error: function (err) {
             alert("Error: " + err.responseText);

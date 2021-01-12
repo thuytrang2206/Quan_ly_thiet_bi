@@ -43,12 +43,13 @@
                     <tr>
                         <td>Nhóm thiết bị</td>
                         <td>
-                           
+                            @Html.EditorFor(model => model.DeviceGroup, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
                             @foreach (var item in list_group)
                             {
                                 if (Model.DeviceGroup == item.ID_GROUP)
                                 {
-                                    @Html.EditorFor(model => item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.EditorFor(model =>item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                   
                                 }
                             }
                         </td>
@@ -56,7 +57,8 @@
                     <tr>
                         <td>Số lượng</td>
                         <td>
-                            @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @*@Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                            <input type="text" class="form-control" id="Qty" name="Qty" />
                         </td>
                     </tr>
                     <tr>

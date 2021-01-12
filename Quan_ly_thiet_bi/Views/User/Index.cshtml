@@ -15,10 +15,13 @@
                 <div style="float:right;">
                     @{
                         var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                        var id_rule = session.ID_RULE;
                     }
-                    <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
-                        <i class="fa fa-plus"> Thêm mới</i>
-                    </button>
+                    
+                            <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
+                                <i class="fa fa-plus"> Thêm mới</i>
+                            </button>
+                      
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
@@ -26,12 +29,12 @@
                             <tr>
                                 <th>STT</th>
                                 <th style="display:none;"></th>
-                                <th >Tên nhân viên</th>
-                                <th >Mật khẩu</th>
+                                <th>Tên nhân viên</th>
+                                <th>Mật khẩu</th>
                                 <th>Quyền</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
-                                    var id_rule = session.ID_RULE;
+                                    
                                     if (id_rule == "R001")
                                     {
                                         <th style="color:black;">Thao tác</th>
@@ -52,16 +55,16 @@
                                     <td>
                                         @foreach (var r in list_rule)
                                         {
-                                            if(r.ID_RULE== @items.ID_RULE)
+                                            if (r.ID_RULE == @items.ID_RULE)
                                             {
                                                 @r.NAME
                                             }
                                         }
-                                    
+
                                     </td>
                                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                     {
-                                        var id_rule = session.ID_RULE;
+                                       
                                         if (id_rule == "R001")
                                         {
                                             <td>
@@ -78,6 +81,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -118,9 +122,12 @@
         </div>
     </div>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/hmac-md5.min.js" integrity="sha512-gy8JaBxTrtIxNLe1FfMAXey61VjQk3Af4EyY/EpVfmWPH16iCgdRZMHEFgKIyxMrarlc6+rDf6WneGL4SWqnpg==" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">      </script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+
+
 <script>
     $(document).ready(function () {
         $("#btn_edit").click(function () {
@@ -140,7 +147,11 @@
         }
         else {
             var NAME = $("#NAME");
-            var PASSWORD = CryptoJS.MD5($("#PASSWORD")).toString();
+            //function encrpt() {
+            //    var PASSWORD = $("#PASSWORD").val();
+            //    $("#PASSWORD").val(CryptoJS.MD5(password).toString());
+            //}
+            var PASSWORD = $("#PASSWORD");
             var ID_RULE = $("#ID_RULE");
             $.ajax({
                 type: "POST",

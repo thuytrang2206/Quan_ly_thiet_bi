@@ -6,7 +6,7 @@
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
 }
  
-<form method="post" action="/Home/Edit_device">
+<form method="post" action="/Home/Edit_device" >
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
@@ -36,6 +36,7 @@
                                 <th>STT</th>
                                 <th style="display:none;"></th>
                                 <th>Tên thiết bị</th>
+                                <th>Hình ảnh</th>
                                 <th>Model</th>
                                 <th>Serial</th>
                                 <th>Nhà cung cấp</th>
@@ -62,6 +63,7 @@
                                     <td>@i</td>
                                     <td style="display:none;">@items.Id</td>
                                     <td><a href="/Home/Detail_device/@items.Id">@items.DeviceName</a></td>
+                                    <td><img src="@items.Image1" style="width:120px;height:100px;"/></td>
                                     <td>@items.Model</td>
                                     <td>@items.Serial</td>
                                     <td>@items.VendorName</td>
@@ -127,7 +129,7 @@
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label>Số lượng:</label>
-                                <input type="text" class="form-control" placeholder="Số lượng" required id="Qty" name="Qty" />
+                                <input type="text" class="form-control" placeholder="Số lượng" digits id="Qty" name="Qty" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -182,3 +184,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="~/Scripts/device.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>

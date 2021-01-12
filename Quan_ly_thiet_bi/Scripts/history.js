@@ -5,6 +5,7 @@
             url: "/PlaneRepair/Detail_plan_repair",
             data: {
                 NOTE: $("NOTE").val(),
+                QUANTITY:$("Qty").val(),
             }
         });
     });
