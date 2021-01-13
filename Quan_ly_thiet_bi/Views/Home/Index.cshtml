@@ -41,6 +41,7 @@
                                 <th>Serial</th>
                                 <th>Nhà cung cấp</th>
                                 <th>Số lượng</th>
+                                <th>Vị trí</th>
                                 <th>Kế hoạch sửa chữa</th>
                                 <th>Nhân viên</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
@@ -68,6 +69,7 @@
                                     <td>@items.Serial</td>
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
+                                    <td>@items.Location</td>
                                     <td>@Html.DisplayFor(m=>items.DateMaintenance)</td>
                                     <td>
                                     @foreach(var u in list_user)
@@ -172,7 +174,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close" >Đóng</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Thêm</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm" >Thêm</button>
                         <input type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu" />
                     </div>
                 </div>

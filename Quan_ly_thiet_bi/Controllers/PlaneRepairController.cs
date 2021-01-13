@@ -189,6 +189,7 @@ namespace Quan_ly_thiet_bi.Controllers
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             dev.Creator = session.ID_USER;
             dev.DeviceGroup = dev.DeviceGroup;
+           
             db.Entry(dev).State = System.Data.Entity.EntityState.Modified;
             if(dev.Updater!= "")
             {
@@ -209,9 +210,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 }
                 db.HISTORies.Add(his);
             }
-            //int count = 0;
-            //count = dev.Qty.Value - his.QUANTITY.Value;
-            //dev.Qty = count;
+            int count = 0;
+            count = dev.Qty.Value - his.QUANTITY.Value;
+            dev.Qty = count;
             db.SaveChanges();
            return RedirectToAction("Index", "Home");
         }

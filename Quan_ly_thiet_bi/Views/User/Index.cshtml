@@ -17,11 +17,12 @@
                         var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                         var id_rule = session.ID_RULE;
                     }
-                    
+                    @if (id_rule == "R001")
+                    {
                             <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
                                 <i class="fa fa-plus"> Thêm mới</i>
                             </button>
-                      
+                      }
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
@@ -93,11 +94,12 @@
                 <div class="modal-body">
                     <div class="col-12" style="display:none;">
                         <label></label>
-                        <input type="text" class="form-control" id="ID_USER" name="ID_USER" />
+                        <input type="text" class="form-control" id="ID_USER" name="ID_USER" required />
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Tên nhân viên:</label>
-                        <input type="text" class="form-control" required id="NAME" name="NAME" />
+                        <input type="text" class="form-control" required id="NAME" name="NAME"  />
+                        <span id="valiable"></span>
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mật khẩu:</label>
@@ -125,9 +127,8 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">      </script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
-
-
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
 <script>
     $(document).ready(function () {
         $("#btn_edit").click(function () {
@@ -147,10 +148,6 @@
         }
         else {
             var NAME = $("#NAME");
-            //function encrpt() {
-            //    var PASSWORD = $("#PASSWORD").val();
-            //    $("#PASSWORD").val(CryptoJS.MD5(password).toString());
-            //}
             var PASSWORD = $("#PASSWORD");
             var ID_RULE = $("#ID_RULE");
             $.ajax({
@@ -159,7 +156,11 @@
                 data: '{NAME:"' + NAME.val() + '",PASSWORD:"' + PASSWORD.val() + '",ID_RULE:"' + ID_RULE.val() + '"}',
                 contentType: "application/json charset=utf-8",
                 datatype: "json",
-                success: function () {
+                success: function (data) {
+                    if (data == 1) {
+                        $("#valiable").html('<font color="Red">Tên nhân viên đã tồn tại</font>');
+                        $("#NAME").css("border-color", "Red");
+                    }
                     var newrow = $("#dataTable tr:last-child");
                     window.location.reload();
                     NAME.val() = "";

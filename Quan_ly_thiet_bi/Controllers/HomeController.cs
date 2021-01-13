@@ -38,7 +38,7 @@ namespace Quan_ly_thiet_bi.Controllers
             string id = Guid.NewGuid().ToString();
             dev.Id = id;
             dev.IsUsing = true;
-            dev.CreateDate = DateTime.Now;
+            dev.DatePlan = DateTime.Now;
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             dev.Creator = session.ID_USER;
             db.DEVICEs.Add(dev);
@@ -55,7 +55,9 @@ namespace Quan_ly_thiet_bi.Controllers
                 db.HISTORies.Add(his);
             }
             db.SaveChanges();
+
             return Json(dev);
+           
         }
         public ActionResult Detail_device(string id)
         {

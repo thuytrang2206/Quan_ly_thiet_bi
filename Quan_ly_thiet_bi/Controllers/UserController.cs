@@ -29,15 +29,26 @@ namespace Quan_ly_thiet_bi.Controllers
             }
 
         }
-        public JsonResult Insert_user(USER u)
+        public JsonResult Insert_user(USER u,string NAME)
         {
-            string id = Guid.NewGuid().ToString();
-            u.ID_USER = id;
-            u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
-            db.USERs.Add(u);
-            db.SaveChanges();
-            return Json(u);
+            System.Threading.Thread.Sleep(200);
+            var searchdata = db.USERs.Where(x => x.NAME == NAME).SingleOrDefault();
+            if (searchdata != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                string id = Guid.NewGuid().ToString();
+                u.ID_USER = id;
+                u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
+                db.USERs.Add(u);
+                db.SaveChanges();
+                return Json(u);
+            }
+            
         }
+        
         //[HttpPost]
         //public ActionResult Register(RegisterModel model)
         //{

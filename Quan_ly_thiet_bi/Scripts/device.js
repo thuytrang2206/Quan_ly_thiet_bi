@@ -63,7 +63,7 @@ $("body").on("click", "#btn_Add", function () {
             datatype: "json",
             success: function () {
                 var newrow = $("#dataTable tr:last-child");
-                window.location.reload();
+                location.reload();
                 DeviceName.val() = "";
                 Model.val() = "";
                 Serial.val() = "";

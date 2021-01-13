@@ -48,8 +48,7 @@
                             {
                                 if (Model.DeviceGroup == item.ID_GROUP)
                                 {
-                                    @Html.EditorFor(model =>item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                   
+                                    @Html.EditorFor(model =>item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })                                   
                                 }
                             }
                         </td>
@@ -57,8 +56,8 @@
                     <tr>
                         <td>Số lượng</td>
                         <td>
-                            @*@Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
-                            <input type="text" class="form-control" id="Qty" name="Qty" />
+                            @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
+                            <input type="text" class="form-control" id="QUANTITY" name="QUANTITY" />
                         </td>
                     </tr>
                     <tr>
@@ -102,14 +101,12 @@
                                 {
                                     @Html.EditorFor(model => item_user.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 }
-                            }
-                           
+                            }                           
                         </td>
                     </tr>
                     <tr>
                         <td>Ảnh thiết bị</td>
-                        <td>
-                            
+                        <td>                           
                             @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             <img src="@Html.DisplayFor(model=>model.Image1)" style="width:200px;height:189px;"/>
                         </td>
@@ -117,8 +114,7 @@
                     <tr>
                         <td>Ngày nhập thiết bị</td>
                         <td>
-                           @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            
+                           @Html.EditorFor(model => model.DatePlan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })                            
                         </td>
                     </tr>
                     <tr>
@@ -127,22 +123,18 @@
                             <div class="col-4" style="float:left">
                                 @Html.RadioButtonFor(m => m.Updater, "Đã sửa chữa") Pass
                             </div>
-
                             <div class="col-4" style="float:left">
                                 @Html.RadioButtonFor(m => m.Updater, "NG") NG
                             </div>
-
                         </td>
                     </tr>
                     <tr >
                         <td>Lỗi phát sinh:</td>
                         <td>
                           <input type="text"  class="form-control" id="NOTE" name="NOTE"/>
-
                         </td>
                     </tr>
                 </table>
-
                 <input type="submit" value="Update" class="btn btn-primary" style="float:right;" id="btnsubmit" />
             </div>
         </div>
