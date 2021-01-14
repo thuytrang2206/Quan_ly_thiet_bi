@@ -66,11 +66,11 @@
                                     <td><a href="/Home/Detail_device/@items.Id">@items.DeviceName</a></td>
                                     <td><img src="@items.Image1" style="width:120px;height:100px;"/></td>
                                     <td>@items.Model</td>
-                                    <td>@items.Serial</td>
+                                    <td>@items.ScortCode</td>
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
                                     <td>@items.Location</td>
-                                    <td>@Html.DisplayFor(m=>items.DateMaintenance)</td>
+                                    <td>@Html.DisplayFor(m=>items.DatePlan)</td>
                                     <td>
                                     @foreach(var u in list_user)
                                     {
@@ -112,7 +112,8 @@
                         </div>
                         <div class="col-12" style="margin:5px 0px;">
                             <label>Tên thiết bị:</label>
-                            <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" />
+                            <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" onchange="DeviceCheck()" />
+                            <span id="Status"></span>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
@@ -121,7 +122,7 @@
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label>Serial</label>
-                                <input type="text" class="form-control" placeholder="Serial" required id="Serial" name="Serial" />
+                                <input type="text" class="form-control" placeholder="Serial" required id="ScortCode" name="ScortCode" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -145,14 +146,15 @@
                                 </select>
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Mục đích:</label>
-                                <input type="text" class="form-control" placeholder="Mục đích" required id="Purpose" name="Purpose" />
+                                <label>Giá tiền:</label>
+                                <input type="text" class="form-control" id="DevicePrice" name="DevicePrice" />
+                               
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
                                 <label>Kế hoạch sửa chữa:</label>
-                                <input type="date" class="form-control" id="DateMaintenance" name="DateMaintenance" />
+                                <input type="date" class="form-control" id="DatePlan" name="DatePlan" />
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label>Vị trí</label>
@@ -161,15 +163,29 @@
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Hình ảnh</label>
-                                <input type="text" class="form-control" id="Image1" name="Image1" />
-                                <button type="button" class="btn btn-primary" id="selectImg">Chọn ảnh </button>
+                                <label>Thời gian lắp đặt:</label>
+                                <input type="date" class="form-control" id="Installtime" name="Installtime" />
+                            </div>
+                            <div class="col-6" style="float:left;">
+                                <label>Ghi chú:</label>
+                                <input type="text" class="form-control" required id="Remark" name="Remark" />
+                            </div>
+                        </div>
+                        <div class="container-modal" style="margin:5px 0px;">
+                            <div class="col-6" style="float:left;">
+                                
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label>Trạng thái</label><br />
-                                <input type="radio" id="Status" name="Status" value="Đang hoạt động" /> Đang hoạt động
-                                <input type="radio" id="Status" name="Status" value="Dừng hoạt động" /> Dừng hoạt động
+                                <input type="radio" id="Status" name="Status" value="1" /> Đang hoạt động
+                                <input type="radio" id="Status" name="Status" value="0" /> Dừng hoạt động
                             </div>
+                        </div>
+
+                        <div class="col-12" style="margin:5px 0px;float:left;">
+                            <label>Hình ảnh</label>
+                            <input type="text" class="form-control" id="Image1" name="Image1" />
+                            <button type="button" class="btn btn-primary" id="selectImg">Chọn ảnh </button>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -185,6 +201,23 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script src="~/Scripts/device.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+<script src="~/Scripts/device.js"></script>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+    function DeviceCheck() {
+        $("#Status").html("");
+        $.post("@Url.Action("Insert_device", "Home")",
+    {
+        DeviceName: $("#DeviceName").val()
+    },
+    function (data) {
+        if (data == 1) {
+            $("#Status").html('<font color="Red">Tên thiết bị đã tồn tại</font>');
+        }
+        else {
+            $("#Status").html('<font></font>');
+        }
+    });
+    }
+</script>

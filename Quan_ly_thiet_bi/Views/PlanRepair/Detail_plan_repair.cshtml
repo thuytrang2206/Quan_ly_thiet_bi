@@ -1,5 +1,4 @@
 ﻿@model Quan_ly_thiet_bi.Models.EF.DEVICE
-
 @{
     ViewBag.Title = "Detail_plan_repair";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +6,7 @@
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
     var list_history = (List<Quan_ly_thiet_bi.Models.EF.HISTORY>)ViewBag.list_history;
 }
-@using (Html.BeginForm("Detail_plan_repair", "PlaneRepair", FormMethod.Post))
+@using (Html.BeginForm("Detail_plan_repair", "PlanRepair", FormMethod.Post))
 {
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -15,23 +14,23 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-body">
-                <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black; "  cellspacing="0">
+                <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black; " cellspacing="0">
                     <tr>
                         <td>Tên thiết bị:</td>
                         <td>
-                           @Html.EditorFor(model=>model.DeviceName , new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) 
+                            @Html.EditorFor(model => model.DeviceName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                     <tr>
                         <td>Model:</td>
                         <td>
-                           @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                     <tr>
                         <td>Serial:</td>
                         <td>
-                            @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.ScortCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                     <tr>
@@ -48,28 +47,26 @@
                             {
                                 if (Model.DeviceGroup == item.ID_GROUP)
                                 {
-                                    @Html.EditorFor(model =>item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })                                   
+                                    @Html.EditorFor(model => item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 }
                             }
                         </td>
                     </tr>
                     <tr>
-                        <td>Số lượng</td>
-                        <td>
-                            @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
-                            <input type="text" class="form-control" id="QUANTITY" name="QUANTITY" />
-                        </td>
+                        <td>Số lượng máy</td>
+                        <td>@Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</td>
                     </tr>
+                   
                     <tr>
-                        <td>Ngày sửa chữa:</td>
+                        <td>Kế hoạch sữa chữa:</td>
                         <td>
-                           @Html.EditorFor(model => model.DateMaintenance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.DatePlan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                     <tr>
                         <td>Mục đích</td>
                         <td>
-                           @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                     <tr>
@@ -81,13 +78,21 @@
                     <tr>
                         <td>Tình trạng</td>
                         <td>
-                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly",@style = "display:none" } })
+                            @if (Model.Status == 0)
+                            {
+                                <p>Dừng hoạt động</p>
+                            }
+                            else
+                            {
+                                <p>Đang hoạt động</p>
+                            }
                         </td>
                     </tr>
                     <tr>
                         <td>Ghi chú</td>
                         <td>
-                           @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </td>
                     </tr>
                 </table>
@@ -101,20 +106,27 @@
                                 {
                                     @Html.EditorFor(model => item_user.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 }
-                            }                           
+                            }
                         </td>
                     </tr>
                     <tr>
                         <td>Ảnh thiết bị</td>
-                        <td>                           
+                        <td>
                             @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            <img src="@Html.DisplayFor(model=>model.Image1)" style="width:200px;height:189px;"/>
+                            <img src="@Html.DisplayFor(model=>model.Image1)" style="width:200px;height:189px;" />
                         </td>
                     </tr>
                     <tr>
-                        <td>Ngày nhập thiết bị</td>
+                        <td>Ngày thực hiện kiểm tra</td>
                         <td>
-                           @Html.EditorFor(model => model.DatePlan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })                            
+                          <input type="date" id="DateMaintenance" name="DateMaintenance" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Số lượng máy kiểm tra</td>
+                        <td>
+                           
+                            <input type="text" class="form-control" id="QUANTITY" name="QUANTITY" />
                         </td>
                     </tr>
                     <tr>
@@ -128,10 +140,10 @@
                             </div>
                         </td>
                     </tr>
-                    <tr >
+                    <tr>
                         <td>Lỗi phát sinh:</td>
                         <td>
-                          <input type="text"  class="form-control" id="NOTE" name="NOTE"/>
+                            <input type="text" class="form-control" id="NOTE" name="NOTE" />
                         </td>
                     </tr>
                 </table>
@@ -143,4 +155,3 @@
 <script src="~/Scripts/history.js"></script>
 
 
- 

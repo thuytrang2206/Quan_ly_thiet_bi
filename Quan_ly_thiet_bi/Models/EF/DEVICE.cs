@@ -24,19 +24,17 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string ScortCode { get; set; }
 
-        public bool? IsUsing { get; set; }
-
         [StringLength(50)]
         public string DeviceGroup { get; set; }
 
         [StringLength(50)]
         public string DeviceName { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Model { get; set; }
 
-        [StringLength(50)]
-        public string Serial { get; set; }
+        public double? DevicePrice { get; set; }
 
         [StringLength(50)]
         public string VendorName { get; set; }
@@ -50,16 +48,17 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Creator { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DatePlan { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateMaintenance { get; set; }
 
         [StringLength(50)]
         public string Updater { get; set; }
 
-        public DateTime? Updatetime { get; set; }
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? Installtime { get; set; }
 
         public int? Qty { get; set; }
 
@@ -72,8 +71,7 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(500)]
         public string Image2 { get; set; }
 
-        [StringLength(50)]
-        public string Status { get; set; }
+        public int? Status { get; set; }
 
         public virtual GROUP_DEVICE GROUP_DEVICE { get; set; }
 

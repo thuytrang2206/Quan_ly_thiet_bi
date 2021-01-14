@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Quan_ly_thiet_bi.Controllers
 {
-    public class PlaneRepairController : Controller
+    public class PlanRepairController : Controller
     {
         Manager_device db = new Manager_device();
         // GET: PlaneRepair
@@ -26,8 +26,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 1 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 1 && d.DatePlan.Value.Year == year )|| (d.DateMaintenance.Value.Month==1 && d.DateMaintenance.Value.Year==year) ).ToList();
                 return View(model);
             }
         }
@@ -185,11 +184,9 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_user = list_user;
             List<HISTORY> list_history = db.HISTORies.ToList();
             ViewBag.list_history = list_history;
-            dev.IsUsing = true;
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             dev.Creator = session.ID_USER;
             dev.DeviceGroup = dev.DeviceGroup;
-           
             db.Entry(dev).State = System.Data.Entity.EntityState.Modified;
             if(dev.Updater!= "")
             {
@@ -199,7 +196,6 @@ namespace Quan_ly_thiet_bi.Controllers
                 his.UPDATE_CHECK = dev.DateMaintenance;
                 his.STATUS = TaskType.Repair.ToString();
                 his.ID_USER = dev.Creator;
-                his.QUANTITY = dev.Qty;
                if(dev.Updater== "NG")
                 {
                     his.INFOCHECK = 1;

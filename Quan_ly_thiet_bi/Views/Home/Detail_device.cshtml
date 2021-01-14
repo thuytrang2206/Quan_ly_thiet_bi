@@ -29,7 +29,7 @@
                 <tr>
                     <td>Serial:</td>
                     <td>
-                        @Model.Serial
+                        @Model.ScortCode
                     </td>
                 </tr>
                 <tr>
@@ -57,21 +57,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Ngày sửa chữa:</td>
+                    <td>Kế hoạch kiểm tra</td>
                     <td>
-                        @Model.DateMaintenance
+                     @Html.DisplayFor(model=>model.DatePlan) 
+                    </td>
+                </tr>
+                <tr>
+                    <td>Thời gian thực hiện kiểm tra</td>
+                    <td>
+                       @Html.DisplayFor(model => model.DateMaintenance)
                     </td>
                 </tr>
                 <tr>
                     <td>Mục đích</td>
                     <td>
-                        @Model.Remark
+                        @Model.Purpose
                     </td>
                 </tr>
                 <tr>
                     <td>Ghi chú</td>
                     <td>
-                       @Model.Purpose
+                       @Model.Remark
                     </td>
                 </tr>
             </table>
@@ -95,15 +101,21 @@
                   </td>
                 </tr>
                 <tr>
-                    <td>Ngày nhập thiết bị</td>
+                    <td>Thời gian lắp đặt</td>
                     <td>
-                      @Model.Updatetime
+                     @Html.DisplayFor(model => model.Installtime)
                     </td>
                 </tr>
                 <tr>
                     <td>Tình trạng</td>
                     <td>
-                        @Model.Status
+                        @if (Model.Status == 0)
+                        {
+                            <p>Dừng hoạt động</p>
+                        } else
+                        {
+                            <p>Đang hoạt động</p>
+                        }
                     </td>
                 </tr>
                 <tr>

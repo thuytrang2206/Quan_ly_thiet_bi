@@ -1,4 +1,5 @@
-﻿using Quan_ly_thiet_bi.Common;
+﻿using Newtonsoft.Json;
+using Quan_ly_thiet_bi.Common;
 using Quan_ly_thiet_bi.Models;
 using Quan_ly_thiet_bi.Models.DAO;
 using Quan_ly_thiet_bi.Models.EF;
@@ -31,7 +32,7 @@ namespace Quan_ly_thiet_bi.Controllers
         }
         public JsonResult Insert_user(USER u,string NAME)
         {
-            System.Threading.Thread.Sleep(200);
+            //System.Threading.Thread.Sleep(200);
             var searchdata = db.USERs.Where(x => x.NAME == NAME).SingleOrDefault();
             if (searchdata != null)
             {
@@ -47,6 +48,40 @@ namespace Quan_ly_thiet_bi.Controllers
                 return Json(u);
             }
             
+        }
+        public ActionResult Getuser(string ID_USER)
+        {
+            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            var d = db.USERs.SingleOrDefault(x => x.ID_USER == ID_USER);
+            var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Edit_user(USER user, string submit)
+        {
+            if (submit == "Lưu")
+            {
+                if (user != null)
+                {
+                    var d = db.USERs.Where(x => x.ID_USER == user.ID_USER).SingleOrDefault();
+                    d.NAME = user.NAME;
+                    d.PASSWORD = Encryptor.MD5Hash(user.ID_USER);
+                    db.SaveChanges();
+                    user = null;
+                }
+                List<RULE> list_rule = db.RULEs.ToList();
+                ViewBag.list_rule = list_rule;
+                var model = db.USERs.ToList();
+                return View("Index",model);
+            }
+            else
+            {
+                List<RULE> list_rule = db.RULEs.ToList();
+                ViewBag.list_rule = list_rule;
+                var model = db.USERs.ToList();
+                return View("Index", model);
+            }
+
         }
         
         //[HttpPost]

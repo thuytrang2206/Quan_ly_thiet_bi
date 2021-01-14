@@ -221,7 +221,7 @@
     <Compile Include="Controllers\Group_deviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PlaneRepairController.cs" />
+    <Compile Include="Controllers\PlanRepairController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2784,6 +2784,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\user.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2805,7 +2806,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_AcountLogin.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth1.cshtml" />
     <Content Include="Views\PlaneRepair\GetMonth2.cshtml" />
     <Content Include="Views\PlaneRepair\GetMonth3.cshtml" />
     <Content Include="Views\PlaneRepair\GetMonth4.cshtml" />
@@ -2817,7 +2817,8 @@
     <Content Include="Views\PlaneRepair\GetMonth10.cshtml" />
     <Content Include="Views\PlaneRepair\GetMonth11.cshtml" />
     <Content Include="Views\PlaneRepair\GetMonth12.cshtml" />
-    <Content Include="Views\PlaneRepair\Detail_plan_repair.cshtml" />
+    <Content Include="Views\PlanRepair\Detail_plan_repair.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

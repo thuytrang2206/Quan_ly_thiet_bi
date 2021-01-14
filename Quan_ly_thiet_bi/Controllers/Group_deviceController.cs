@@ -41,7 +41,7 @@ namespace Quan_ly_thiet_bi.Controllers
             {
                 foreach(var item in db.DEVICEs.Where(d=>d.DeviceGroup== id))
                 {
-                    item.IsUsing = false;
+                    item.Status = 0;
                 }
             }
             db.SaveChanges();
