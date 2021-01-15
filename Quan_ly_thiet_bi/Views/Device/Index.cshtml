@@ -1,0 +1,113 @@
+﻿@using Quan_ly_thiet_bi.Models
+@model List<Group<string, Quan_ly_thiet_bi.Models.EF.DEVICE>>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+    var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
+}
+
+@*<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div style="float:right;">
+                @{
+                    var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                }
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" @*width="100%"*@ @*cellspacing="0" style="color:black;">*@
+                    @*<thead>
+                        <tr style="background-color:chartreuse;">
+                            <th>Nhóm thiết bị</th>
+                            <th>Tên thiết bị</th>
+                            <th>Serial</th>
+                            <th>Model</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Số lượng</th>
+                            <th>Vị trí</th>
+                            <th>Kế hoạch sửa chữa</th>
+                            <th>Nhân viên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var group in Model)
+                       {
+                        <tr >
+                            @foreach (var items in list_group)
+                            {
+                                if (group.Key == items.ID_GROUP)
+                                {
+                                    <th colspan="0" style="background-color: deepskyblue;">@items.NAME</th>
+                                }
+                            }
+                            @foreach (var item in group.Values)
+                            {
+                                <td style="display:none;">@item.Id</td>
+                                <td>@item.DeviceName</td>
+                                <td>@item.ScortCode</td>
+                                <td>@item.Model</td>
+                                <td>@item.VendorName</td>
+                                <td>@item.Qty</td>
+                                <td>@item.Location</td>
+                                <td>@item.DatePlan</td>
+                                <td>
+                                    @foreach (var u in list_user)
+                                    {
+                                        if (u.ID_USER == @item.Creator)
+                                        {
+                                            @u.NAME
+                                        }
+                                    }
+                                </td>
+                            }
+                        </tr>
+                       }*@
+                      @*@{ int i = 0;int x=0;}
+                      @foreach (var item in list_group)
+                      {
+                          i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.NAME</td>
+                            @foreach (var items in Model)
+                            {
+                                if (item.ID_GROUP == items.DeviceGroup)
+                                {
+                                     <td>
+        
+                                    @items.DeviceName
+                                    </td>
+                                }
+                            }
+
+                        </tr>
+                      }*@
+                    @*</tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@*@foreach (var items in list_group)
+{
+    i++;
+    <tr>
+        <td>@i</td>
+        <td>@items.NAME</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+}*@

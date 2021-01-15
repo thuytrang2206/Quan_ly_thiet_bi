@@ -38,7 +38,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 2 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 2 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 2 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -50,7 +50,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 3 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 3 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 3 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
        
@@ -63,7 +63,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 4 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 4 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 4 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -75,7 +75,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 5 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 5 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 5 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -87,7 +87,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 6 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 6 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 6 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -99,7 +99,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 7 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 7 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 7 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -111,7 +111,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 8 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 8 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 8 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -123,7 +123,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 9 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 9 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 9 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -135,7 +135,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 10 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 10 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 10 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -147,7 +147,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 11 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 11 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 11 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }
@@ -159,7 +159,7 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == 12 && d.DateMaintenance.Value.Year == year).ToList();
+                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 12 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 12 && d.DateMaintenance.Value.Year == year)).ToList();
                 return View(model);
             }
         }

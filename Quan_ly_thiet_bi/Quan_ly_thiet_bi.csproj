@@ -218,6 +218,7 @@
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserLogin.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\Group_deviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Models\EF\Manager_device.cs" />
     <Compile Include="Models\EF\RULE.cs" />
     <Compile Include="Models\EF\USER.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -2806,19 +2808,20 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_AcountLogin.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth2.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth3.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth4.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth5.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth6.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth7.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth8.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth9.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth10.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth11.cshtml" />
-    <Content Include="Views\PlaneRepair\GetMonth12.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth2.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth3.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth4.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth5.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth6.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth7.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth8.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth9.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth10.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth11.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth12.cshtml" />
     <Content Include="Views\PlanRepair\Detail_plan_repair.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth1.cshtml" />
+    <Content Include="Views\Device\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

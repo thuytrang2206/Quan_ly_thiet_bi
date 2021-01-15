@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
 @{
-    ViewBag.Title = "GetMonth9";
+    ViewBag.Title = "GetMonth8";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 4</h1>
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 3</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -17,8 +16,10 @@
                             <th>
                                 Ngày
                             </th>
-                            @{ int day;}
-                            @for (day = 1; day <= 30; day++)
+                            @{
+                                int day;
+                            }
+                            @for (day = 1; day <= 31; day++)
                             {
                                 <th>@day</th>
                             }
@@ -29,13 +30,20 @@
                         {
                             <tr>
                                 <td></td>
-                                @for (day = 1; day <= 30; day++)
+                                @for (day = 1; day <= 31; day++)
                                 {
-                                    if (item.DateMaintenance.Value.Day == day)
+                                    if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day)
                                     {
-                                            <td style="background-color:yellow;">
-                                                @item.DeviceName
-                                            </td>
+                                        <td style="background-color:#1cc88acc;">
+                                            <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
+                                        </td>
+                                    }
+
+                                    if (item.DatePlan.Value.Day == day)
+                                    {
+                                        <td style="background-color:yellow;">
+                                            <a href="/PlanRepair/Detail_plan_repair/@item.Id">@item.DeviceName</a>
+                                        </td>
                                     }
                                     else
                                     {

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
 @{
-    ViewBag.Title = "GetMonth4";
+    ViewBag.Title = "GetMonth9";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -31,21 +31,18 @@
                                 <td></td>
                                 @for (day = 1; day <= 30; day++)
                                 {
-                                    if (item.DateMaintenance.Value.Day == day)
+                                    if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day)
                                     {
-                                        if (item.Updater != null)
-                                        {
-                                            <td style="background-color:#1cc88a;">
-                                                <a href="/Home/Detail_device/@item.Id">  @item.DeviceName</a><br />
-                                                (@item.Updater)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td style="background-color:yellow;">
-                                                <a href="/PlaneRepair/Detail_plan_repair/@item.Id">  @item.DeviceName</a>
-                                            </td>
-                                        }
+                                        <td style="background-color:#1cc88acc;">
+                                            <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
+                                        </td>
+                                    }
+
+                                    if (item.DatePlan.Value.Day == day)
+                                    {
+                                        <td style="background-color:yellow;">
+                                            <a href="/PlanRepair/Detail_plan_repair/@item.Id">@item.DeviceName</a>
+                                        </td>
                                     }
                                     else
                                     {
@@ -62,5 +59,4 @@
         </div>
     </div>
 </div>
-
 

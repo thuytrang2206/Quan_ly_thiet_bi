@@ -33,7 +33,7 @@ namespace Quan_ly_thiet_bi.Models.EF
         [Required]
         [StringLength(50)]
         public string Model { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
         public double? DevicePrice { get; set; }
 
         [StringLength(50)]

@@ -15,31 +15,37 @@
         <div class="card-body">
             <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0" >
                 <tr>
-                    <td>Tên thiết bị:</td>
+                    <th>Tên thiết bị:</th>
                     <td>
                         @Model.DeviceName
                     </td>
                 </tr>
                 <tr>
-                    <td>Model:</td>
+                    <th>Model:</th>
                     <td>
                         @Model.Model
                     </td>
                 </tr>
                 <tr>
-                    <td>Serial:</td>
+                    <th>Serial:</th>
                     <td>
                         @Model.ScortCode
                     </td>
                 </tr>
                 <tr>
-                    <td>Nhà cung cấp:</td>
+                    <th>Nhà cung cấp:</th>
                     <td>
                         @Model.VendorName
                     </td>
                 </tr>
                 <tr>
-                    <td>Nhóm thiết bị</td>
+                    <th>Giá thiết bị:</th>
+                    <td>
+                        @String.Format("{0:c}",Model.DevicePrice)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nhóm thiết bị</th>
                     <td>
                                 @foreach (var item in list_group)
                                 {
@@ -51,31 +57,31 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Số lượng</td>
+                    <th>Số lượng</th>
                     <td>
                         @Model.Qty
                     </td>
                 </tr>
                 <tr>
-                    <td>Kế hoạch kiểm tra</td>
+                    <th>Kế hoạch kiểm tra</th>
                     <td>
                      @Html.DisplayFor(model=>model.DatePlan) 
                     </td>
                 </tr>
                 <tr>
-                    <td>Thời gian thực hiện kiểm tra</td>
+                    <th>Thời gian thực hiện kiểm tra</th>
                     <td>
                        @Html.DisplayFor(model => model.DateMaintenance)
                     </td>
                 </tr>
                 <tr>
-                    <td>Mục đích</td>
+                    <th>Mục đích</th>
                     <td>
                         @Model.Purpose
                     </td>
                 </tr>
                 <tr>
-                    <td>Ghi chú</td>
+                    <th>Ghi chú</th>
                     <td>
                        @Model.Remark
                     </td>
@@ -83,7 +89,7 @@
             </table>
             <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
                 <tr>
-                    <td>Nhân viên</td>
+                    <th>Nhân viên</th>
                     <td>
                         @foreach (var item in list_user)
                         {
@@ -95,19 +101,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Hình ảnh</td>
+                    <th>Hình ảnh</th>
                     <td>
                     <img src="@Model.Image1" style="width:200px;height:220px;"/>
                   </td>
                 </tr>
                 <tr>
-                    <td>Thời gian lắp đặt</td>
+                    <th>Thời gian lắp đặt</th>
                     <td>
                      @Html.DisplayFor(model => model.Installtime)
                     </td>
                 </tr>
                 <tr>
-                    <td>Tình trạng</td>
+                    <th>Tình trạng</th>
                     <td>
                         @if (Model.Status == 0)
                         {
@@ -119,7 +125,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Kết quả kiểm tra</td>
+                    <th>Kết quả kiểm tra</th>
                     <td>
                         @Model.Updater 
                        (@foreach (var item_his in list_history)
