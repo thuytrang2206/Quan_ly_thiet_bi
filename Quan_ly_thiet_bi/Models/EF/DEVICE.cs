@@ -13,6 +13,7 @@ namespace Quan_ly_thiet_bi.Models.EF
         public DEVICE()
         {
             HISTORies = new HashSet<HISTORY>();
+            Maintenances = new HashSet<Maintenance>();
         }
 
         [StringLength(50)]
@@ -30,10 +31,9 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string DeviceName { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Model { get; set; }
-        [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
+
         public double? DevicePrice { get; set; }
 
         [StringLength(50)]
@@ -48,17 +48,20 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Creator { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Column(TypeName = "date")]
         public DateTime? DatePlan { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Column(TypeName = "date")]
         public DateTime? DateMaintenance { get; set; }
 
         [StringLength(50)]
         public string Updater { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Column(TypeName = "date")]
         public DateTime? Installtime { get; set; }
+
+        [StringLength(50)]
+        public string Curator { get; set; }
 
         public int? Qty { get; set; }
 
@@ -79,5 +82,8 @@ namespace Quan_ly_thiet_bi.Models.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HISTORY> HISTORies { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Maintenance> Maintenances { get; set; }
     }
 }

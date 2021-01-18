@@ -1,0 +1,244 @@
+﻿@model Quan_ly_thiet_bi.Models.EF.DEVICE
+@{
+    ViewBag.Title = "Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+    var list_history = (List<Quan_ly_thiet_bi.Models.EF.HISTORY>)ViewBag.list_history;
+    var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
+    var list_check = (List<Quan_ly_thiet_bi.Models.EF.Checkmaintenance>)ViewBag.list_check;
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Chi tiết thiết bị</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0">
+                <tr>
+                    <th>Tên thiết bị:</th>
+                    <td>
+                        @Model.DeviceName
+                    </td>
+                </tr>
+                <tr>
+                    <th>Model:</th>
+                    <td>
+                        @Model.Model
+                    </td>
+                </tr>
+                <tr>
+                    <th>Serial:</th>
+                    <td>
+                        @Model.ScortCode
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nhà cung cấp:</th>
+                    <td>
+                        @Model.VendorName
+                    </td>
+                </tr>
+                <tr>
+                    <th>Giá thiết bị:</th>
+                    <td>
+                        @String.Format("{0:c}", Model.DevicePrice)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nhóm thiết bị</th>
+                    <td>
+                        @foreach (var item in list_group)
+                        {
+                            if (Model.DeviceGroup == item.ID_GROUP)
+                            {
+                                @item.NAME
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Số lượng</th>
+                    <td>
+                        @Model.Qty
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kế hoạch kiểm tra</th>
+                    <td>
+                        @Html.DisplayFor(model => model.DatePlan)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Thời gian thực hiện kiểm tra</th>
+                    <td>
+                        @Html.DisplayFor(model => model.DateMaintenance)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Mục đích</th>
+                    <td>
+                        @Model.Purpose
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ghi chú</th>
+                    <td>
+                        @Model.Remark
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
+                <tr>
+                    <th>Nhân viên</th>
+                    <td>
+                        @foreach (var item in list_user)
+                        {
+                            if (Model.Creator == item.ID_USER)
+                            {
+                                @item.NAME
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <td>
+                        <img src="@Model.Image1" style="width:200px;height:220px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Thời gian lắp đặt</th>
+                    <td>
+                        @Html.DisplayFor(model => model.Installtime)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tình trạng</th>
+                    <td>
+                        @if (Model.Status == 0)
+                        {<h6>Dừng hoạt động</h6> }
+                        else
+                        {  <h6>Đang hoạt động</h6> }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kết quả kiểm tra</th>
+                    <td>
+                        @Model.Updater
+                        (@foreach (var item_his in list_history)
+                        {
+                            if (item_his.ID_DEVICE == Model.Id && item_his.STATUS == TaskType.Repair.ToString())
+                            {
+                                @item_his.NOTE
+                            }
+                        })
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-body">
+            <h5>Danh mục bảo trì</h5>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click" style="margin-bottom:10px;">
+                <i class="fa fa-plus"> Thêm danh mục bảo trì thiết bị</i>
+            </button>
+            <br />
+            <table class="table table-bordered" id="dataTable1" cellspacing="0" style="color:black;">
+                <thead>
+                    <tr>
+                        <th>Tên thiết bị</th>
+                        <th>Hạng mục kiểm tra bảo trì</th>
+                        <th>Phân loại bảo trì</th>
+                        <th>Tần suất kiểm tra</th>
+                        <th>Người phụ trách</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <!-- Modal add-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                </div>
+                <div class="modal-body">
+                    <div class="col-12" style="display:none;">
+                        <input type="text" class="form-control" id="Id" name="Id" />
+                    </div>
+                  
+                    <div class="container-modal" style="margin:5px 0px;">
+                        <div class="col-12" style="float:left;">
+                            <label><b>Loại bảo dưỡng</b></label><br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng lớn"/> Bảo dưỡng lớn<br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng nhỏ"/> Bảo dưỡng nhỏ<br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡnng toàn bộ" />Bảo dưỡng toàn bộ
+                        </div>
+                        <div class="col-12" style="float:left;">
+                            <label><b>Hạng mục kiểm tra</b></label>
+                           <br />
+                                @foreach ( var items in list_check)
+                                {
+
+                                    <input type="radio" id="Checkmaintenace" name="Checkmaintenace" value="@items.Id__Checkmaintenace" /> @items.Checkmaintenace  <br />
+                                }
+                
+                          
+                            <div class="BDL">
+
+                            </div>
+                            <div class="BDTP">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" style="margin:5px 0px;float:left;">
+                        <label><b>Tần suất bảo dưỡng</b></label>
+                        <input type="text" class="form-control" id="FrequencyCheck" name="FrequencyCheck" />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;float:left;">
+                        <label><b>Người phụ trách</b></label>
+                        <input type="text" class="form-control" id="Personmaintenance" name="Personmaintenance" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add_main" value="">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("body").on("click", "#btn_Add_main", function () {
+        //if ($('[name=Classifymaintenance][value="Bảo dưỡng lớn"]').prop('checked', true)) {
+        //    $('[name=Checkmaintenace][value=""]').prop('checked',);
+        //    }
+        //    else {
+        //        $('[name=Status][value="0"]').prop('checked', true);
+        //    }
+        var Classifymaintenance = $('input[name=Classifymaintenance]:checked').val();
+        var Checkmaintenace = $('input[name=Checkmaintenace]:checked').val();
+        var Personmaintenance = $("#Personmaintenance");
+        var FrequencyCheck = $("FrequencyCheck");
+        $.ajax({
+            type: "POST",
+            url: "/Home/Insert_maintenance",
+            data: '{Classifymaintenance:"' + Classifymaintenance.val() + '",Checkmaintenace:"' + Checkmaintenace.val() + '",Personmaintenance:"' + Personmaintenance.val() + '",FrequencyCheck:"' + FrequencyCheck.val() + '"}',
+            contentType: "application/json charset=utf-8",
+            datatype: "json",
+            success: function () {
+                var newrow = $("#dataTable1 tr:last-child");
+                location.reload();
+                Classifymaintenance.val() = "";
+                Checkmaintenace.val() = "";
+                Personmaintenance.val() = "";
+                FrequencyCheck.val() = "";
+            }
+        });
+    });
+</script>

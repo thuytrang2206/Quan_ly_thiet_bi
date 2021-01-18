@@ -32,15 +32,15 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             
         }
-        public JsonResult Insert_device(DEVICE dev,string DeviceName)
+        public JsonResult Insert_device(DEVICE dev, string DeviceName)
         {
-            var searchdata = db.DEVICEs.Where(x => x.DeviceName == DeviceName).SingleOrDefault();
-            if (searchdata != null)
-            {
-                return Json(1);
-            }
-            else
-            {
+            //var searchdata = db.DEVICEs.Where(x => x.DeviceName == DeviceName).SingleOrDefault();
+            //if (searchdata != null)
+            //{
+            //    return Json(1);
+            //}
+            //else
+            //{
                 string id = Guid.NewGuid().ToString();
                 dev.Id = id;
                 var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
@@ -60,7 +60,7 @@ namespace Quan_ly_thiet_bi.Controllers
                 }
                 db.SaveChanges();
                 return Json(dev);
-            }
+            //}
         }
         public ActionResult Detail_device(string id)
         {
@@ -152,6 +152,28 @@ namespace Quan_ly_thiet_bi.Controllers
                 return View("Index", model);
             }
            
+        }
+        public ActionResult Maintenance(string Id)
+        {
+            var dao = new Device();
+            var model = dao.View_detail(Id);
+            List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+            ViewBag.list_group = list_group;
+            List<USER> list_user = db.USERs.ToList();
+            ViewBag.list_user = list_user;
+            List<HISTORY> list_history = db.HISTORies.ToList();
+            ViewBag.list_history = list_history;
+            List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
+            ViewBag.list_check = list_check;
+            return View(model);
+         
+        }
+        public JsonResult Insert_maintenance(Maintenance main)
+        {
+            string id = Guid.NewGuid().ToString();
+            main.Id_Maintenance = id;
+            db.SaveChanges();
+            return Json(main);
         }
     }
 }

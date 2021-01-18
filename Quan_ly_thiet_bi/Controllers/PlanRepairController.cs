@@ -175,6 +175,7 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_history = list_history;
             return View(model);
         }
+    
         [HttpPost]
         public ActionResult Detail_plan_repair(DEVICE dev,HISTORY his)
         {

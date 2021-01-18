@@ -63,7 +63,7 @@
                                 <tr>
                                     <td>@i</td>
                                     <td style="display:none;">@items.Id</td>
-                                    <td><a href="/Home/Detail_device/@items.Id">@items.DeviceName</a></td>
+                                    <td><a href="/Home/Maintenance/@items.Id">@items.DeviceName</a></td>
                                     <td><img src="@items.Image1" style="width:120px;height:100px;"/></td>
                                     <td>@items.Model</td>
                                     <td>@items.ScortCode</td>
@@ -111,34 +111,34 @@
                             <input type="text" class="form-control" id="Id" name="Id" />
                         </div>
                         <div class="col-12" style="margin:5px 0px;">
-                            <label>Tên thiết bị:</label>
-                            <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" onchange="DeviceCheck()" />
-                            <span id="Status"></span>
+                            <label><b>Tên thiết bị:</b></label>
+                            <input type="text" class="form-control" placeholder="Tên thiết bị" required id="DeviceName" name="DeviceName" @*onchange="DeviceCheck()*@ />
+                            @*<span id="Status"></span>*@
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Model</label>
+                                <label><b>Model</b></label>
                                 <input type="text" class="form-control" placeholder="Model" required id="Model" name="Model" />
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Serial</label>
+                                <label><b>Serial</b></label>
                                 <input type="text" class="form-control" placeholder="Serial" required id="ScortCode" name="ScortCode" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Nhà cung cấp:</label>
+                                <label><b>Nhà cung cấp:</b></label>
                                 <input type="text" class="form-control" placeholder="Nhà cung cấp" required id="VendorName" name="VendorName" />
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Số lượng:</label>
+                                <label><b>Số lượng:</b></label>
                                 <input type="text" class="form-control" placeholder="Số lượng" digits id="Qty" name="Qty" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Nhóm thiết bị:</label>
-                                <select class="form-control" id="DeviceGroup" name="DeviceGroup">
+                                <label><b>Nhóm thiết bị:</b></label>
+                                <select class="form-control" id="DeviceGroup" name="DeviceGroup" >
                                     @foreach (var ca in list_group)
                                     {
                                         <option value="@ca.ID_GROUP">@ca.NAME</option>
@@ -146,42 +146,39 @@
                                 </select>
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Giá tiền:</label>
+                                <label><b>Giá tiền:</b></label>
                                 <input type="text" class="form-control" id="DevicePrice" name="DevicePrice" />
                                
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Kế hoạch sửa chữa:</label>
+                                <label><b>Kế hoạch sửa chữa:</b></label>
                                 <input type="date" class="form-control" id="DatePlan" name="DatePlan" />
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Vị trí</label>
+                                <label><b>Vị trí</b></label>
                                <input type="text" class="form-control"  id="Location" name="Location" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
-                                <label>Thời gian lắp đặt:</label>
+                                <label><b>Thời gian lắp đặt:</b></label>
                                 <input type="date" class="form-control" id="Installtime" name="Installtime" />
                             </div>
                             <div class="col-6" style="float:left;">
-                                <label>Ghi chú:</label>
+                                <label><b>Ghi chú:</b></label>
                                 <input type="text" class="form-control" required id="Remark" name="Remark" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
-                            <div class="col-6" style="float:left;">
-                                
-                            </div>
-                            <div class="col-6" style="float:left;">
-                                <label>Trạng thái</label><br />
+                  
+                            <div class="col-12" style="float:left;">
+                                <label><b>Trạng thái</b></label><br />
                                 <input type="radio" id="Status" name="Status" value="1" /> Đang hoạt động
                                 <input type="radio" id="Status" name="Status" value="0" /> Dừng hoạt động
                             </div>
                         </div>
-
                         <div class="col-12" style="margin:5px 0px;float:left;">
                             <label>Hình ảnh</label>
                             <input type="text" class="form-control" id="Image1" name="Image1" />
@@ -202,9 +199,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script src="~/Scripts/device.js"></script>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="~/Scripts/devicemanager.js"></script>
 <script>
+    $(document).ready(function(){
+        $("#DeviceGroup").click(function(){
+            if ($('#DeviceGroup option:selected').val() == "178fe3f9-017b-43a7-95e3-aaffc7d3a24b") {
+                $("#Thietbidien").show();
+                $("#PCCC").hide();
+                $("#HTLNRO10001").hide();
+            }
+            else if ($('#DeviceGroup option:selected').val() == "82bc7bc7-4d0e-4fe5-82f2-cb6dfa128806")
+            {
+                $("#Thietbidien").hide();
+                $("#PCCC").hide();
+                $("#HTLNRO10001").show();
+            }
+            else if ($('#DeviceGroup option:selected').val() == "4441afb5-38ae-4513-a9ca-76ce980d0ae6")
+            {
+                $("#Thietbidien").hide();
+                $("#PCCC").show();
+                $("#HTLNRO10001").hide();
+            }
+        });
+    });
+   
+</script>
+@*<script>
     function DeviceCheck() {
         $("#Status").html("");
         $.post("@Url.Action("Insert_device", "Home")",
@@ -220,4 +240,4 @@
         }
     });
     }
-</script>
+</script>*@

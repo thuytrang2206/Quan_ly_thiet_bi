@@ -231,9 +231,11 @@
     <Compile Include="Models\DAO\Device.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
     <Compile Include="Models\DeviceandHistory.cs" />
+    <Compile Include="Models\EF\Checkmaintenance.cs" />
     <Compile Include="Models\EF\DEVICE.cs" />
     <Compile Include="Models\EF\GROUP_DEVICE.cs" />
     <Compile Include="Models\EF\HISTORY.cs" />
+    <Compile Include="Models\EF\Maintenance.cs" />
     <Compile Include="Models\EF\Manager_device.cs" />
     <Compile Include="Models\EF\RULE.cs" />
     <Compile Include="Models\EF\USER.cs" />
@@ -2770,7 +2772,7 @@
     <Content Include="Admin\js\plugins\ckfinder\userfiles\.htaccess" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckfinder.js" />
-    <Content Include="Scripts\device.js" />
+    <Content Include="Scripts\devicemanager.js" />
     <Content Include="Scripts\group_device.js" />
     <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2822,6 +2824,7 @@
     <Content Include="Views\PlanRepair\Detail_plan_repair.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth1.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Home\Maintenance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
