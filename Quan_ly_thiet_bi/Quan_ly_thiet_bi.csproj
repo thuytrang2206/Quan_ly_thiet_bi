@@ -232,11 +232,14 @@
     <Compile Include="Models\DAO\UserDao.cs" />
     <Compile Include="Models\DeviceandHistory.cs" />
     <Compile Include="Models\EF\Checkmaintenance.cs" />
+    <Compile Include="Models\EF\Classifymaintenance.cs" />
+    <Compile Include="Models\EF\Data.cs" />
     <Compile Include="Models\EF\DEVICE.cs" />
     <Compile Include="Models\EF\GROUP_DEVICE.cs" />
     <Compile Include="Models\EF\HISTORY.cs" />
     <Compile Include="Models\EF\Maintenance.cs" />
     <Compile Include="Models\EF\Manager_device.cs" />
+    <Compile Include="Models\EF\MultipleModel.cs" />
     <Compile Include="Models\EF\RULE.cs" />
     <Compile Include="Models\EF\USER.cs" />
     <Compile Include="Models\Group.cs" />
@@ -2785,6 +2788,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\maintenance.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

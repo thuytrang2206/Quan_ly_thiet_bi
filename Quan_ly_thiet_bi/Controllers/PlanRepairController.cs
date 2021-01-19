@@ -188,6 +188,8 @@ namespace Quan_ly_thiet_bi.Controllers
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             dev.Creator = session.ID_USER;
             dev.DeviceGroup = dev.DeviceGroup;
+            DateTime date = DateTime.Parse(dev.DateMaintenance.Value.ToString());
+            dev.DatePlan = date.AddDays(30);
             db.Entry(dev).State = System.Data.Entity.EntityState.Modified;
             if(dev.Updater!= "")
             {

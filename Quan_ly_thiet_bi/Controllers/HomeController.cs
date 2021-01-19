@@ -165,13 +165,20 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_history = list_history;
             List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
             ViewBag.list_check = list_check;
+            List<Maintenance> list_main = db.Maintenances.ToList();
+            ViewBag.list_main = list_main;
+            List<Classifymaintenance> list_classify = db.Classifymaintenances.ToList();
+            ViewBag.list_classify = list_classify;
             return View(model);
          
         }
+        [HttpPost]
         public JsonResult Insert_maintenance(Maintenance main)
         {
             string id = Guid.NewGuid().ToString();
             main.Id_Maintenance = id;
+
+            db.Maintenances.Add(main);
             db.SaveChanges();
             return Json(main);
         }

@@ -200,30 +200,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <script src="~/Scripts/devicemanager.js"></script>
-<script>
-    $(document).ready(function(){
-        $("#DeviceGroup").click(function(){
-            if ($('#DeviceGroup option:selected').val() == "178fe3f9-017b-43a7-95e3-aaffc7d3a24b") {
-                $("#Thietbidien").show();
-                $("#PCCC").hide();
-                $("#HTLNRO10001").hide();
-            }
-            else if ($('#DeviceGroup option:selected').val() == "82bc7bc7-4d0e-4fe5-82f2-cb6dfa128806")
-            {
-                $("#Thietbidien").hide();
-                $("#PCCC").hide();
-                $("#HTLNRO10001").show();
-            }
-            else if ($('#DeviceGroup option:selected').val() == "4441afb5-38ae-4513-a9ca-76ce980d0ae6")
-            {
-                $("#Thietbidien").hide();
-                $("#PCCC").show();
-                $("#HTLNRO10001").hide();
-            }
-        });
-    });
-   
-</script>
 @*<script>
     function DeviceCheck() {
         $("#Status").html("");
