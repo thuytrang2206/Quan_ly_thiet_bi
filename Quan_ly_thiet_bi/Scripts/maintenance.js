@@ -21,24 +21,49 @@
         }
     });
 });
-
 $(document).ready(function () {
     $('input[type="radio"]').click(function () {
-        if ($('input:radio[name=Classifymaintenance]:checked').val() == "1") {
-            $("#classify1").show();
-            $("#classify2").hide();
-            $("#classify3").hide();
+        if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng lớn") {
+            $('input:radio[name=Checkmaintenance][value=""]:checked').val().show();
         }
-        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "2") {
+        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng nhỏ") {
             $("#classify1").hide();
             $("#classify2").show();
-            $("#classify3").hide()
+            $("#classify3").hide();
         }
-
+        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng toàn bộ") {
+            $("#classify1").hide();
+            $("#classify2").hide();
+            $("#classify3").show();
+        }
         else {
             $("#classify1").hide();
             $("#classify2").hide();
-            $("#classify3").show()
+            $("#classify3").hide();
         }
     });
 });
+//$(document).ready(function () {
+//    $('input[type="radio"]').click(function () {
+//        if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng lớn") {
+//            $("#classify1").show();
+//            $("#classify2").hide();
+//            $("#classify3").hide();
+//        }
+//        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng nhỏ") {
+//            $("#classify1").hide();
+//            $("#classify2").show();
+//            $("#classify3").hide();
+//        }
+//        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng toàn bộ") {
+//            $("#classify1").hide();
+//            $("#classify2").hide();
+//            $("#classify3").show();
+//        }
+//        else {
+//            $("#classify1").hide();
+//            $("#classify2").hide();
+//            $("#classify3").hide();
+//        }
+//    });
+//});

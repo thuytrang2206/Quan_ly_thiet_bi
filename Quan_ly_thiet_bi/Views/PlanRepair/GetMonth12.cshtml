@@ -32,14 +32,7 @@
                                 <td></td>
                                 @for (day = 1; day <= 31; day++)
                                 {
-                                    if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day)
-                                    {
-                                        <td style="background-color:#1cc88acc;">
-                                            <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
-                                        </td>
-                                    }
-
-                                    if (item.DatePlan.Value.Day == day)
+                                    if (item.DatePlan.Value.Day == day && item.DatePlan.Value.Month == 12)
                                     {
                                         <td style="background-color:yellow;">
                                             <a href="/PlanRepair/Detail_plan_repair/@item.Id">@item.DeviceName</a>
@@ -47,7 +40,17 @@
                                     }
                                     else
                                     {
-                                        <td></td>
+                                        if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day && item.DateMaintenance.Value.Month == 12)
+                                        {
+                                            <td style="background-color:#1cc88acc;">
+                                                <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+
                                     }
                                 }
                             </tr>

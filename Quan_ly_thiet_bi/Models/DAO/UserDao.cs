@@ -37,7 +37,7 @@ namespace Quan_ly_thiet_bi.Models.DAO
         }
         public bool Checkusername(string NAME)
         {
-            return db.USERs.Count(x => x.NAME == NAME) > 0;
+            return db.USERs.Count(x => x.NAME == NAME)>0;
         }
     }
 }

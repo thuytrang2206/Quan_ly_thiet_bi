@@ -1,9 +1,8 @@
-﻿
+﻿@model Quan_ly_thiet_bi.Models.RegisterModel
 @{
     Layout = null;
 }
 
-@model Quan_ly_thiet_bi.Models.LoginModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,17 +40,17 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block ">
-                            
-                                <img src="~/Admin/img/avatar-default.png" style="width: 380px;height: 380px;margin: 0px 40px;"  />
+
+                                <img src="~/Admin/img/avatar-default.png" style="width: 380px;height: 380px;margin: 0px 40px;" />
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">ĐĂNG NHẬP</h1>
                                     </div>
-                                    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                                    @using (Html.BeginForm("Register_Acount", "Register", FormMethod.Post))
                                     {
-                                        @Html.ValidationSummary(false, "", "error");
+                                        @Html.AntiForgeryToken()
                                         <div class="form-group">
                                             @Html.TextBoxFor(model => model.NAME, new { @class = "form-control form-control-user", @autofocus = "autofocus" })
                                         </div>
@@ -59,14 +58,9 @@
                                             @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control form-control-user" })
                                         </div>
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                @Html.CheckBoxFor(model => model.RememberMe, new { @class = "custom-control-input" })
-                                                <label class="custom-control-label" for="customCheck">
-                                                    Remember Me
-                                                </label>
-                                            </div>
+                                            @Html.PasswordFor(model => model.CONFIRMPASSWORD, new { @class = "form-control form-control-user" })
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">Đăng nhập</button>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">Đăng ký</button>
                                     }
 
 

@@ -47,7 +47,7 @@
                                     }
                                     else
                                     {
-                                        if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day )
+                                        if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day && item.DateMaintenance.Value.Month == 2)
                                         {
                                             <td style="background-color:#1cc88acc;">
                                                 <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
@@ -64,8 +64,6 @@
                         }
                     </tbody>
                 </table>
-
-
             </div>
         </div>
     </div>

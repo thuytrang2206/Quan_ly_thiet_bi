@@ -25,7 +25,8 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(200)]
         public string Checkmaintenace { get; set; }
 
-        public virtual Classifymaintenance Classifymaintenance1 { get; set; }
+        [StringLength(200)]
+        public string Type_Device { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maintenance> Maintenances { get; set; }

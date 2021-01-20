@@ -7,7 +7,6 @@
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
     var list_check = (List<Quan_ly_thiet_bi.Models.EF.Checkmaintenance>)ViewBag.list_check;
     var list_main = (List<Quan_ly_thiet_bi.Models.EF.Maintenance>)ViewBag.list_main;
-    var list_classify = (List<Quan_ly_thiet_bi.Models.EF.Classifymaintenance>)ViewBag.list_classify;
 }
 
 <div class="container-fluid">
@@ -84,12 +83,7 @@
                         @Model.Purpose
                     </td>
                 </tr>
-                <tr>
-                    <th>Ghi chú</th>
-                    <td>
-                        @Model.Remark
-                    </td>
-                </tr>
+               
             </table>
             <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
                 <tr>
@@ -138,6 +132,12 @@
                         })
                     </td>
                 </tr>
+                <tr>
+                    <th>Ghi chú</th>
+                    <td>
+                        @Model.Remark
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="card-body">
@@ -161,13 +161,10 @@
                         if (Model.Id == item_main.Id_device)
                         {
                             <tr>
-                               
-                                @*<td rowspan=""> 
-                                   
+                                @*<td rowspan="">      
                                 @if (Model.Id == item_main.Id_device)
                                 {@Model.DeviceName }
-                                </td>*@   
-                                                             
+                                </td>*@                              
                                     @foreach (var item_check in list_check)
                                     {
                                         if (item_main.Checkmaintenance == item_check.Id__Checkmaintenace)
@@ -176,28 +173,15 @@
                                                 @item_check.Checkmaintenace
                                             </td>
                                             <td>
-                                                @foreach (var item_classify in list_classify)
-                                                {
-                                                    if (item_classify.Id_Classifymaintenance == item_check.Classifymaintenance)
-                                                    {
-                                                        @item_classify.Name;
-                                                    }
-                                                }
-                                                
-                                             
+                                               @item_check.Classifymaintenance
                                             </td>
                                         }
                                     }
-
                                <td>@item_main.FrequencyCheck</td>
-
                                <td>@item_main.Personmaintenance</td>
-
                            </tr>
                         }
-
-                    }
-                   
+                    } 
                 </tbody>
             </table>
             <br />
@@ -222,32 +206,24 @@
                     </div>
                     <div class="container-modal" style="margin:5px 0px;">
                         <div class="col-12" style="float:left;">
-                            <label><b>Loại bảo dưỡng</b></label><br />
-                            @foreach (var item_class in list_classify)
-                            {
-
-                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="@item_class.Id_Classifymaintenance" /> @item_class.Name  <br />
-                            }
+                            @*<label><b>Loại bảo dưỡng</b></label><br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng nhỏ" /> Bảo dưỡng nhỏ  <br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng lớn" /> Bảo dưỡng lớn<br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng 1 phần" /> Bảo dưỡng 1 phần  <br />
+                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng toàn bộ" /> Bảo dưỡng toàn bộ*@
                         </div>
                         <div class="col-12" style="float:left;">
                             <label><b>Hạng mục kiểm tra</b></label>
                            <br />
-                            <div id="classify1">
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="4" /> Bảo dưỡng định kỳ  <br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="5" /> Bảo dưỡng tổng thể
-                            </div>
-                            <div id="classify2">
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="1" /> Kiểm tra, bắn nhiệt độ đầu cáp  định kì  <br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="10" /> Thay thế lọc thô<br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="2" /> Kiểm tra vệ sinh định kỳ<br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="3" /> Kiểm tra định kỳ<br />
-                                
-                            </div>
-                            <div id="classify3">
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="6" /> Vệ sinh đầu báo, chuông đèn, nút nhấn, đo điện áp  <br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="7" /> Bảo dưỡng toàn bộ( Thay lọc, tách dầu, dầu bôi trơn, bình ắc quy, vệ sinh…)<br />
-                                <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="8" /> Bảo dưỡng định kì ( Vệ sinh, thay thế cục lọc, bổ sung muối, sục rửa đường ống, vòi uống…)
-                            </div>
+                            @foreach (var items_ in list_check)
+                            {
+                                if (items_.Type_Device == Model.DeviceGroup)
+                                {
+                                        <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="@items_.Id__Checkmaintenace" /> @items_.Checkmaintenace  <br />
+                                }
+
+                            }
+                            
                         </div>
                     </div>
 

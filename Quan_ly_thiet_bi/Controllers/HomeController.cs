@@ -8,6 +8,8 @@ using Quan_ly_thiet_bi.Models.EF;
 using Newtonsoft.Json;
 using Quan_ly_thiet_bi.Models;
 using Quan_ly_thiet_bi.Common;
+using System.IO;
+
 namespace Quan_ly_thiet_bi.Controllers
 {
     public class HomeController : Controller
@@ -167,8 +169,6 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_check = list_check;
             List<Maintenance> list_main = db.Maintenances.ToList();
             ViewBag.list_main = list_main;
-            List<Classifymaintenance> list_classify = db.Classifymaintenances.ToList();
-            ViewBag.list_classify = list_classify;
             return View(model);
          
         }
@@ -181,6 +181,27 @@ namespace Quan_ly_thiet_bi.Controllers
             db.Maintenances.Add(main);
             db.SaveChanges();
             return Json(main);
+        }
+
+        public FileContentResult ExportToCSV()
+        {
+            var movie = db.DEVICEs.ToList();
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"Mã thiết bị\",\"Tên thiết bị\",\"Model\",\"Serial\",\"Giá thiết bị\",\"Nhà cung cấp\",\"Số lượng\",\"Vị trí\"");
+            foreach (var mve in movie)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"",
+                     mve.Id,
+                     mve.DeviceName,
+                     mve.Model,
+                     mve.ScortCode,
+                     mve.DevicePrice,
+                     mve.VendorName,
+                     mve.Qty,
+                     mve.Location));
+            }
+            var fileName = "Danh_sach_thiet_bi" + DateTime.Now.ToString() + ".csv";
+            return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
         }
     }
 }

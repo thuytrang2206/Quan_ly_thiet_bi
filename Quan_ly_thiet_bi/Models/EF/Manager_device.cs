@@ -13,7 +13,6 @@ namespace Quan_ly_thiet_bi.Models.EF
         }
 
         public virtual DbSet<Checkmaintenance> Checkmaintenances { get; set; }
-        public virtual DbSet<Classifymaintenance> Classifymaintenances { get; set; }
         public virtual DbSet<DEVICE> DEVICEs { get; set; }
         public virtual DbSet<GROUP_DEVICE> GROUP_DEVICE { get; set; }
         public virtual DbSet<HISTORY> HISTORies { get; set; }
@@ -27,11 +26,6 @@ namespace Quan_ly_thiet_bi.Models.EF
                 .HasMany(e => e.Maintenances)
                 .WithOptional(e => e.Checkmaintenance1)
                 .HasForeignKey(e => e.Checkmaintenance);
-
-            modelBuilder.Entity<Classifymaintenance>()
-                .HasMany(e => e.Checkmaintenances)
-                .WithOptional(e => e.Classifymaintenance1)
-                .HasForeignKey(e => e.Classifymaintenance);
 
             modelBuilder.Entity<DEVICE>()
                 .HasMany(e => e.HISTORies)
