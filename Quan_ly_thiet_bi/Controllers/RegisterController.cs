@@ -28,36 +28,39 @@ namespace Quan_ly_thiet_bi.Controllers
         [HttpPost]
         public ActionResult Register_Acount(RegisterModel model)
         {
+            string message = "";
             var dao = new UserDao();
             if (ModelState.IsValid)
             {
-                var user = new USER();
-                string id = Guid.NewGuid().ToString();
-                string pass = Encryptor.MD5Hash(model.PASSWORD);
-                user.ID_USER = id;
-                user.NAME = model.NAME;
-                user.PASSWORD = pass;
-                user.ID_RULE = "R002";
-                var result = dao.Insert(user);
-                if (result != null)
+                if (dao.Checkusername(model.NAME))
                 {
-                    ViewBag.Success = "Đăng ký thành công";
-                    model = new RegisterModel();
+                    message = "Tên đăng nhập đã tồn tại";
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Đăng ký không thanh công");
+                    var user = new USER();
+                    string id = Guid.NewGuid().ToString();
+                    string pass = Encryptor.MD5Hash(model.PASSWORD);
+                    user.ID_USER = id;
+                    user.NAME = model.NAME;
+                    user.EMAIL = model.EMAIL;
+                    user.PASSWORD = pass;
+                    user.ID_RULE = "R002";
+                    var result = dao.Insert(user);
+                    if (result != null)
+                    {
+                        message = "Đăng ký thành công";
+                        model = new RegisterModel();
+                    }
+                    else
+                    {
+                        message = "Đăng ký không thành công";
+                    }
                 }
-                
             }
-            else
-            {
-                if (dao.Checkusername(model.NAME))
-                {
-                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại");
-                }
-            }
-            return RedirectToAction("Index", "Login"); ;
+           
+            ViewBag.Message= message;
+            return View(model);
         }
     }
 }

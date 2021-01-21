@@ -93,68 +93,68 @@ namespace Quan_ly_thiet_bi.Controllers
             return (Json(JsonRequestBehavior.AllowGet));
         }
    
-        public ActionResult Getdevice(string Id)
-        {
-            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-            var d = db.DEVICEs.SingleOrDefault(x => x.Id == Id);
-            var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
-            return this.Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult Getdevice(string Id)
+        //{
+        //    JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        //    var d = db.DEVICEs.SingleOrDefault(x => x.Id == Id);
+        //    var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
+        //    return this.Json(result, JsonRequestBehavior.AllowGet);
+        //}
         [HttpPost]
-        public ActionResult Edit_device(DEVICE dev, HISTORY his,string submit)
-        {
-            if (submit =="Lưu")
-            {
-                if( dev != null)
-                {
-                    var d = db.DEVICEs.Where(x => x.Id == dev.Id).SingleOrDefault();
-                    d.DeviceName = dev.DeviceName;
-                    d.Model = dev.Model;
-                    d.ScortCode = dev.ScortCode;
-                    d.DeviceGroup = dev.DeviceGroup;
-                    d.VendorName = dev.VendorName;
-                    d.Qty = dev.Qty;
-                    d.Location = dev.Location;
-                    //d.Purpose = dev.Purpose;
-                    d.Remark = dev.Remark;
-                    d.DevicePrice = dev.DevicePrice;
-                    d.DatePlan = dev.DatePlan;
-                    d.Installtime = dev.Installtime;
-                    d.Image1 = dev.Image1;
-                    var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
-                    d.Creator = session.ID_USER;
-                    d.Status = dev.Status;
-                    string id_his = Guid.NewGuid().ToString();
-                    his.ID_HISTORY = id_his;
-                    his.ID_DEVICE = dev.Id;
-                    his.UPDATE_CHECK = dev.DateMaintenance;
-                    his.QUANTITY = dev.Qty;
-                    his.STATUS = TaskType.Update.ToString();
-                    his.ID_USER = dev.Creator;
-                    db.HISTORies.Add(his);
-                    db.SaveChanges();
-                    dev = null;
-                }
-                var dao = new Device();
-                var model = dao.List_Device();
-                List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
-                ViewBag.list_group = list_group;
-                List<USER> list_user = db.USERs.ToList();
-                ViewBag.list_user = list_user;
-                return View("Index", model);
-            }
-            else
-            {
-                var dao = new Device();
-                var model = dao.List_Device();
-                List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
-                ViewBag.list_group = list_group;
-                List<USER> list_user = db.USERs.ToList();
-                ViewBag.list_user = list_user;
-                return View("Index", model);
-            }
+        //public ActionResult Edit_device(DEVICE dev, HISTORY his,string submit)
+        //{
+        //    if (submit =="Lưu")
+        //    {
+        //        if( dev != null)
+        //        {
+        //            var d = db.DEVICEs.Where(x => x.Id == dev.Id).SingleOrDefault();
+        //            d.DeviceName = dev.DeviceName;
+        //            d.Model = dev.Model;
+        //            d.ScortCode = dev.ScortCode;
+        //            d.DeviceGroup = dev.DeviceGroup;
+        //            d.VendorName = dev.VendorName;
+        //            d.Qty = dev.Qty;
+        //            d.Location = dev.Location;
+        //            //d.Purpose = dev.Purpose;
+        //            d.Remark = dev.Remark;
+        //            d.DevicePrice = dev.DevicePrice;
+        //            d.DatePlan = dev.DatePlan;
+        //            d.Installtime = dev.Installtime;
+        //            d.Image1 = dev.Image1;
+        //            var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+        //            d.Creator = session.ID_USER;
+        //            d.Status = dev.Status;
+        //            string id_his = Guid.NewGuid().ToString();
+        //            his.ID_HISTORY = id_his;
+        //            his.ID_DEVICE = dev.Id;
+        //            his.UPDATE_CHECK = dev.DateMaintenance;
+        //            his.QUANTITY = dev.Qty;
+        //            his.STATUS = TaskType.Update.ToString();
+        //            his.ID_USER = dev.Creator;
+        //            db.HISTORies.Add(his);
+        //            db.SaveChanges();
+        //            dev = null;
+        //        }
+        //        var dao = new Device();
+        //        var model = dao.List_Device();
+        //        List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+        //        ViewBag.list_group = list_group;
+        //        List<USER> list_user = db.USERs.ToList();
+        //        ViewBag.list_user = list_user;
+        //        return View("Index", model);
+        //    }
+        //    else
+        //    {
+        //        var dao = new Device();
+        //        var model = dao.List_Device();
+        //        List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+        //        ViewBag.list_group = list_group;
+        //        List<USER> list_user = db.USERs.ToList();
+        //        ViewBag.list_user = list_user;
+        //        return View("Index", model);
+        //    }
            
-        }
+        //}
         public ActionResult Maintenance(string Id)
         {
             var dao = new Device();
@@ -177,7 +177,6 @@ namespace Quan_ly_thiet_bi.Controllers
         {
             string id = Guid.NewGuid().ToString();
             main.Id_Maintenance = id;
-
             db.Maintenances.Add(main);
             db.SaveChanges();
             return Json(main);

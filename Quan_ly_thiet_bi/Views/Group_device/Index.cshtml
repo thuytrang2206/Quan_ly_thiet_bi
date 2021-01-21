@@ -1,4 +1,10 @@
-﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -85,6 +91,10 @@
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mô tả:</label>
                         <input type="text" class="form-control" required id="DESCIPTION" name="DESCIPTION" />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Trạng thái :</label>
+                        <input type="text" class="form-control" required id="STATUS" name="STATUS" />
                     </div>
                 </div>
                 <div class="modal-footer">

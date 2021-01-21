@@ -39,10 +39,6 @@ $("body").on("click", "#btn_close", function () {
 });
 $("body").on("click", "#btn_Add", function () {
 
-    //if ( $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" || $("#DatePlan").val() == "" || $("#DevicePrice").val() == "" || $("#Installtime").val() == "" || $("#Image1").val() == "" || $("#Status").val() == "") {
-    //    alert("Hãy nhập giá trị!");
-    //}
-    //else {
     var DeviceName = $("#DeviceName");
     var Model = $("#Model");
     var ScortCode = $("#ScortCode");
@@ -68,7 +64,6 @@ $("body").on("click", "#btn_Add", function () {
     //    FrequencyCheck.push($(this).val());
     //});
     var Status = $('input[name=Status]:checked').val();
-    //var Personmaintenance = $("#Personmaintenance");
     $.ajax({
         type: "POST",
         url: "/Home/Insert_device",

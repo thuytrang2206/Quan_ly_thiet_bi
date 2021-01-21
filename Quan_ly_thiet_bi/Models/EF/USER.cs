@@ -26,7 +26,13 @@ namespace Quan_ly_thiet_bi.Models.EF
         public string PASSWORD { get; set; }
 
         [StringLength(50)]
+        public string EMAIL { get; set; }
+
+        [StringLength(50)]
         public string ID_RULE { get; set; }
+
+        [StringLength(50)]
+        public string RESETPASSWORD { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DEVICE> DEVICEs { get; set; }

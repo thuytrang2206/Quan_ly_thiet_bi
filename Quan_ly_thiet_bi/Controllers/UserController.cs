@@ -6,6 +6,8 @@ using Quan_ly_thiet_bi.Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -49,6 +51,51 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             
         }
+
+        [NonAction]
+        private void SendVerificationLinkEmail(string EMAIL, string activationcode, string EmailFor= "VerifyAccount")
+        {
+            var varifyUrl = "/User/"+EmailFor+ "/" + activationcode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, varifyUrl);
+
+            var fromEmail = new MailAddress("trangminhd98@gmail.com", "ADMIN_UMC");
+            var toEmail = new MailAddress(EMAIL);
+            var frontEmailPassowrd = "ptt22698";
+            string subject = "";
+            string body = "";
+            if(EmailFor== "VerifyAccount")
+            {
+                 subject = "Your account is successfull created";
+                 body = "<br/><br/>We are excited to tell you that your account is" +
+                  " successfully created. Please click on the below link to verify your account" +
+                  " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+
+            }
+            else if(EmailFor=="ResetPassword")
+            {
+                subject = "Reset Password";
+                body="Hi,<br/><br/>We got request for reset your account password. Please click on the below link to reset your password"+
+                    "<br/><br/><a href="+link+"> Reset Password link</a>";
+            }
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, frontEmailPassowrd)
+
+            };
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
+        }
         public ActionResult Getuser(string ID_USER)
         {
             JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
@@ -65,6 +112,7 @@ namespace Quan_ly_thiet_bi.Controllers
                 {
                     var d = db.USERs.Where(x => x.ID_USER == user.ID_USER).SingleOrDefault();
                     d.NAME = user.NAME;
+                    d.EMAIL = user.EMAIL;
                     d.PASSWORD = Encryptor.MD5Hash(user.ID_USER);
                     db.SaveChanges();
                     user = null;
@@ -83,38 +131,70 @@ namespace Quan_ly_thiet_bi.Controllers
             }
 
         }
-        
-        //[HttpPost]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var dao =new  UserDao();
-        //        if (dao.Checkusername(model.NAME))
-        //        {
-        //            ModelState.AddModelError("", "Tên tài khoản đã tồn tại");
-        //        }
-        //        else
-        //        {
-        //            var user = new USER();
-        //            string id = Guid.NewGuid().ToString();
-        //            user.ID_USER = id;
-        //            user.NAME = model.NAME;
-        //            user.PASSWORD = Encryptor.MD5Hash(model.PASSWORD);
-        //            user.ID_RULE = model.ID_RULE;
-        //            var result = dao.Insert(user);
-        //            if (result != null)
-        //            {
-        //                ModelState.AddModelError("", "Đăng kí không thành công");
-        //            }
-        //            else
-        //            {
-        //                ViewBag.Success = "ĐĂng kí thành công";
-        //                model = new RegisterModel();
-        //            }
-        //        }
-        //    }
-        //    return View(model); 
-        //}
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(string EMAIL)
+        {
+            string message = "";
+            bool status = false;
+            var account = db.USERs.Where(a => a.EMAIL == EMAIL).FirstOrDefault();
+            if (account != null)
+            {
+                string resetcode = Guid.NewGuid().ToString();
+                SendVerificationLinkEmail(account.EMAIL, resetcode, "ResetPassword");
+                account.RESETPASSWORD = resetcode;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.SaveChanges();
+                message = "Chúng tôi đã gửi link cài đặt lại mật khẩu qua email bạn đã đăng ký!";
+            }
+            else
+            {
+                message = "Tài khoản không tìm thấy!";
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+        public ActionResult ResetPassword(string ID)
+        {
+            var user = db.USERs.Where(a => a.RESETPASSWORD == ID).FirstOrDefault();
+            if(user!= null)
+            {
+                ResetPasswordModel model = new ResetPasswordModel();
+                model.ResetCode = ID;
+                return View(model);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword( ResetPasswordModel model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var user = db.USERs.Where(a => a.RESETPASSWORD == model.ResetCode).FirstOrDefault();
+                if (user != null)
+                {
+                    string password = Encryptor.MD5Hash(model.NewPassword);
+                    user.PASSWORD =password ;
+                    user.RESETPASSWORD = "";
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.SaveChanges();
+                    message = "Mật khẩu cập nhật thành công";
+                }
+            }
+            else
+            {
+                message = "Có vấn đề không hợp lệ";
+            }
+            ViewBag.Message = message;
+            return View(model);
+        }
     }
 }

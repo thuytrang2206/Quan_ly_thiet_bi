@@ -11,27 +11,25 @@ $(document).ready(function () {
 
 $("body").on("click", "#btn_Add", function () {
 
-    if ($("#NAME").val() == "" || $("#PASSWORD").val() == "") {
+    if ($("#NAME").val() == "" || $("#EMAIL").val() == "" || $("#PASSWORD").val() == "") {
         alert("Hãy nhập giá trị!");
     }
     else {
         var NAME = $("#NAME");
+        var EMAIL = $("#EMAIL");
         var PASSWORD = $("#PASSWORD");
         var ID_RULE = $("#ID_RULE");
         $.ajax({
             type: "POST",
             url: "/User/Insert_user",
-            data: '{NAME:"' + NAME.val() + '",PASSWORD:"' + PASSWORD.val() + '",ID_RULE:"' + ID_RULE.val() + '"}',
+            data: '{NAME:"' + NAME.val() + '",EMAIL:"' + EMAIL.val() + '",PASSWORD:"' + PASSWORD.val() + '",ID_RULE:"' + ID_RULE.val() + '"}',
             contentType: "application/json charset=utf-8",
             datatype: "json",
             success: function (data) {
-                //if (data == 1) {
-                //    $("#valiable").html('<font color="Red">Tên nhân viên đã tồn tại</font>');
-                //    $("#NAME").css("border-color", "Red");
-                //}
                 var newrow = $("#dataTable tr:last-child");
                 window.location.reload();
                 NAME.val() = "";
+                EMAIL.val() = "";
                 PASSWORD.val() = "";
                 ID_RULE.val() = "";
             }
@@ -51,6 +49,7 @@ function Sua(el) {
             var json = JSON.parse(data);
             $("#ID_USER").val(json.ID_USER);
             $("#NAME").val(json.NAME);
+            $("#EMAIL").val(json.EMAIL);
             $("#PASSWORD").val(json.PASSWORD);
             $("#ID_RULE").val(json.ID_RULE)
         },

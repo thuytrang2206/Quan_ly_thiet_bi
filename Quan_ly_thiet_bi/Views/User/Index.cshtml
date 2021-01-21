@@ -17,7 +17,7 @@
                         var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                         var id_rule = session.ID_RULE;
                     }
-                    @if (id_rule == "R001")
+                    @if (id_rule == "R003")
                     {
                             <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
                                 <i class="fa fa-plus"> Thêm mới</i>
@@ -31,12 +31,12 @@
                                 <th>STT</th>
                                 <th style="display:none;"></th>
                                 <th>Tên nhân viên</th>
+                                <th>Email</th>
                                 <th>Mật khẩu</th>
                                 <th>Quyền</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
-                                    
-                                    if (id_rule == "R001")
+                                    if (id_rule == "R003")
                                     {
                                         <th style="color:black;">Thao tác</th>
                                     }
@@ -52,6 +52,7 @@
                                     <td>@i</td>
                                     <td style="display:none;">@items.ID_USER</td>
                                     <td>@items.NAME</td>
+                                    <td>@items.EMAIL</td>
                                     <td>@items.PASSWORD</td>
                                     <td>
                                         @foreach (var r in list_rule)
@@ -61,12 +62,10 @@
                                                 @r.NAME
                                             }
                                         }
-
                                     </td>
                                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                     {
-                                       
-                                        if (id_rule == "R001")
+                                        if (id_rule == "R003")
                                         {
                                             <td>
                                                 <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.ID_USER" id="btn_edit"><i class="fas fa-edit"></i></button>
@@ -76,7 +75,6 @@
                                     }
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -100,6 +98,10 @@
                         <label>Tên nhân viên:</label>
                         <input type="text" class="form-control" required id="NAME" name="NAME" onchange="UserCheck()"  />
                         <span id="Status"></span>
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com"/>
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mật khẩu:</label>

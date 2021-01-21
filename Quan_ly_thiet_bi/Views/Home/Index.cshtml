@@ -1,16 +1,17 @@
-﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
+﻿
+@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+     var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
 }
 
-<form method="post" action="/Home/Edit_device" >
+<form method="post" action="/Home/Edit_device">
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -53,7 +54,7 @@
                                         <th style="color:black;">Thao tác</th>
                                     }
                                 }
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -65,40 +66,40 @@
                                     <td>@i</td>
                                     <td style="display:none;">@items.Id</td>
                                     <td><a href="/Home/Maintenance/@items.Id">@items.DeviceName</a></td>
-                                    <td><img src="@items.Image1" style="width:120px;height:100px;"/></td>
+                                    <td><img src="@items.Image1" style="width:120px;height:100px;" /></td>
                                     <td>@items.Model</td>
                                     <td>@items.ScortCode</td>
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
                                     <td>@items.Location</td>
-                                    <td>@Html.DisplayFor(m=>items.DatePlan)</td>
+                                    <td>@Html.DisplayFor(m => items.DatePlan)</td>
                                     <td>
-                                    @foreach(var u in list_user)
-                                    {
-                                        if(u.ID_USER== @items.Creator)
+                                        @foreach (var u in list_user)
                                         {
-                                            @u.NAME
-                                        }
-                                    }
-                                    </td>
-                                        @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
-                                        {
-                                            var id_rule = session.ID_RULE;
-                                            if (id_rule == "R001")
+                                            if (u.ID_USER == @items.Creator)
                                             {
-                                                <td>
-                                                    <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id" id="btn_edit"><i class="fas fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
-                                                </td>
+                                                @u.NAME
                                             }
                                         }
+                                    </td>
+                                    @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                                    {
+                                        var id_rule = session.ID_RULE;
+                                        if (id_rule == "R001")
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id" id="btn_edit"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        }
+                                    }
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-    </div>
+        </div>
         <!-- Modal add-->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -138,7 +139,7 @@
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
                                 <label><b>Nhóm thiết bị:</b></label>
-                                <select class="form-control" id="DeviceGroup" name="DeviceGroup" >
+                                <select class="form-control" id="DeviceGroup" name="DeviceGroup">
                                     @foreach (var ca in list_group)
                                     {
                                         <option value="@ca.ID_GROUP">@ca.NAME</option>
@@ -148,7 +149,7 @@
                             <div class="col-6" style="float:left;">
                                 <label><b>Giá tiền:</b></label>
                                 <input type="text" class="form-control" id="DevicePrice" name="DevicePrice" />
-                               
+
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -158,7 +159,7 @@
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label><b>Vị trí</b></label>
-                               <input type="text" class="form-control"  id="Location" name="Location" />
+                                <input type="text" class="form-control" id="Location" name="Location" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -172,7 +173,7 @@
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
-                  
+
                             <div class="col-12" style="float:left;">
                                 <label><b>Trạng thái</b></label><br />
                                 <input type="radio" id="Status" name="Status" value="1" /> Đang hoạt động
@@ -186,34 +187,18 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close" >Đóng</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm" >Thêm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Thêm</button>
                         <input type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu" />
                     </div>
                 </div>
             </div>
         </div>
 
-     </div>
+    </div>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <script src="~/Scripts/devicemanager.js"></script>
-@*<script>
-    function DeviceCheck() {
-        $("#Status").html("");
-        $.post("@Url.Action("Insert_device", "Home")",
-    {
-        DeviceName: $("#DeviceName").val()
-    },
-    function (data) {
-        if (data == 1) {
-            $("#Status").html('<font color="Red">Tên thiết bị đã tồn tại</font>');
-        }
-        else {
-            $("#Status").html('<font></font>');
-        }
-    });
-    }
-</script>*@
+

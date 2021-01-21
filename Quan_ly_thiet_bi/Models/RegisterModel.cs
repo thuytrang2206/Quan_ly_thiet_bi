@@ -13,6 +13,9 @@ namespace Quan_ly_thiet_bi.Models
         [Required(ErrorMessage ="Bắt buộc nhập tên")]
         public string NAME { set; get; }
 
+        [Required(ErrorMessage = "Email bắt buộc phải nhập")]
+        public string EMAIL { set; get; }
+
         [Required(ErrorMessage = "Nhập mật khẩu")]
         public string PASSWORD { set; get; }
 
