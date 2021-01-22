@@ -1,17 +1,12 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 @model IEnumerable<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form method="post" action="/Group_device/Edit_groupdevice">
+<form method="post" action="/Group_device/Edit_group">
     <div class="container-fluid">
-        <!-- Page Heading -->
+        <!-- Page Heading -->l
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -20,9 +15,16 @@
                     @{
                         var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                     }
+                   @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                   {
+                       var id_rule = session.ID_RULE;
+                       if (id_rule != "R002")
+                       {
                     <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
                         <i class="fa fa-plus"> Thêm mới</i>
                     </button>
+                       }
+                   }
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
@@ -35,7 +37,7 @@
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
                                     var id_rule = session.ID_RULE;
-                                    if (id_rule == "R001")
+                                    if (id_rule != "R002")
                                     {
                                         <th style="color:black;">Thao tác</th>
                                     }
@@ -50,17 +52,17 @@
                                 <tr>
                                     <td>@i</td>
                                     <td style="display:none;">@items.ID_GROUP</td>
-                                    <td><a href="/Admin_/Chi_tiet_thiet_bi/@items.ID_GROUP">@items.NAME</a></td>
+                                    <td><a href="/Group_device/Chi_tiet_thiet_bi/@items.ID_GROUP">@items.NAME</a></td>
                                     <td>@items.DESCIPTION</td>
                                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                     {
                                         var id_rule = session.ID_RULE;
-                                        if (id_rule == "R001")
+                                        if (id_rule != "R002")
                                         {
                                             <td>
-                                                <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.ID_GROUP" id="btn_edit"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" title="Sua" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></button>
                                                 <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                    </td>
                                         }
                                     }
                                 </tr>
@@ -92,10 +94,6 @@
                         <label>Mô tả:</label>
                         <input type="text" class="form-control" required id="DESCIPTION" name="DESCIPTION" />
                     </div>
-                    <div class="col-12" style="margin:5px 0px;">
-                        <label>Trạng thái :</label>
-                        <input type="text" class="form-control" required id="STATUS" name="STATUS" />
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
@@ -108,7 +106,7 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script src="~/Scripts/group_device.js"></script>
+<script src="~/Scripts/groupdevice.js"></script>
 <script>
     $(document).ready(function () {
         $("#btn_edit").click(function () {

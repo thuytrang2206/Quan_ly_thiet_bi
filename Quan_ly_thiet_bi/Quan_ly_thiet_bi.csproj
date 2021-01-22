@@ -231,6 +231,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAO\Device.cs" />
     <Compile Include="Models\DAO\Group_Device.cs" />
+    <Compile Include="Models\DAO\Rule.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
     <Compile Include="Models\DeviceandHistory.cs" />
     <Compile Include="Models\EF\Checkmaintenance.cs" />
@@ -2776,8 +2777,8 @@
     <Content Include="Admin\js\plugins\ckfinder\userfiles\.htaccess" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckfinder.js" />
-    <Content Include="Scripts\devicemanager.js" />
-    <Content Include="Scripts\group_device.js" />
+    <Content Include="Scripts\device.js" />
+    <Content Include="Scripts\groupdevice.js" />
     <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2833,10 +2834,10 @@
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Group_device\Index.cshtml" />
-    <Content Include="Views\Group_device\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\jquery\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>

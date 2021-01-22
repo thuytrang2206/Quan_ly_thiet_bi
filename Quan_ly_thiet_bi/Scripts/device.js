@@ -38,7 +38,12 @@ $("body").on("click", "#btn_close", function () {
     });
 });
 $("body").on("click", "#btn_Add", function () {
+    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" || $("#DatePlan").val() == "" || $("#DevicePrice").val() == "" || $("#Image1").val() == "" || $("#Installtime").val() == "") {
+        alert("Bạn chưa nhập giá trị!");
+    }
+    else {
 
+    
     var DeviceName = $("#DeviceName");
     var Model = $("#Model");
     var ScortCode = $("#ScortCode");
@@ -88,6 +93,7 @@ $("body").on("click", "#btn_Add", function () {
             Status.val() = "";
         }
     });
+    }
 });
 function Xoa(el) {
     var id = el.parentNode.parentNode.cells[1].textContent;
@@ -108,13 +114,13 @@ function Xoa(el) {
 function Sua(el) {
     event.preventDefault();
     $("#btn_sua").show();
-    var id = el.parentNode.parentNode.cells[1].textContent;
+    var Id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
-        url: "/Home/Getdevice/?Id=" + id,
+        url: "/Home/Get_device/?Id=" + Id,
         type: "GET",
         dataType: 'json',
         success: function (data) {
-            var json = JSON.parse(data);
+            var json = JSON.parse(JSON.stringify(data));
             const d = new Date(json.DatePlan);
             const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
             const d1 = new Date(json.Installtime);

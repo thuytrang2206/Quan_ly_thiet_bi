@@ -22,7 +22,7 @@
                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                     {
                         var id_rule = session.ID_RULE;
-                        if (id_rule == "R001")
+                        if (id_rule != "R002")
                         {
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
                                 <i class="fa fa-plus"> Thêm mới</i>
@@ -49,7 +49,7 @@
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
                                     var id_rule = session.ID_RULE;
-                                    if (id_rule == "R001")
+                                    if (id_rule != "R002")
                                     {
                                         <th style="color:black;">Thao tác</th>
                                     }
@@ -85,10 +85,10 @@
                                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                     {
                                         var id_rule = session.ID_RULE;
-                                        if (id_rule == "R001")
+                                        if (id_rule != "R002")
                                         {
                                             <td>
-                                                <button type="button" class="btn btn-success" onclick="Sua(this)" data-toggle="modal" data-target="#myModal" data-id="@items.Id" id="btn_edit"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" title="Sua" data-toggle="modal" data-target="#myModal" ><i class="fa fa-edit"></i></button>
                                                 <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
                                             </td>
                                         }
@@ -200,5 +200,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script src="~/Scripts/devicemanager.js"></script>
-
+<script src="~/Scripts/device.js"></script>

@@ -25,5 +25,6 @@ namespace Quan_ly_thiet_bi.Models.DAO
         {
             return db.DEVICEs.Where(d => d.DateMaintenance.Value.Month == x).ToList();
         }
+      
     }
 }

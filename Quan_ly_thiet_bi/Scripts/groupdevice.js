@@ -15,7 +15,7 @@ $("body").on("click", "#btn_close", function () {
 
 $("body").on("click", "#btn_Add", function () {
 
-    if ($("#NAME").val() == "" || $("#DESCIPTION").val() == "") {
+    if ($("#NAME").val() == "" || $("#DESCIPTION").val() == "" ) {
         alert("Hãy nhập giá trị!");
     }
     else {
@@ -57,14 +57,15 @@ function Sua(el) {
     $("#btn_sua").show();
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
-        url: "/Group_device/Get_groupdevice/?Id=" + id,
+        url: "/Group_device/Get_group/?Id=" + id,
         type: "GET",
         dataType: 'json',
         success: function (data) {
-            var json = JSON.parse(data);
+            var json = JSON.parse(JSON.stringify(data));
             $("#ID_GROUP").val(json.ID_GROUP)
             $("#NAME").val(json.NAME);
             $("#DESCIPTION").val(json.DESCIPTION);
+            $("#STATUS").val(json.STATUS);
         },
         error: function (err) {
             alert("Error: " + err.responseText);

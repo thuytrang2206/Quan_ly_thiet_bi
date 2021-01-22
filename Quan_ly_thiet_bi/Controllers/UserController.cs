@@ -5,6 +5,7 @@ using Quan_ly_thiet_bi.Models.DAO;
 using Quan_ly_thiet_bi.Models.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -51,7 +52,42 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             
         }
+        public ActionResult Getuser(string ID_USER)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var d = db.USERs.SingleOrDefault(x => x.ID_USER == ID_USER);
+            var result = Json(d, JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+        [HttpPost]
+        public ActionResult Edit_user(USER user, string submit)
+        {
+            if (submit == "Lưu")
+            {
+                if (user != null)
+                {
+                    var d = db.USERs.Where(x => x.ID_USER == user.ID_USER).SingleOrDefault();
+                    d.NAME = user.NAME;
+                    d.EMAIL = user.EMAIL;
+                    d.PASSWORD = Encryptor.MD5Hash(user.ID_USER);
+                    db.SaveChanges();
+                    user = null;
+                }
+                List<RULE> list_rule = db.RULEs.ToList();
+                ViewBag.list_rule = list_rule;
+                var model = db.USERs.ToList();
+                return View("Index", model);
+            }
+            else
+            {
+                List<RULE> list_rule = db.RULEs.ToList();
+                ViewBag.list_rule = list_rule;
+                var model = db.USERs.ToList();
+                return View("Index", model);
+            }
 
+        }
         [NonAction]
         private void SendVerificationLinkEmail(string EMAIL, string activationcode, string EmailFor= "VerifyAccount")
         {
@@ -96,41 +132,8 @@ namespace Quan_ly_thiet_bi.Controllers
             })
                 smtp.Send(message);
         }
-        public ActionResult Getuser(string ID_USER)
-        {
-            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-            var d = db.USERs.SingleOrDefault(x => x.ID_USER == ID_USER);
-            var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
-            return this.Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public ActionResult Edit_user(USER user, string submit)
-        {
-            if (submit == "Lưu")
-            {
-                if (user != null)
-                {
-                    var d = db.USERs.Where(x => x.ID_USER == user.ID_USER).SingleOrDefault();
-                    d.NAME = user.NAME;
-                    d.EMAIL = user.EMAIL;
-                    d.PASSWORD = Encryptor.MD5Hash(user.ID_USER);
-                    db.SaveChanges();
-                    user = null;
-                }
-                List<RULE> list_rule = db.RULEs.ToList();
-                ViewBag.list_rule = list_rule;
-                var model = db.USERs.ToList();
-                return View("Index",model);
-            }
-            else
-            {
-                List<RULE> list_rule = db.RULEs.ToList();
-                ViewBag.list_rule = list_rule;
-                var model = db.USERs.ToList();
-                return View("Index", model);
-            }
 
-        }
+       
         public ActionResult ForgotPassword()
         {
             return View();

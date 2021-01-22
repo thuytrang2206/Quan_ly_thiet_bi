@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Quan_ly_thiet_bi.Models.EF;
 using Newtonsoft.Json;
+using Quan_ly_thiet_bi.Models.DAO;
+using System.Data.Entity;
 
 namespace Quan_ly_thiet_bi.Controllers
 {
@@ -47,15 +49,16 @@ namespace Quan_ly_thiet_bi.Controllers
             db.SaveChanges();
             return (Json(JsonRequestBehavior.AllowGet));
         }
-        public ActionResult Get_groupdevice(string Id)
+        public ActionResult Get_group(string Id)
         {
-            JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            db.Configuration.ProxyCreationEnabled = false;
             var d = db.GROUP_DEVICE.SingleOrDefault(x => x.ID_GROUP == Id);
-            var result = JsonConvert.SerializeObject(d, Formatting.Indented, jss);
-            return this.Json(result, JsonRequestBehavior.AllowGet);
+            var result = Json(d, JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
         }
         [HttpPost]
-        public ActionResult Edit_groupdevice(GROUP_DEVICE gr_dev,string submit)
+        public ActionResult Edit_group(GROUP_DEVICE gr_dev, string submit)
         {
             if (submit == "Lưu")
             {
@@ -77,5 +80,6 @@ namespace Quan_ly_thiet_bi.Controllers
             }
 
         }
+     
     }
 }

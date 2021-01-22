@@ -13,6 +13,10 @@ namespace Quan_ly_thiet_bi.Models.DAO
         {
             return db.GROUP_DEVICE.Find(ID_GROUP);
         }
+        public List<GROUP_DEVICE> ListGroup()
+        {
+            return db.GROUP_DEVICE.ToList();
+        }
         public bool Update(GROUP_DEVICE group)
         {
             try
