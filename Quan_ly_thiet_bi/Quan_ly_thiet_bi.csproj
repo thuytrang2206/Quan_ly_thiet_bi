@@ -2790,11 +2790,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\user.js" />
     <Content Include="Scripts\maintenance.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\user.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2815,7 +2815,6 @@
     <Content Include="Views\Shared\_AcountLogin.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth2.cshtml" />
-    <Content Include="Views\PlanRepair\GetMonth3.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth4.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth5.cshtml" />
     <Content Include="Views\PlanRepair\GetMonth6.cshtml" />
@@ -2834,10 +2833,10 @@
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Group_device\Index.cshtml" />
+    <Content Include="Views\PlanRepair\GetMonth3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\jquery\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>

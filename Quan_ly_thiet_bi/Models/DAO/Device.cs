@@ -15,7 +15,7 @@ namespace Quan_ly_thiet_bi.Models.DAO
         }
         public IEnumerable<DEVICE> List_Device()
         {
-            return db.DEVICEs.ToList();
+            return db.DEVICEs.Where(x=>x.Status==1).ToList();
         }
         public DEVICE View_detail (string id)
         {

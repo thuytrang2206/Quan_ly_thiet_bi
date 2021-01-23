@@ -28,12 +28,12 @@ namespace Quan_ly_thiet_bi.Controllers
             {
                 List<RULE> list_rule = db.RULEs.ToList();
                 ViewBag.list_rule = list_rule;
-                var model = db.USERs.ToList();
+                var model = db.USERs.Where(x=>x.STATUS==true).ToList();
                 return View(model);
             }
 
         }
-        public JsonResult Insert_user(USER u,string NAME)
+        public JsonResult Insert_user(USER u,string NAME, string EMAIL)
         {
             //System.Threading.Thread.Sleep(200);
             var searchdata = db.USERs.Where(x => x.NAME == NAME).SingleOrDefault();
@@ -43,14 +43,14 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                string id = Guid.NewGuid().ToString();
-                u.ID_USER = id;
-                u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
-                db.USERs.Add(u);
-                db.SaveChanges();
-                return Json(u);
-            }
-            
+                    string id = Guid.NewGuid().ToString();
+                    u.ID_USER = id;
+                    u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
+                    u.STATUS = true;
+                    db.USERs.Add(u);
+                    db.SaveChanges();
+                    return Json(u);             
+            }  
         }
         public ActionResult Getuser(string ID_USER)
         {
@@ -88,6 +88,15 @@ namespace Quan_ly_thiet_bi.Controllers
             }
 
         }
+
+        public ActionResult Delete_User(string ID_USER)
+        {
+            var del_user = db.USERs.SingleOrDefault(d => d.ID_USER == ID_USER);
+            del_user.STATUS = false;
+            db.SaveChanges();
+            return (Json(JsonRequestBehavior.AllowGet));
+        }
+
         [NonAction]
         private void SendVerificationLinkEmail(string EMAIL, string activationcode, string EmailFor= "VerifyAccount")
         {
@@ -133,7 +142,6 @@ namespace Quan_ly_thiet_bi.Controllers
                 smtp.Send(message);
         }
 
-       
         public ActionResult ForgotPassword()
         {
             return View();

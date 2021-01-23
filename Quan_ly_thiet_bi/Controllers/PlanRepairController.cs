@@ -27,6 +27,8 @@ namespace Quan_ly_thiet_bi.Controllers
             else
             {
                 var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 1 && d.DatePlan.Value.Year == year )|| (d.DateMaintenance.Value.Month==1 && d.DateMaintenance.Value.Year==year) ).ToList();
+                List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+                ViewBag.list_group = list_group;
                 return View(model);
             }
         }
@@ -50,10 +52,9 @@ namespace Quan_ly_thiet_bi.Controllers
             }
             else
             {
-                var model = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 3 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 3 && d.DateMaintenance.Value.Year == year)).ToList();
-                return View(model);
+                var thang_3 = db.DEVICEs.Where(d =>( d.DatePlan.Value.Month == 3 && d.DatePlan.Value.Year == year)|| (d.DateMaintenance.Value.Month ==3 && d.DateMaintenance.Value.Year == year )).ToList();
+                return View(thang_3);
             }
-       
         }
         public ActionResult GetMonth4()
         {
@@ -153,14 +154,14 @@ namespace Quan_ly_thiet_bi.Controllers
         }
         public ActionResult GetMonth12()
         {
-            if (Session["USER_SESSION"] == null)
+            if(Session["USER_SESSION"]== null)
             {
                 return RedirectToAction("Index", "Login");
             }
             else
             {
-                var model = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 12 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 12 && d.DateMaintenance.Value.Year == year)).ToList();
-                return View(model);
+                var models = db.DEVICEs.Where(d => (d.DatePlan.Value.Month == 12 && d.DatePlan.Value.Year == year) || (d.DateMaintenance.Value.Month == 11 && d.DateMaintenance.Value.Year == year)).ToList();
+                return View(models);
             }
         }
         public ActionResult Detail_plan_repair(string Id)

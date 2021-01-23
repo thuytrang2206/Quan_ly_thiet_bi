@@ -3,9 +3,7 @@
     ViewBag.Title = "GetMonth3";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container-fluid">
-
     <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 3</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -13,13 +11,11 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable-plane1" width="100%" cellspacing="0" style="color:black;">
                     <thead>
-                        <tr>
+                        <tr style="background-color:#4e73df;">
                             <th>
                                 Ngày
                             </th>
-                            @{
-                                int day;
-                            }
+                            @{ int day;}
                             @for (day = 1; day <= 31; day++)
                             {
                                 <th>@day</th>
@@ -27,24 +23,26 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td></td>
                                 @for (day = 1; day <= 31; day++)
                                 {
-                                    if (item.DatePlan.Value.Day == day && item.DatePlan.Value.Month == 3)
+                                    if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day && item.DateMaintenance.Value.Month == 3)
                                     {
-                                        <td style="background-color:yellow;">
-                                            <a href="/PlanRepair/Detail_plan_repair/@item.Id">@item.DeviceName</a>
+                                        <td style="background-color:#1cc88acc;">
+                                            <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
                                         </td>
                                     }
+
                                     else
                                     {
-                                        if (item.DateMaintenance != null && item.DateMaintenance.Value.Day == day && item.DateMaintenance.Value.Month==3)
+                                        if (item.DatePlan != null && item.DatePlan.Value.Day == day && item.DatePlan.Value.Month == 3)
                                         {
-                                            <td style="background-color:#1cc88acc;">
-                                                <a href="/Home/Detail_device/@item.Id">@item.DeviceName</a>
+                                            <td style="background-color:yellow;">
+                                                <a href="/PlanRepair/Detai_plan/@item.Id">@item.DeviceName</a>
                                             </td>
                                         }
                                         else
@@ -58,10 +56,10 @@
                         }
                     </tbody>
                 </table>
-
-
             </div>
         </div>
     </div>
 </div>
+
+
 

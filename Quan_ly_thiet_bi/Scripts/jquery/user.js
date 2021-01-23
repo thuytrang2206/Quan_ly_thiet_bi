@@ -47,3 +47,19 @@ function Sua(el) {
         }
     });
 }
+function Xoa(el) {
+    var ID_USER = el.parentNode.parentNode.cells[1].textContent;
+    $.ajax({
+        url: '/User/Delete_User/?ID_USER=' + ID_USER,
+        type: 'POST',
+        dataType: 'json',
+        success: function () {
+            alert("Xóa thành công");
+            window.location.reload();
+        },
+        error: function () {
+            alert("Xóa thất bại");
+            window.location.reload();
+        }
+    });
+}

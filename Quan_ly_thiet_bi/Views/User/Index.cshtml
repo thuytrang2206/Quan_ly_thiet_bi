@@ -101,7 +101,8 @@
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Email</label>
-                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com" />
+                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com" onchange="EmailCheck()" />
+                        <span id="StatusEmail"></span>
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mật khẩu:</label>
@@ -131,13 +132,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">      </script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/user.js"></script>
+<script src="~/Scripts/jquery/user.js"></script>
 <script>
     function UserCheck() {
         $("#Status").html("");
         $.post("@Url.Action("Insert_user", "User")",
     {
-        NAME: $("#NAME").val()
+        NAME: $("#NAME").val(),
+        EMAIL: $("#EMAIL").val()
     },
     function (data) {
         if (data == 1) {
