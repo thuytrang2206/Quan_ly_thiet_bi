@@ -1,0 +1,222 @@
+﻿@model  Quan_ly_thiet_bi.Models.EF.Maintenance
+@{
+    ViewBag.Title = "Detail_plan_maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+    var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
+    var list_history = (List<Quan_ly_thiet_bi.Models.EF.HISTORY>)ViewBag.list_history;
+    var list_device = (List<Quan_ly_thiet_bi.Models.EF.DEVICE>)ViewBag.list_device;
+    var list_check = (List<Quan_ly_thiet_bi.Models.EF.Checkmaintenance>)ViewBag.list_check;
+}
+@using (Html.BeginForm("Detail_plan_repair", "PlanRepair", FormMethod.Post))
+{
+    
+    foreach (var item_device in list_device)
+    {
+        if (item_device.Id == Model.Id_device)
+        {
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black; " cellspacing="0">
+                        <tr>
+                            <td style="width:250px;">Tên thiết bị:</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.DeviceName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Model:</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Model, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Serial:</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.ScortCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nhà cung cấp:</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.VendorName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nhóm thiết bị</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.DeviceGroup, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
+                                @foreach (var item in list_group)
+                                {
+                                    if (item_device.DeviceGroup == item.ID_GROUP)
+                                    {
+                                        @Html.EditorFor(model => item.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số lượng máy</td>
+                            <td>@Html.EditorFor(model => item_device.Qty, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })</td>
+                        </tr>
+                        <tr>
+                            <td>Giá thiết bị</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.DevicePrice, "Currency", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thời gian lắm đặt</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Installtime, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kế hoạch sữa chữa:</td>
+                            <td>@Html.EditorFor(model => model.DatePlan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })</td>
+                        </tr>
+                        <tr>
+                            <td>Mục đích</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Purpose, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Remark, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
+                        <tr>
+                            <td>Nhân viên</td>
+                            <td>
+                                @foreach (var item_user in list_user)
+                                {
+                                    if (item_device.Creator == item_user.ID_USER)
+                                    {
+                                        @Html.EditorFor(model => item_user.NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:250px;">Ảnh thiết bị</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Image1, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none;" } })
+                                <img src="@Html.DisplayFor(model=>item_device.Image1)" style="width:200px;height:227px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vị trí</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tình trạng</td>
+                            <td>
+                                @Html.EditorFor(model => item_device.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
+                                @if (item_device.Status == 0)
+                                {
+                                    <p>Dừng hoạt động</p>
+                                }
+                                else
+                                {
+                                    <p>Đang hoạt động</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ngày thực hiện kiểm tra</td>
+                            <td>
+                                <input type="date" id="DateMaintenance" name="DateMaintenance" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số lượng máy kiểm tra</td>
+                            <td>
+                                <input type="text" class="form-control" id="QUANTITY" name="QUANTITY" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:61px;">Trạng thái sữa chữa:</td>
+                            <td>
+                                <div class="col-4" style="float:left">
+                                    @Html.RadioButtonFor(m => item_device.Updater, "Đã sửa chữa") Pass
+                                </div>
+                                <div class="col-4" style="float:left">
+                                    @Html.RadioButtonFor(m => item_device.Updater, "NG") NG
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lỗi phát sinh:</td>
+                            <td>
+                                <input type="text" class="form-control" id="NOTE" name="NOTE" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black; " cellspacing="0">
+                        <tr style="display:none;">
+                            <td></td>
+                            <td>
+                               @Html.EditorFor(model => model.Id_Maintenance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td></td>
+                            <td>
+                                @Html.EditorFor(model => model.Id_device, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Loại bảo trì</td>
+                            <td>
+                                @foreach (var item_check in list_check)
+                                {
+                                    if (Model.Checkmaintenance == item_check.Id__Checkmaintenace)
+                                    {
+                                        @Html.EditorFor(model => item_check.Classifymaintenance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:250px;">Hạng mục kiểm tra bảo dưỡng</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.Checkmaintenance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "display:none" } })
+                                    @foreach (var item_check in list_check)
+                                    {
+                                        if (Model.Checkmaintenance == item_check.Id__Checkmaintenace)
+                                        {
+                                            @Html.EditorFor(model => item_check.Checkmaintenace, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tần suất</td>
+                                <td>
+                                   @Html.EditorFor(model => model.FrequencyCheck, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                </td>
+                            </tr>
+                        <tr>
+                            <td>Người phụ trách</td>
+                            <td>
+                                @Html.EditorFor(model => model.Personmaintenance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                            </td>
+                        </tr>
+                        </table>
+
+                        <input type="submit" value="Update" class="btn btn-primary" style="float:right;" id="btnsubmit" />
+            </div>
+      </div>
+         }
+    }
+}
+
+    <script src="~/Scripts/history.js"></script>

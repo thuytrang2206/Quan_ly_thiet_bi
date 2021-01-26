@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.Maintenance>
+@{
+    ViewBag.Title = "Month_2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_device = (List<Quan_ly_thiet_bi.Models.EF.DEVICE>)ViewBag.list_device;
+}
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 2</h1>
+    <!-- DataTales Example -->
+    
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" @*width="100%"*@ cellspacing="0" style="color:black;">
+                    <thead>
+                        <tr>
+                            <th style="background-color:#4e73df;">Ngày</th>
+                            @{
+                                int year = DateTime.Now.Year;
+                                int days = 0;
+                                if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))    // nam nhuan
+                                { days = 29; }
+                                else
+                                { days = 28; }
+                                int day = 0; ;
+                            }
+                            @for (day = 1; day <= days; day++)
+                            {
+                                <th style="background-color:#4e73df;">@day</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style="background-color:yellow;">Kế hoạch</th>
+                            @for (day = 1; day <= days; day++)
+                            {
+                                <td>
+                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -27px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
+                                        @foreach (var item_main in Model)
+                                        {
+                                            if (item_main.DatePlan.Value.Day == day && item_main.DatePlan.Value.Month == 2)
+                                            {
+                                                foreach (var item_device in list_device)
+                                                {
+                                                    if (item_device.Id == item_main.Id_device)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/PlanRepair/Detail_plan_maintenance/@item_main.Id_Maintenance" style="color:black;"><span style="color:black;">@item_device.DeviceName</span></a><br />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <th style="background-color:#fa8430;">Thực hiện</th>
+                            @for (day = 1; day <= days; day++)
+                            {
+                                <td>
+                                    <table style="min-width: 45px; margin-left: -12px;margin-right:-27px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
+                                        @foreach (var item_main in Model)
+                                        {
+                                            if (item_main.DateMaintenance != null && item_main.DateMaintenance.Value.Day == day && item_main.DateMaintenance.Value.Month == 2)
+                                            {
+                                                foreach (var item_device in list_device)
+                                                {
+                                                    if (item_device.Id == item_main.Id_device)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/Home/Detail_device/@item_device.Id"><span style="color:black;">@item_device.DeviceName</span></a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+

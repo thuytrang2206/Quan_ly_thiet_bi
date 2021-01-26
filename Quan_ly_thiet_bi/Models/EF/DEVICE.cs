@@ -50,12 +50,6 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Creator { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime? DatePlan { get; set; }
-
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime? DateMaintenance { get; set; }
-
         [StringLength(50)]
         public string Updater { get; set; }
 

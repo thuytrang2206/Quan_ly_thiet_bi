@@ -56,7 +56,7 @@ namespace Quan_ly_thiet_bi.Controllers
                     string id_his = Guid.NewGuid().ToString();
                     his.ID_HISTORY = id_his;
                     his.ID_DEVICE = dev.Id;
-                    his.UPDATE_CHECK = dev.DateMaintenance;
+                    his.UPDATE_CHECK = DateTime.Now;
                     his.QUANTITY = dev.Qty;
                     his.STATUS = TaskType.New.ToString();
                     his.ID_USER = dev.Creator;
@@ -76,6 +76,10 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_history = list_history;
             List<USER> list_user = db.USERs.ToList();
             ViewBag.list_user = list_user;
+            List<Maintenance> list_main = db.Maintenances.ToList();
+            ViewBag.list_main = list_main;
+            List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
+            ViewBag.list_check = list_check;
             return View(model);
         }
         public ActionResult Delete_Device(HISTORY his, string id)
@@ -85,7 +89,7 @@ namespace Quan_ly_thiet_bi.Controllers
             string id_his = Guid.NewGuid().ToString();
             his.ID_HISTORY = id_his;
             his.ID_DEVICE = id;
-            his.UPDATE_CHECK = device.DateMaintenance;
+            his.UPDATE_CHECK = DateTime.Now;
             his.QUANTITY = device.Qty;
             his.STATUS = TaskType.Remove.ToString();
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
@@ -120,7 +124,6 @@ namespace Quan_ly_thiet_bi.Controllers
                     //d.Purpose = dev.Purpose;
                     d.Remark = dev.Remark;
                     d.DevicePrice = dev.DevicePrice;
-                    d.DatePlan = dev.DatePlan;
                     d.Installtime = dev.Installtime;
                     d.Image1 = dev.Image1;
                     var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
@@ -129,8 +132,8 @@ namespace Quan_ly_thiet_bi.Controllers
                     string id_his = Guid.NewGuid().ToString();
                     his.ID_HISTORY = id_his;
                     his.ID_DEVICE = dev.Id;
-                    his.UPDATE_CHECK = dev.DateMaintenance;
                     his.QUANTITY = dev.Qty;
+                    his.UPDATE_CHECK = DateTime.Now;
                     his.STATUS = TaskType.Update.ToString();
                     his.ID_USER = dev.Creator;
                     db.HISTORies.Add(his);
@@ -205,4 +208,5 @@ namespace Quan_ly_thiet_bi.Controllers
             return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
         }
     }
+   
 }

@@ -16,175 +16,196 @@
     <div class="card shadow mb-4">
         
         <div class="card-body">
-            <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0">
-                <tr>
-                    <th>Tên thiết bị:</th>
-                    <td>
-                        @Model.DeviceName
-                    </td>
-                </tr>
-                <tr>
-                    <th>Model:</th>
-                    <td>
-                        @Model.Model
-                    </td>
-                </tr>
-                <tr>
-                    <th>Serial:</th>
-                    <td>
-                        @Model.ScortCode
-                    </td>
-                </tr>
-                <tr>
-                    <th>Nhà cung cấp:</th>
-                    <td>
-                        @Model.VendorName
-                    </td>
-                </tr>
-                <tr>
-                    <th>Giá thiết bị:</th>
-                    <td>
-                        @String.Format("{0:c}", Model.DevicePrice)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Nhóm thiết bị</th>
-                    <td>
-                        @foreach (var item in list_group)
-                        {
-                            if (Model.DeviceGroup == item.ID_GROUP)
-                            {
-                                @item.NAME
-                            }
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Số lượng</th>
-                    <td>
-                        @Model.Qty
-                    </td>
-                </tr>
-                <tr>
-                    <th>Kế hoạch kiểm tra</th>
-                    <td>
-                        @Html.DisplayFor(model => model.DatePlan)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Thời gian thực hiện kiểm tra</th>
-                    <td>
-                        @Html.DisplayFor(model => model.DateMaintenance)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Mục đích</th>
-                    <td>
-                        @Model.Purpose
-                    </td>
-                </tr>
-               
-            </table>
-            <table class="table table-bordered" id="dataTable" style="width:50%;color:black;" cellspacing="0">
-                <tr>
-                    <th>Nhân viên</th>
-                    <td>
-                        @foreach (var item in list_user)
-                        {
-                            if (Model.Creator == item.ID_USER)
-                            {
-                                @item.NAME
-                            }
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Hình ảnh</th>
-                    <td>
-                        <img src="@Model.Image1" style="width:200px;height:220px;" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Thời gian lắp đặt</th>
-                    <td>
-                        @Html.DisplayFor(model => model.Installtime)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Tình trạng</th>
-                    <td>
-                        @if (Model.Status == 0)
-                        {<h6>Dừng hoạt động</h6> }
-                        else
-                        {  <h6>Đang hoạt động</h6> }
-                    </td>
-                </tr>
-                <tr>
-                    <th>Kết quả kiểm tra</th>
-                    <td>
-                        @Model.Updater
-                        (@foreach (var item_his in list_history)
-                        {
-                            if (item_his.ID_DEVICE == Model.Id && item_his.STATUS == TaskType.Repair.ToString())
-                            {
-                                @item_his.NOTE
-                            }
-                        })
-                    </td>
-                </tr>
-                <tr>
-                    <th>Ghi chú</th>
-                    <td>
-                        @Model.Remark
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="card-body">
-            <h5>Danh mục bảo trì</h5>
-          
-            <table class="table table-bordered" id="dataTable1" cellspacing="0" style="color:black;">
-                <thead>
-                    <tr>
-                        @*<th>Tên thiết bị</th>*@
-                        <th>Hạng mục kiểm tra bảo trì</th>
-                        <th>Phân loại bảo trì</th>
-                        <th>Tần suất kiểm tra</th>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0">
+                    <tr style="background-color:#4e73df;">
+                        <th>Tên thiết bị</th>
+                        <th>Nhóm thiết bị</th>
+                        <th>Ảnh</th>
+                        <th>Model</th>
+                        <th>Serial</th>
+                        <th>Nhà cung cấp</th>
+                        <th>Số lượng</th>
+                        <th>Giá </th>
+                        <th>Vị trí</th>
+                        <th>Thời gian lắp đặt</th>
+                        <th>Tình trạng</th>
+                        <th>Hạng mục kiểm tra</th>
+                        <th>Phân loại</th>
+                        <th>Tần suất</th>
                         <th>Người phụ trách</th>
+                        <th>Ngày kế hoạch</th>
+                        <th>Ngày bảo dưỡng</th>
                     </tr>
-                </thead>
-                <tbody>
-                    @{ int i = 0;}
-                    @foreach (var item_main in list_main)
-                    {
-                        i++;
-                        if (Model.Id == item_main.Id_device)
+                    <tr>
+                        <td>
+                            @Model.DeviceName
+                        </td>
+                        <td>
+                            @foreach(var item_group in list_group)
                         {
-                            <tr>
-                                @*<td rowspan="">      
-                                @if (Model.Id == item_main.Id_device)
-                                {@Model.DeviceName }
-                                </td>*@                              
-                                    @foreach (var item_check in list_check)
+                            if (item_group.ID_GROUP == Model.DeviceGroup)
+                            {
+                        @item_group.NAME
+                            }
+                        }
+                        </td>
+                        <td>
+                            <img src="@Model.Image1" style="width:150px;height:150px;" />
+                        </td>
+                        <td>
+                            @Model.Model
+                        </td>
+                        <td>
+                            @Model.ScortCode
+                        </td>
+                        <td>
+                            @Model.VendorName
+                        </td>
+                        <td>
+                            @Model.Qty
+                        </td>
+                        <td>
+                            @String.Format("{0:C}", Model.DevicePrice) 
+                        </td>
+                        <td>
+                            @Model.Location
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Installtime)
+                        </td>
+
+                        <td>
+                            @if (Model.Status == 0)
+                        {
+                        <p>Dừng hoạt động</p>
+                        }
+                        else
+                        {
+                        <p>Đang hoạt động</p>
+                        }
+                        </td>
+                        <td>
+                            <table style="width: 160px;margin:-12px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+                                    foreach (var item_check in list_check)
                                     {
-                                        if (item_main.Checkmaintenance == item_check.Id__Checkmaintenace)
+                                        if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
                                         {
-                                            <td>
-                                                @item_check.Checkmaintenace
-                                            </td>
-                                            <td>
-                                               @item_check.Classifymaintenance
-                                            </td>
+
+                            <tr>
+                                <td>
+                                    @item_check.Checkmaintenace
+                                </td>
+                            </tr>
+
                                         }
                                     }
-                               <td>@item_main.FrequencyCheck</td>
-                               <td>@item_main.Personmaintenance</td>
-                           </tr>
-                        }
-                    } 
-                </tbody>
-            </table>
-            <br />
+
+                                }
+                            }
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 160px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+                                    foreach (var item_check in list_check)
+                                    {
+                                        if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                        {
+                            <tr style="height:73px;">
+                                <td>
+                                    @item_check.Classifymaintenance
+                                </td>
+                            </tr>
+                                        }
+                                    }
+
+                                }
+                            }
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 100px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+
+                            <tr>
+                                <td style="height:73px;">
+                                    @item_main.FrequencyCheck
+                                </td>
+                            </tr>
+
+                                }
+                            }
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 85px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+
+                            <tr>
+                                <td style="height:73px;">
+                                    @item_main.Personmaintenance
+                                </td>
+                            </tr>
+
+                                }
+                            }
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+
+                            <tr>
+                                <td style="height:73px;">
+                                    @Html.DisplayFor(m => item_main.DatePlan)
+                                </td>
+                            </tr>
+
+                                }
+                            }
+                            </table>
+                        </td>
+                        <td>
+                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                                @foreach (var item_main in list_main)
+                            {
+                                if (item_main.Id_device == Model.Id)
+                                {
+
+                            <tr>
+                                <td style="height:73px;">
+                                    @Html.DisplayFor(m => item_main.DateMaintenance)
+                                </td>
+                            </tr>
+
+                                }
+                            }
+                            </table>
+                        </td>
+
+                    </tr>
+                </table>
+                </div>
+            </div>
+        <div class="card-body">
+          
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click" style="margin-bottom:10px;">
                 <i class="fa fa-plus"> Thêm danh mục bảo trì thiết bị</i>
             </button>
@@ -235,6 +256,10 @@
                         <label><b>Người phụ trách</b></label>
                         <input type="text" class="form-control" id="Personmaintenance" name="Personmaintenance" />
                     </div>
+                    <div>
+                        <label><b> Kế hoạch bảo dưỡng</b></label>
+                        <input type="date" class="form-control" id="DatePlan" name="DatePlane" />
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
@@ -248,4 +273,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script src="~/Scripts/maintenance.js"></script>
+<script src="~/Scripts/jquery/maintenance.js"></script>

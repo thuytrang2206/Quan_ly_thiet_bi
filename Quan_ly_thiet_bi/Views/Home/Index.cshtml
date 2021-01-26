@@ -1,9 +1,8 @@
-﻿
-@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.DEVICE>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-     var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
 }
 
@@ -44,7 +43,6 @@
                                 <th>Nhà cung cấp</th>
                                 <th>Số lượng</th>
                                 <th>Vị trí</th>
-                                <th>Kế hoạch sửa chữa</th>
                                 <th>Nhân viên</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
@@ -72,7 +70,7 @@
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
                                     <td>@items.Location</td>
-                                    <td>@Html.DisplayFor(m => items.DatePlan)</td>
+
                                     <td>
                                         @foreach (var u in list_user)
                                         {
@@ -88,7 +86,7 @@
                                         if (id_rule != "R002")
                                         {
                                             <td>
-                                                <button type="button" class="btn btn-success" onclick="Sua(this)" title="Sua" data-toggle="modal" data-target="#myModal" ><i class="fa fa-edit"></i></button>
+                                                <button type="button" class="btn btn-success" onclick="Sua(this)" title="Sua" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></button>
                                                 <button type="button" class="btn btn-danger" onclick="Xoa(this)" title="Xóa"><i class="fa fa-trash"></i></button>
                                             </td>
                                         }
@@ -153,10 +151,7 @@
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
-                            <div class="col-6" style="float:left;">
-                                <label><b>Kế hoạch sửa chữa:</b></label>
-                                <input type="date" class="form-control" id="DatePlan" name="DatePlan" />
-                            </div>
+
                             <div class="col-6" style="float:left;">
                                 <label><b>Vị trí</b></label>
                                 <input type="text" class="form-control" id="Location" name="Location" />
@@ -201,3 +196,5 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <script src="~/Scripts/device.js"></script>
+
+

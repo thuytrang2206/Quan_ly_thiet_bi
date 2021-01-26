@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.Maintenance>
+@{
+    ViewBag.Title = "Month_7";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_device = (List<Quan_ly_thiet_bi.Models.EF.DEVICE>)ViewBag.list_device;
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Kế hoạch sửa chữa tháng 7</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" @*width="100%"*@ cellspacing="0" style="color:black;">
+                    <thead>
+                        <tr>
+                            <th style="background-color:#4e73df;">Ngày</th>
+                            @{ int x = 0;}
+                            @for (x = 1; x <= 31; x++)
+                            {
+                                <th style="background-color:#4e73df;">@x</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style="background-color:yellow;">Kế hoạch</th>
+                            @for (x = 1; x <= 31; x++)
+                            {
+                                <td>
+                                    <table style="background-color:yellow;margin-top: -12px;margin-left: -13px;margin-bottom: -12px;">
+                                        @foreach (var item_main in Model)
+                                        {
+                                            if (item_main.DatePlan.Value.Day == x && item_main.DatePlan.Value.Month == 7)
+                                            {
+                                                foreach (var item_device in list_device)
+                                                {
+                                                    if (item_device.Id == item_main.Id_device)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/PlanRepair/Detail_plan_maintenance/@item_main.Id_Maintenance" style="color:black;"><span style="color:black;">@item_device.DeviceName</span></a><br />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <th style="background-color:#fa8430;">Thực hiện</th>
+                            @for (x = 1; x <= 31; x++)
+                            {
+                                <td>
+                                    <table style="background-color:#fa8430;margin-top: -12px;margin-left: -13px;margin-bottom: -12px;">
+                                        @foreach (var item_main in Model)
+                                        {
+                                            if (item_main.DateMaintenance != null && item_main.DateMaintenance.Value.Day == x && item_main.DateMaintenance.Value.Month == 7)
+                                            {
+                                                foreach (var item_device in list_device)
+                                                {
+                                                    if (item_device.Id == item_main.Id_device)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/Home/Detail_device/@item_device.Id"><span style="color:black;">@item_device.DeviceName</span></a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+

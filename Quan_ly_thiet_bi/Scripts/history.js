@@ -7,6 +7,7 @@
                 NOTE: $("NOTE").val(),
                 QUANTITY: $("QUANTITY").val(),
                 DateMaintenance: $("DateMaintenance").val(),
+
             }
         });
     });

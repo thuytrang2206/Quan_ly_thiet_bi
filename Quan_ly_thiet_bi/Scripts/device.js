@@ -38,7 +38,7 @@ $("body").on("click", "#btn_close", function () {
     });
 });
 $("body").on("click", "#btn_Add", function () {
-    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" || $("#DatePlan").val() == "" || $("#DevicePrice").val() == "" || $("#Image1").val() == "" || $("#Installtime").val() == "") {
+    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" ||  $("#DevicePrice").val() == "" || $("#Image1").val() == "" || $("#Installtime").val() == "") {
         alert("Bạn chưa nhập giá trị!");
     }
     else {
@@ -52,7 +52,6 @@ $("body").on("click", "#btn_Add", function () {
     var DeviceGroup = $("#DeviceGroup");
     var Remark = $("#Remark");
     var Location = $("#Location");
-    var DatePlan = $("#DatePlan");
     var Image1 = $("#Image1");
     var DevicePrice = $("#DevicePrice");
     var Installtime = $("#Installtime");
@@ -72,7 +71,7 @@ $("body").on("click", "#btn_Add", function () {
     $.ajax({
         type: "POST",
         url: "/Home/Insert_device",
-        data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",ScortCode:"' + ScortCode.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Remark:"' + Remark.val() + '",Location:"' + Location.val() + '",DatePlan:"' + DatePlan.val() + '",DevicePrice:"' + DevicePrice.val() + '",Installtime:"' + Installtime.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status + '"}',
+        data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",ScortCode:"' + ScortCode.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Remark:"' + Remark.val() + '",Location:"' + Location.val() + '",DevicePrice:"' + DevicePrice.val() + '",Installtime:"' + Installtime.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status + '"}',
         contentType: "application/json charset=utf-8",
         datatype: "json",
         success: function () {
@@ -86,7 +85,6 @@ $("body").on("click", "#btn_Add", function () {
             DeviceGroup.val() = "";
             Remark.val() = "";
             Location.val() = "";
-            DatePlan.val() = "";
             DevicePrice.val() = "";
             Installtime.val() = "";
             Image1.val() = "";
@@ -121,8 +119,8 @@ function Sua(el) {
         dataType: 'json',
         success: function (data) {
             var json = JSON.parse(JSON.stringify(data));
-            const d = new Date(json.DatePlan);
-            const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+            //const d = new Date(json.DatePlan);
+            //const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
             const d1 = new Date(json.Installtime);
             const Installtime = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
             $("#Id").val(json.Id);
@@ -134,7 +132,7 @@ function Sua(el) {
             $("#DeviceGroup").val(json.DeviceGroup);
             $("#Remark").val(json.Remark);
             $("#Location").val(json.Location);
-            $("#DatePlan").val(formattedDate);
+            //$("#DatePlan").val(formattedDate);
             $("#Installtime").val(Installtime);
             $("#DevicePrice").val(json.DevicePrice);
             $("#Image1").val(json.Image1);

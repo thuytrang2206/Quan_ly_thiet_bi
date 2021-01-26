@@ -5,10 +5,11 @@
     var Checkmaintenance = $('input[name=Checkmaintenance]:checked').val();
     var Personmaintenance = $("#Personmaintenance");
     var FrequencyCheck = $("#FrequencyCheck");
+    var DatePlan = $("#DatePlan");
     $.ajax({
         type: "POST",
         url: "/Home/Insert_maintenance",
-        data: '{Id_device:"' + Id_device.val() + '",Classifymaintenance:"' + Classifymaintenance + '",Checkmaintenance:"' + Checkmaintenance + '",Personmaintenance:"' + Personmaintenance.val() + '",FrequencyCheck:"' + FrequencyCheck.val() + '"}',
+        data: '{Id_device:"' + Id_device.val() + '",Classifymaintenance:"' + Classifymaintenance + '",Checkmaintenance:"' + Checkmaintenance + '",Personmaintenance:"' + Personmaintenance.val() + '",FrequencyCheck:"' + FrequencyCheck.val() + '",DatePlan:"' + DatePlan.val() + '"}',
         contentType: "application/json charset=utf-8",
         datatype: "json",
         success: function () {
@@ -18,6 +19,7 @@
             Checkmaintenance.val() = "";
             Personmaintenance.val() = "";
             FrequencyCheck.val() = "";
+            DatePlan.val() = "";
         }
     });
 });
