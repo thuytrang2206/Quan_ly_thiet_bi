@@ -1,12 +1,12 @@
-﻿@model Quan_ly_thiet_bi.Models.EF.DEVICE
+﻿@model Quan_ly_thiet_bi.Models.EF.Maintenance
 @{
     ViewBag.Title = "Detail_device";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
     var list_history = (List<Quan_ly_thiet_bi.Models.EF.HISTORY>)ViewBag.list_history;
     var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
-    var list_main = (List<Quan_ly_thiet_bi.Models.EF.Maintenance>)ViewBag.list_main;
     var list_check = (List<Quan_ly_thiet_bi.Models.EF.Checkmaintenance>)ViewBag.list_check;
+    var list_device =(List<Quan_ly_thiet_bi.Models.EF.DEVICE>)ViewBag.list_device;
 }
 
 <div class="container-fluid">
@@ -33,192 +33,108 @@
                         <th>Phân loại</th>
                         <th>Tần suất</th>
                         <th>Người phụ trách</th>
-                        <th>Ngày kế hoạch</th>
                         <th>Ngày bảo dưỡng</th>
+                        <th>Kế hoạch bảo dưỡng tiếp theo</th>
                         <th>Kết quả bảo dưỡng</th>
                     </tr>
                     <tr>
-                        <td>
-                            @Model.DeviceName
-                        </td>
-                        <td>
-                            @foreach (var item_group in list_group)
+                        @foreach (var item_device in list_device)
+                        {
+                            if (Model.Id_device== item_device.Id )
                             {
-                                if (item_group.ID_GROUP == Model.DeviceGroup)
-                                {
-                                    @item_group.NAME
-                                }
-                            }
-                        </td>
-                        <td>
-                            <img src="@Model.Image1" style="width:150px;height:150px;" />
-                        </td>
-                        <td>
-                            @Model.Model
-                        </td>
-                        <td>
-                            @Model.ScortCode
-                        </td>
-                        <td>
-                            @Model.VendorName
-                        </td>
-                        <td>
-                            @Model.Qty
-                        </td>
-                        <td>
-                           @String.Format("{0:C}", Model.DevicePrice)
-
-                        </td>
-                        <td>
-                            @Model.Location
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Installtime)
-                        </td>
-
-                        <td>
-                            @if (Model.Status == 0)
-                            {
-                                <p>Dừng hoạt động</p>
-                            }
-                            else
-                            {
-                                <p>Đang hoạt động</p>
-                            }
-                        </td>
-                        <td>
-                            <table style="width: 160px;margin:-12px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
+                                <td>
+                                    @item_device.DeviceName
+                                </td>
+                                <td>
+                                    @foreach (var item_group in list_group)
                                     {
-                                        foreach (var item_check in list_check)
+                                        if (item_group.ID_GROUP == item_device.DeviceGroup)
                                         {
-                                            if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
-                                            {
-
-                                                <tr>
-                                                    <td>
-                                                        @item_check.Checkmaintenace
-                                                    </td>
-                                                </tr>
-
-                                            }
+                                            @item_group.NAME
                                         }
-
                                     }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 160px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
+                                </td>
+                                <td>
+                                    <img src="@item_device.Image1" style="width:150px;height:150px;" />
+                                </td>
+                                <td>
+                                    @item_device.Model
+                                </td>
+                                <td>
+                                    @item_device.ScortCode
+                                </td>
+                                <td>
+                                    @item_device.VendorName
+                                </td>
+                                <td>
+                                    @item_device.Qty
+                                </td>
+                                <td>
+                                    @String.Format("{0:C}", item_device.DevicePrice)
+
+                                </td>
+                                <td>
+                                    @item_device.Location
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item_device.Installtime)
+                                </td>
+
+                                <td>
+                                    @if (item_device.Status == 0)
                                     {
-                                        foreach (var item_check in list_check)
+                                        <p>Dừng hoạt động</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Đang hoạt động</p>
+                                    }
+                                </td>
+                                <td>
+                                  @foreach (var item_check in list_check)
+                                                {
+                                                    if (item_check.Id__Checkmaintenace == Model.Checkmaintenance)
+                                                    {
+                                                                @item_check.Checkmaintenace
+                                                    }
+                                                }
+
+    
+                                </td>
+                                <td>
+                                               @foreach (var item_check in list_check)
+                                                {
+                                                    if (item_check.Id__Checkmaintenace == Model.Checkmaintenance)
+                                                    {
+                                                                @item_check.Classifymaintenance
+                                                    }
+                                               }
+                                </td>
+                                <td>
+                                    @Model.FrequencyCheck
+                                </td>
+                                <td>
+                                    @Model.Personmaintenance
+                                </td>
+                               
+                                <td>
+                                    @Html.DisplayFor(m=> m.DateMaintenance)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => m.DatePlan)
+                                </td>
+                                <td>
+                                        @foreach (var item_his in list_history)
                                         {
-                                            if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
-                                            {
-                                                <tr style="height:73px;">
-                                                    <td>
-                                                        @item_check.Classifymaintenance
-                                                    </td>
-                                                </tr>
-                                            }
+                                                if (item_his.UPDATE_CHECK == Model.DateMaintenance && item_his.ID_DEVICE == Model.Id_device && item_his.STATUS == TaskType.Repair.ToString())
+                                                {
+                                                            @item_his.NOTE
+                                                }
                                         }
-
-                                    }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 100px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
-                                    {
-
-                                        <tr>
-                                            <td style="height:73px;">
-                                                @item_main.FrequencyCheck
-                                            </td>
-                                        </tr>
-
-                                    }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 85px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
-                                    {
-
-                                        <tr>
-                                            <td style="height:73px;">
-                                                @item_main.Personmaintenance
-                                            </td>
-                                        </tr>
-
-                                    }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
-                                    {
-
-                                        <tr>
-                                            <td style="height:73px;">
-                                                @Html.DisplayFor(m => item_main.DatePlan)
-                                            </td>
-                                        </tr>
-
-                                    }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_main in list_main)
-                                {
-                                    if (item_main.Id_device == Model.Id && item_main.DateMaintenance != null)
-                                    {
-
-                                        <tr>
-                                            <td style="height:73px;">
-                                                @Html.DisplayFor(m => item_main.DateMaintenance)
-                                            </td>
-                                        </tr>
-
-                                    }
-                                }
-                            </table>
-                        </td>
-                        <td>
-                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 73px;">
-                                @foreach (var item_his in list_history)
-                                {
-                                        foreach (var itemmain in list_main)
-                                        {
-                                            if (item_his.UPDATE_CHECK == itemmain.DateMaintenance && item_his.ID_DEVICE==Model.Id && item_his.STATUS==TaskType.Repair.ToString())
-                                            {
-                                                <tr style="height:73px;">
-                                                    <td style="height:73px;">
-
-                                                        @item_his.NOTE
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                }
-                                </table>
-                        </td>
+                                </td>
+                            }
+                        }
+               
                     </tr>
                 </table>
             </div>

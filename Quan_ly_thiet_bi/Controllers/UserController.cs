@@ -36,7 +36,7 @@ namespace Quan_ly_thiet_bi.Controllers
         public JsonResult Insert_user(USER u,string NAME, string EMAIL)
         {
             //System.Threading.Thread.Sleep(200);
-            var searchdata = db.USERs.Where(x => x.NAME == NAME).SingleOrDefault();
+            var searchdata = db.USERs.Where(x => x.EMAIL == EMAIL).FirstOrDefault();
             if (searchdata != null)
             {
                 return Json(1);

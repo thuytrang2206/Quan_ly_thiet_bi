@@ -38,7 +38,7 @@
                             @for (day = 1; day <= days; day++)
                             {
                                 <td>
-                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -27px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
+                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -27px;margin-top: -12px; margin-bottom: -12px;min-height: 50px;">
                                         @foreach (var item_main in Model)
                                         {
                                             if (item_main.DatePlan.Value.Day == day && item_main.DatePlan.Value.Month == 2)
@@ -48,7 +48,7 @@
                                                     if (item_device.Id == item_main.Id_device)
                                                     {
                                                         <tr>
-                                                            <td>
+                                                            <td style="background-color:yellow;height:48px;">
                                                                 <a href="/PlanRepair/Detail_plan_maintenance/@item_main.Id_Maintenance" style="color:black;"><span style="color:black;">@item_device.DeviceName</span></a><br />
                                                             </td>
                                                         </tr>
@@ -74,7 +74,7 @@
                                                 {
                                                     if (item_device.Id == item_main.Id_device)
                                                     {
-                                                        <tr>
+                                                        <tr style="background-color:#fa8430;">
                                                             <td>
                                                                 <a href="/Home/Detail_device/@item_device.Id"><span style="color:black;">@item_device.DeviceName</span></a>
                                                             </td>

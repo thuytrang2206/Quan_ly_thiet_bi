@@ -43,6 +43,7 @@
                                 <th>Nhà cung cấp</th>
                                 <th>Số lượng</th>
                                 <th>Vị trí</th>
+                                <th>Thời gian lắp đặt</th>
                                 <th>Nhân viên</th>
                                 @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                 {
@@ -70,7 +71,7 @@
                                     <td>@items.VendorName</td>
                                     <td>@items.Qty</td>
                                     <td>@items.Location</td>
-
+                                    <td>@Html.DisplayFor(m=>items.Installtime)</td>
                                     <td>
                                         @foreach (var u in list_user)
                                         {
@@ -195,6 +196,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script src="~/Scripts/device.js"></script>
-
+<script src="~/Scripts/device_manager.js"></script>
 

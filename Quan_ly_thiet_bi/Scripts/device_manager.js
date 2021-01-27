@@ -38,59 +38,59 @@ $("body").on("click", "#btn_close", function () {
     });
 });
 $("body").on("click", "#btn_Add", function () {
-    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" ||  $("#DevicePrice").val() == "" || $("#Image1").val() == "" || $("#Installtime").val() == "") {
+    if ($("#DeviceName").val() == "" || $("#Model").val() == "" || $("#ScortCode").val() == "" || $("#VendorName").val() == "" || $("#Qty").val() == "" || $("#DeviceGroup").val() == "" || $("#Remark").val() == "" || $("#Location").val() == "" || $("#DevicePrice").val() == "" || $("#Image1").val() == "" || $("#Installtime").val() == "") {
         alert("Bạn chưa nhập giá trị!");
     }
     else {
 
-    
-    var DeviceName = $("#DeviceName");
-    var Model = $("#Model");
-    var ScortCode = $("#ScortCode");
-    var VendorName = $("#VendorName");
-    var Qty = $("#Qty");
-    var DeviceGroup = $("#DeviceGroup");
-    var Remark = $("#Remark");
-    var Location = $("#Location");
-    var Image1 = $("#Image1");
-    var DevicePrice = $("#DevicePrice");
-    var Installtime = $("#Installtime");
-    //var Checkmaintenance = [];
-    //$.each($("input[name='Checkmaintenance']:checked"), function () {
-    //    Checkmaintenance.push($(this).val());
-    //});
-    //var Classifymaintenance = [];
-    //$.each($("input[name='Classifymaintenance']:checked"), function () {
-    //    Classifymaintenance.push($(this).val());
-    //});
-    //var FrequencyCheck = [];
-    //$.each($("input[name='FrequencyCheck']:checked"), function () {
-    //    FrequencyCheck.push($(this).val());
-    //});
-    var Status = $('input[name=Status]:checked').val();
-    $.ajax({
-        type: "POST",
-        url: "/Home/Insert_device",
-        data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",ScortCode:"' + ScortCode.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Remark:"' + Remark.val() + '",Location:"' + Location.val() + '",DevicePrice:"' + DevicePrice.val() + '",Installtime:"' + Installtime.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status + '"}',
-        contentType: "application/json charset=utf-8",
-        datatype: "json",
-        success: function () {
-            var newrow = $("#dataTable tr:last-child");
-            location.reload();
-            DeviceName.val() = "";
-            Model.val() = "";
-            ScortCode.val() = "";
-            VendorName.val() = "";
-            Qty.val() = "";
-            DeviceGroup.val() = "";
-            Remark.val() = "";
-            Location.val() = "";
-            DevicePrice.val() = "";
-            Installtime.val() = "";
-            Image1.val() = "";
-            Status.val() = "";
-        }
-    });
+
+        var DeviceName = $("#DeviceName");
+        var Model = $("#Model");
+        var ScortCode = $("#ScortCode");
+        var VendorName = $("#VendorName");
+        var Qty = $("#Qty");
+        var DeviceGroup = $("#DeviceGroup");
+        var Remark = $("#Remark");
+        var Location = $("#Location");
+        var Image1 = $("#Image1");
+        var DevicePrice = $("#DevicePrice");
+        var Installtime = $("#Installtime");
+        //var Checkmaintenance = [];
+        //$.each($("input[name='Checkmaintenance']:checked"), function () {
+        //    Checkmaintenance.push($(this).val());
+        //});
+        //var Classifymaintenance = [];
+        //$.each($("input[name='Classifymaintenance']:checked"), function () {
+        //    Classifymaintenance.push($(this).val());
+        //});
+        //var FrequencyCheck = [];
+        //$.each($("input[name='FrequencyCheck']:checked"), function () {
+        //    FrequencyCheck.push($(this).val());
+        //});
+        var Status = $('input[name=Status]:checked').val();
+        $.ajax({
+            type: "POST",
+            url: "/Home/Insert_device",
+            data: '{DeviceName:"' + DeviceName.val() + '",Model:"' + Model.val() + '",ScortCode:"' + ScortCode.val() + '",VendorName:"' + VendorName.val() + '",Qty:"' + Qty.val() + '",DeviceGroup:"' + DeviceGroup.val() + '",Remark:"' + Remark.val() + '",Location:"' + Location.val() + '",DevicePrice:"' + DevicePrice.val() + '",Installtime:"' + Installtime.val() + '",Image1:"' + Image1.val() + '",Status:"' + Status + '"}',
+            contentType: "application/json charset=utf-8",
+            datatype: "json",
+            success: function () {
+                var newrow = $("#dataTable tr:last-child");
+                location.reload();
+                DeviceName.val() = "";
+                Model.val() = "";
+                ScortCode.val() = "";
+                VendorName.val() = "";
+                Qty.val() = "";
+                DeviceGroup.val() = "";
+                Remark.val() = "";
+                Location.val() = "";
+                DevicePrice.val() = "";
+                Installtime.val() = "";
+                Image1.val() = "";
+                Status.val() = "";
+            }
+        });
     }
 });
 function Xoa(el) {
@@ -119,10 +119,8 @@ function Sua(el) {
         dataType: 'json',
         success: function (data) {
             var json = JSON.parse(JSON.stringify(data));
-            //const d = new Date(json.DatePlan);
-            //const formattedDate = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
-            const d1 = new Date(json.Installtime);
-            const Installtime = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+            //var d = new Date(json.Installtime);
+            //var time = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
             $("#Id").val(json.Id);
             $("#DeviceName").val(json.DeviceName);
             $("#Model").val(json.Model);
@@ -132,8 +130,7 @@ function Sua(el) {
             $("#DeviceGroup").val(json.DeviceGroup);
             $("#Remark").val(json.Remark);
             $("#Location").val(json.Location);
-            //$("#DatePlan").val(formattedDate);
-            $("#Installtime").val(Installtime);
+            $("#Installtime").val(json.Installtime);
             $("#DevicePrice").val(json.DevicePrice);
             $("#Image1").val(json.Image1);
             $('input[type="radio"][value="1"]').val();

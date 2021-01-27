@@ -25,6 +25,9 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(200)]
         public string Checkmaintenace { get; set; }
 
+        [StringLength(50)]
+        public string FrequencyCheck { get; set; }
+
         [StringLength(200)]
         public string Type_Device { get; set; }
 

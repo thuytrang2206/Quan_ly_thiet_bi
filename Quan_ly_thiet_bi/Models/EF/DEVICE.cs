@@ -53,7 +53,7 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Updater { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? Installtime { get; set; }
 
         public int? Qty { get; set; }

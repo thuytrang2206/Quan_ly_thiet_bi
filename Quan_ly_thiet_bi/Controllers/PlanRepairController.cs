@@ -189,19 +189,26 @@ namespace Quan_ly_thiet_bi.Controllers
         }
         public ActionResult Detail_plan_maintenance(string Id)
         {
-            var dao = new Maintenances_dao();
-            var model = dao.View_detail_main(Id);
-            List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
-            ViewBag.list_group = list_group;
-            List<USER> list_user = db.USERs.ToList();
-            ViewBag.list_user = list_user;
-            List<HISTORY> list_history = db.HISTORies.ToList();
-            ViewBag.list_history = list_history;
-            List<DEVICE> list_device = db.DEVICEs.ToList();
-            ViewBag.list_device = list_device;
-            List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
-            ViewBag.list_check = list_check;
-            return View(model);
+            if (Session["USER_SESSION"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                var dao = new Maintenances_dao();
+                var model = dao.View_detail_main(Id);
+                List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
+                ViewBag.list_group = list_group;
+                List<USER> list_user = db.USERs.ToList();
+                ViewBag.list_user = list_user;
+                List<HISTORY> list_history = db.HISTORies.ToList();
+                ViewBag.list_history = list_history;
+                List<DEVICE> list_device = db.DEVICEs.ToList();
+                ViewBag.list_device = list_device;
+                List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
+                ViewBag.list_check = list_check;
+                return View(model);
+            }
         }
         //public ActionResult Detail_plan_repair(string Id_Maintenance)
         //{
@@ -222,6 +229,7 @@ namespace Quan_ly_thiet_bi.Controllers
         [HttpPost]
         public ActionResult Detail_plan_repair(DEVICE dev, HISTORY his, Maintenance maintenance)
         {
+
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
             List<USER> list_user = db.USERs.ToList();

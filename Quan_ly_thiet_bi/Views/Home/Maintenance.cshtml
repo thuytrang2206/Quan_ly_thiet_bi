@@ -134,18 +134,22 @@
                         <td>
                             <table style="width: 100px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-
-                            <tr>
-                                <td style="height:73px;">
-                                    @item_main.FrequencyCheck
-                                </td>
-                            </tr>
-
+                                    if (item_main.Id_device == Model.Id)
+                                    {
+                                        foreach (var item_check in list_check)
+                                        {
+                                            if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                            {
+                                                <tr style="height:73px;">
+                                                    <td>
+                                                        @item_check.FrequencyCheck
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
                                 }
-                            }
                             </table>
                         </td>
                         <td>
@@ -247,16 +251,11 @@
                             
                         </div>
                     </div>
-
-                    <div class="col-12" style="margin:5px 0px;float:left;">
-                        <label><b>Tần suất bảo dưỡng</b></label>
-                        <input type="text" class="form-control" id="FrequencyCheck" name="FrequencyCheck" />
-                    </div>
                     <div class="col-12" style="margin:5px 0px;float:left;">
                         <label><b>Người phụ trách</b></label>
                         <input type="text" class="form-control" id="Personmaintenance" name="Personmaintenance" />
                     </div>
-                    <div>
+                    <div class="col-12" style="margin:5px 0px;float:left;">
                         <label><b> Kế hoạch bảo dưỡng</b></label>
                         <input type="date" class="form-control" id="DatePlan" name="DatePlane" />
                     </div>

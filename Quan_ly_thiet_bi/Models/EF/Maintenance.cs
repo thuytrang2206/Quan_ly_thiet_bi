@@ -20,15 +20,12 @@ namespace Quan_ly_thiet_bi.Models.EF
         public string Checkmaintenance { get; set; }
 
         [StringLength(50)]
-        public string FrequencyCheck { get; set; }
-
-        [StringLength(50)]
         public string Personmaintenance { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date")]
         public DateTime? DatePlan { get; set; }
 
-        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date")]
         public DateTime? DateMaintenance { get; set; }
 
         public virtual Checkmaintenance Checkmaintenance1 { get; set; }

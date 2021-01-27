@@ -96,13 +96,13 @@
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Tên nhân viên:</label>
-                        <input type="text" class="form-control" required id="NAME" name="NAME" onchange="UserCheck()" />
-                        <span id="Status"></span>
+                        <input type="text" class="form-control" required id="NAME" name="NAME" />
+                      
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Email</label>
-                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com" onchange="EmailCheck()" />
-                        <span id="StatusEmail"></span>
+                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com" onchange="UserCheck()" />
+                        <span id="Status"></span>
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mật khẩu:</label>
@@ -138,13 +138,13 @@
         $("#Status").html("");
         $.post("@Url.Action("Insert_user", "User")",
     {
-        NAME: $("#NAME").val(),
         EMAIL: $("#EMAIL").val()
     },
     function (data) {
         if (data == 1) {
-            $("#Status").html('<font color="Red">Tên đăng nhập đã tồn tại</font>');
+            $("#Status").html('<font color="Red">Email đã tồn tại</font>');
         }
+
     });
     }
 </script>

@@ -258,7 +258,9 @@
     <Content Include="Admin\css\sb-admin-2.min.css" />
     <Content Include="Admin\img\avatar-default.png" />
     <Content Include="Admin\img\logo3.png" />
+    <Content Include="Admin\img\UMC%282%29.jpg" />
     <Content Include="Admin\img\umc.jpg" />
+    <Content Include="Admin\img\umc_vn.PNG" />
     <Content Include="Admin\img\undraw_posting_photo.svg" />
     <Content Include="Admin\img\undraw_profile.svg" />
     <Content Include="Admin\img\undraw_profile_1.svg" />
@@ -2778,7 +2780,7 @@
     <Content Include="Admin\js\plugins\ckfinder\userfiles\.htaccess" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckfinder.js" />
-    <Content Include="Scripts\device.js" />
+    <Content Include="Scripts\device_manager.js" />
     <Content Include="Scripts\groupdevice.js" />
     <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

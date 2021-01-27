@@ -68,16 +68,16 @@ namespace Quan_ly_thiet_bi.Controllers
         }
         public ActionResult Detail_device(string id)
         {
-            var dao = new Device();
-            var model = dao.View_detail(id);
+            var dao = new Maintenances_dao();
+            var model = dao.View_detail_main(id);
             List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
             ViewBag.list_group = list_group;
             List<HISTORY> list_history = db.HISTORies.ToList();
             ViewBag.list_history = list_history;
             List<USER> list_user = db.USERs.ToList();
             ViewBag.list_user = list_user;
-            List<Maintenance> list_main = db.Maintenances.ToList();
-            ViewBag.list_main = list_main;
+            List<DEVICE> list_device = db.DEVICEs.ToList();
+            ViewBag.list_device = list_device;
             List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
             ViewBag.list_check = list_check;
             return View(model);
