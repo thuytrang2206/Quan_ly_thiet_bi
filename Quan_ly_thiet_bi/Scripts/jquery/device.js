@@ -116,11 +116,12 @@ function Sua(el) {
     $.ajax({
         url: "/Home/Get_device/?Id=" + Id,
         type: "GET",
-        dataType: 'json',
+        dataType: 'json', 
         success: function (data) {
             var json = JSON.parse(JSON.stringify(data));
-            //var d = new Date(json.Installtime);
-            //var time = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+            var date = json.Installtime;
+            const d = new Date(parseInt((json.Installtime).substr(6)));
+            const time = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
             $("#Id").val(json.Id);
             $("#DeviceName").val(json.DeviceName);
             $("#Model").val(json.Model);
@@ -130,7 +131,7 @@ function Sua(el) {
             $("#DeviceGroup").val(json.DeviceGroup);
             $("#Remark").val(json.Remark);
             $("#Location").val(json.Location);
-            $("#Installtime").val(json.Installtime);
+            $("#Installtime").val(time);
             $("#DevicePrice").val(json.DevicePrice);
             $("#Image1").val(json.Image1);
             $('input[type="radio"][value="1"]').val();

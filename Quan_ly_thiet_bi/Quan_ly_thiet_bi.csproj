@@ -2780,7 +2780,6 @@
     <Content Include="Admin\js\plugins\ckfinder\userfiles\.htaccess" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckfinder.js" />
-    <Content Include="Scripts\device_manager.js" />
     <Content Include="Scripts\groupdevice.js" />
     <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2793,6 +2792,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\device.js" />
     <Content Include="Scripts\jquery\maintenance.js" />
     <Content Include="Scripts\jquery\user.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

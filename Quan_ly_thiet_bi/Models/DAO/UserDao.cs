@@ -15,7 +15,7 @@ namespace Quan_ly_thiet_bi.Models.DAO
         }
         public USER getbyID(string NAME)
         {
-            return db.USERs.SingleOrDefault(x => x.NAME == NAME);
+            return db.USERs.Where(x => x.NAME == NAME).FirstOrDefault();
         }
         public int Login(string NAME, string PASSWORD)
         {

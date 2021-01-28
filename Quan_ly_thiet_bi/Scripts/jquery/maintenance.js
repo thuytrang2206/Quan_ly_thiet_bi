@@ -4,7 +4,6 @@
     var Classifymaintenance = $('input[name=Classifymaintenance]:checked').val();
     var Checkmaintenance = $('input[name=Checkmaintenance]:checked').val();
     var Personmaintenance = $("#Personmaintenance");
-    //var FrequencyCheck = $("#FrequencyCheck");
     var DatePlan = $("#DatePlan");
     $.ajax({
         type: "POST",
@@ -44,27 +43,3 @@ $(document).ready(function () {
         }
     });
 });
-//$(document).ready(function () {
-//    $('input[type="radio"]').click(function () {
-//        if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng lớn") {
-//            $("#classify1").show();
-//            $("#classify2").hide();
-//            $("#classify3").hide();
-//        }
-//        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng nhỏ") {
-//            $("#classify1").hide();
-//            $("#classify2").show();
-//            $("#classify3").hide();
-//        }
-//        else if ($('input:radio[name=Classifymaintenance]:checked').val() == "Bảo dưỡng toàn bộ") {
-//            $("#classify1").hide();
-//            $("#classify2").hide();
-//            $("#classify3").show();
-//        }
-//        else {
-//            $("#classify1").hide();
-//            $("#classify2").hide();
-//            $("#classify3").hide();
-//        }
-//    });
-//});

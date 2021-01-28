@@ -22,10 +22,10 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Personmaintenance { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DatePlan { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateMaintenance { get; set; }
 
         public virtual Checkmaintenance Checkmaintenance1 { get; set; }

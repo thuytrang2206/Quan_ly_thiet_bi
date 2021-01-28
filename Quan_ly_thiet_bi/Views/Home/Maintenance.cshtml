@@ -14,10 +14,9 @@
     <h1 class="h3 mb-2 text-gray-800">Chi tiết thiết bị</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" style="width:50%;float:left;color:black;" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" style="color:black;" cellspacing="0">
                     <tr style="background-color:#4e73df;">
                         <th>Tên thiết bị</th>
                         <th>Nhóm thiết bị</th>
@@ -42,13 +41,13 @@
                             @Model.DeviceName
                         </td>
                         <td>
-                            @foreach(var item_group in list_group)
-                        {
-                            if (item_group.ID_GROUP == Model.DeviceGroup)
+                            @foreach (var item_group in list_group)
                             {
-                        @item_group.NAME
+                                if (item_group.ID_GROUP == Model.DeviceGroup)
+                                {
+                                    @item_group.NAME
+                                }
                             }
-                        }
                         </td>
                         <td>
                             <img src="@Model.Image1" style="width:150px;height:150px;" />
@@ -66,7 +65,7 @@
                             @Model.Qty
                         </td>
                         <td>
-                            @String.Format("{0:C}", Model.DevicePrice) 
+                            @String.Format("{0:C}", Model.DevicePrice)
                         </td>
                         <td>
                             @Model.Location
@@ -74,65 +73,60 @@
                         <td>
                             @Html.DisplayFor(model => model.Installtime)
                         </td>
-
                         <td>
                             @if (Model.Status == 0)
-                        {
-                        <p>Dừng hoạt động</p>
-                        }
-                        else
-                        {
-                        <p>Đang hoạt động</p>
-                        }
+                            {
+                                <p>Dừng hoạt động</p>
+                            }
+                            else
+                            {
+                                <p>Đang hoạt động</p>
+                            }
                         </td>
                         <td>
-                            <table style="width: 160px;margin:-12px;">
+                            <table style="width: 160px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height:74px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-                                    foreach (var item_check in list_check)
+                                    if (item_main.Id_device == Model.Id)
                                     {
-                                        if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                        foreach (var item_check in list_check)
                                         {
-
-                            <tr>
-                                <td>
-                                    @item_check.Checkmaintenace
-                                </td>
-                            </tr>
-
+                                            if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                            {
+                                                <tr style="height:73px;">
+                                                    <td>
+                                                        @item_check.Checkmaintenace
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
                                     }
-
                                 }
-                            }
                             </table>
                         </td>
                         <td>
-                            <table style="width: 160px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                            <table style="width: 160px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height: 74px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-                                    foreach (var item_check in list_check)
+                                    if (item_main.Id_device == Model.Id)
                                     {
-                                        if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                        foreach (var item_check in list_check)
                                         {
-                            <tr style="height:73px;">
-                                <td>
-                                    @item_check.Classifymaintenance
-                                </td>
-                            </tr>
+                                            if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
+                                            {
+                                                <tr style="height:73px;">
+                                                    <td>
+                                                        @item_check.Classifymaintenance
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
                                     }
-
                                 }
-                            }
                             </table>
                         </td>
                         <td>
-                            <table style="width: 100px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                            <table style="width: 100px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height: 74px;">
                                 @foreach (var item_main in list_main)
                                 {
                                     if (item_main.Id_device == Model.Id)
@@ -153,63 +147,55 @@
                             </table>
                         </td>
                         <td>
-                            <table style="width: 85px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                            <table style="width: 85px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height: 74px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-
-                            <tr>
-                                <td style="height:73px;">
-                                    @item_main.Personmaintenance
-                                </td>
-                            </tr>
-
+                                    if (item_main.Id_device == Model.Id)
+                                    {
+                                        <tr>
+                                            <td style="height:73px;">
+                                                @item_main.Personmaintenance
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
                             </table>
                         </td>
                         <td>
-                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height: 74px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-
-                            <tr>
-                                <td style="height:73px;">
-                                    @Html.DisplayFor(m => item_main.DatePlan)
-                                </td>
-                            </tr>
-
+                                    if (item_main.Id_device == Model.Id)
+                                    {
+                                        <tr>
+                                            <td style="height:73px;">
+                                                @Html.DisplayFor(m => item_main.DatePlan)
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
                             </table>
                         </td>
                         <td>
-                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -31px;min-height: 175px;">
+                            <table style="width: 110px;margin-left: -12px;margin-right: -12px;margin-top: -12px;margin-bottom: -12px;min-height: 74px;">
                                 @foreach (var item_main in list_main)
-                            {
-                                if (item_main.Id_device == Model.Id)
                                 {
-
-                            <tr>
-                                <td style="height:73px;">
-                                    @Html.DisplayFor(m => item_main.DateMaintenance)
-                                </td>
-                            </tr>
-
+                                    if (item_main.Id_device == Model.Id)
+                                    {
+                                        <tr>
+                                            <td style="height:73px;">
+                                                @Html.DisplayFor(m => item_main.DateMaintenance)
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
                             </table>
                         </td>
-
                     </tr>
                 </table>
-                </div>
             </div>
+        </div>
         <div class="card-body">
-          
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click" style="margin-bottom:10px;">
                 <i class="fa fa-plus"> Thêm danh mục bảo trì thiết bị</i>
             </button>
@@ -227,28 +213,26 @@
                         <input type="text" class="form-control" id="Id" name="Id" />
                     </div>
                     <div class="col-12" style="display:none;">
-                        <input type="text" class="form-control" id="Id_device" name="Id_device"  value="@Model.Id"/>
+                        <input type="text" class="form-control" id="Id_device" name="Id_device" value="@Model.Id" />
                     </div>
                     <div class="container-modal" style="margin:5px 0px;">
                         <div class="col-12" style="float:left;">
                             @*<label><b>Loại bảo dưỡng</b></label><br />
-                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng nhỏ" /> Bảo dưỡng nhỏ  <br />
-                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng lớn" /> Bảo dưỡng lớn<br />
-                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng 1 phần" /> Bảo dưỡng 1 phần  <br />
-                            <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng toàn bộ" /> Bảo dưỡng toàn bộ*@
+                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng nhỏ" /> Bảo dưỡng nhỏ  <br />
+                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng lớn" /> Bảo dưỡng lớn<br />
+                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng 1 phần" /> Bảo dưỡng 1 phần  <br />
+                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng toàn bộ" /> Bảo dưỡng toàn bộ*@
                         </div>
                         <div class="col-12" style="float:left;">
                             <label><b>Hạng mục kiểm tra</b></label>
-                           <br />
+                            <br />
                             @foreach (var items_ in list_check)
                             {
                                 if (items_.Type_Device == Model.DeviceGroup)
                                 {
-                                        <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="@items_.Id__Checkmaintenace" /> @items_.Checkmaintenace  <br />
+                                    <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="@items_.Id__Checkmaintenace" /> @items_.Checkmaintenace  <br />
                                 }
-
                             }
-                            
                         </div>
                     </div>
                     <div class="col-12" style="margin:5px 0px;float:left;">
@@ -267,7 +251,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>

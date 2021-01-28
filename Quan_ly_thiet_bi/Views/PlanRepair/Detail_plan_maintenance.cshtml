@@ -201,7 +201,13 @@
                             <tr>
                                 <td>Tần suất</td>
                                 <td>
-                                   @Html.EditorFor(model => model.FrequencyCheck, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                    @foreach (var item_check in list_check)
+                                    {
+                                        if (Model.Checkmaintenance == item_check.Id__Checkmaintenace)
+                                        {
+                                            @Html.EditorFor(model => item_check.FrequencyCheck, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background-color: white;border: 0px white;" } })
+                                        }
+                                    }
                                 </td>
                             </tr>
                         <tr>

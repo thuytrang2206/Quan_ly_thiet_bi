@@ -59,6 +59,9 @@ namespace Quan_ly_thiet_bi.Models.EF
         public int? Qty { get; set; }
 
         [StringLength(50)]
+        public string Spec { get; set; }
+
+        [StringLength(50)]
         public string Remark { get; set; }
 
         [StringLength(500)]

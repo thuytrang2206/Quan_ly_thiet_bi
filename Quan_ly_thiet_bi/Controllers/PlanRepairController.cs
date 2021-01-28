@@ -210,21 +210,6 @@ namespace Quan_ly_thiet_bi.Controllers
                 return View(model);
             }
         }
-        //public ActionResult Detail_plan_repair(string Id_Maintenance)
-        //{
-        //    var dao = new Device();
-        //    //var model = dao.View_detail(Id);
-        //    var model = dao.View_detail_main(Id_Maintenance);
-        //    List<GROUP_DEVICE> list_group = db.GROUP_DEVICE.ToList();
-        //    ViewBag.list_group = list_group;
-        //    List<USER> list_user = db.USERs.ToList();
-        //    ViewBag.list_user = list_user;
-        //    List<HISTORY> list_history = db.HISTORies.ToList();
-        //    ViewBag.list_history = list_history;
-        //    List<DEVICE> list_device = db.DEVICEs.ToList();
-        //    ViewBag.list_device = list_device;
-        //    return View(model);
-        //}
 
         [HttpPost]
         public ActionResult Detail_plan_repair(DEVICE dev, HISTORY his, Maintenance maintenance)
@@ -238,14 +223,51 @@ namespace Quan_ly_thiet_bi.Controllers
             ViewBag.list_history = list_history;
             List<DEVICE> list_device = db.DEVICEs.ToList();
             ViewBag.list_device = list_device;
+            List<Checkmaintenance> list_check = db.Checkmaintenances.ToList();
+            ViewBag.list_check = list_check;
             dev.Id = maintenance.Id_device;
             var device = db.DEVICEs.Find(maintenance.Id_device);
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             device.Creator = session.ID_USER;
-            //dev.DeviceGroup = dev.DeviceGroup;
             DateTime date = DateTime.Parse(maintenance.DateMaintenance.Value.ToString());
-            maintenance.DatePlan = date.AddDays(30);
-            
+            foreach (var item_check in list_check)
+            {
+                if(maintenance.Checkmaintenance == item_check.Id__Checkmaintenace)
+                {
+                    if(item_check.FrequencyCheck =="1 tuần/lần")
+                    {
+                        maintenance.DatePlan = date.AddDays(7);
+                    }
+                    else if (item_check.FrequencyCheck == "1 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(1);
+                    }
+                    else if (item_check.FrequencyCheck == "4 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(4);
+                    }
+                    else if (item_check.FrequencyCheck == "3 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(3);
+                    }
+                    else if (item_check.FrequencyCheck == "6 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(6);
+                    }
+                    else if (item_check.FrequencyCheck == "2 năm/lần")
+                    {
+                        maintenance.DatePlan = date.AddYears(2);
+                    }
+                    else if (item_check.FrequencyCheck == "1 năm/lần")
+                    {
+                        maintenance.DatePlan = date.AddYears(1);
+                    }
+                    else if (item_check.FrequencyCheck == "4000h/lần")
+                    {
+                        maintenance.DatePlan = date.AddHours(4000);
+                    }
+                }
+            }
             db.Entry(maintenance).State = System.Data.Entity.EntityState.Modified;
             if (dev.Updater != "")
             {
