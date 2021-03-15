@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_maintenance = (List<Quan_ly_thiet_bi.Models.EF.Checkmaintenance>)ViewBag.list_maintenance;
+    var list_group = (List<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>)ViewBag.list_group;
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Danh sách hạng mục bảo trì</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div style="float:right;">
+                @{
+                    var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
+                }
+                @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
+                {
+                    var id_rule = session.ID_RULE;
+                    if (id_rule != "R002")
+                    {
+                        <button type="button" onclick="Them()" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="btn_add_click">
+                            <i class="fa fa-plus"> Thêm mới</i>
+                        </button>
+                    }
+                }
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th style="display:none;"></th>
+                            <th>Tên nhóm thiết bị</th>
+                            <th>Hạng mục kiểm tra, bảo dưỡng</th>
+                            <th> Phân loại bảo dưỡng</th>
+                            <th>Tần suất</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0; }
+                        @foreach (var items in Model)
+                        {
+                            i++;
+                            <tr >
+                                <td>@i</td>
+                                <td style="display:none;">@items.ID_GROUP</td>
+                                <td><a href="#">@items.NAME</a></td>
+                               <td >  
+                                   <table style="min-width: 391px;margin-left: -12px;margin-right: -28px;margin-top:-12px;margin-bottom: -12px;">
+                                            @foreach (var item in list_maintenance)
+                                            {
+                                            <tr>
+
+                                                @if (items.ID_GROUP == item.Type_Device)
+                                                {
+                                                    <td> @item.Classifymaintenance </td>
+                                                }
+
+                                            </tr>
+                                            }
+                                   </table>
+                               </td>
+                                <td>
+                                        <table style="min-width: 436px;margin-left: -12px;margin-right: -31px;margin-top:-12px;margin-bottom: -12px;width:436px;">
+                                            @foreach (var item in list_maintenance)
+                                            {
+                                            <tr>
+                                                @if (items.ID_GROUP == item.Type_Device)
+                                                {
+                                                    <td style=""> @item.Checkmaintenace</td>
+                                                }
+                                            </tr>
+                                            }
+                                        </table>
+                                </td>
+                                <td>
+                                        <table style="min-width: 392px;margin-left: -12px;margin-right: -37px;margin-top:-12px;margin-bottom: -12px;">
+                                        @foreach (var item in list_maintenance)
+                                        {
+                                            <tr>
+                                                @if (items.ID_GROUP == item.Type_Device)
+                                                {
+                                                    <td> @item.FrequencyCheck</td>
+                                                }
+                                            </tr>
+                                        }
+                                        </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12" style="display:none;">
+                    <label></label>
+                    <input type="text" class="form-control" id="Id__Checkmaintenace" name="Id__Checkmaintenace" />
+                </div>
+                <div class="col-12" style="margin:5px 0px;">
+                    <label>Nhóm thiết bị: </label>
+                    <select class="form-control" id="Type_Device" name="Type_Device">
+                        @foreach (var ca in list_group)
+                        {
+                            <option value="@ca.ID_GROUP">@ca.NAME</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12" style="margin:5px 0px;">
+                    <label>Hạng mục kiểm tra, bảo dưỡng: </label>
+                    <input type="text" class="form-control"  required id="Classifymaintenance" name="Classifymaintenance" />
+                </div>
+                <div class="col-12" style="margin:5px 0px;">
+                    <label>Phân loại bảo dưỡng: </label>
+                    <input type="text" class="form-control" required id="Checkmaintenace" name="Checkmaintenace" />
+                </div>
+                <div class="col-12" style="margin:5px 0px;">
+                    <label>Tần suất kiểm tra, bảo dưỡng </label>
+                    <input type="text" class="form-control" required id="FrequencyCheck" name="FrequencyCheck" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
+                <button type="button" class="btn btn-success" id="btn_Add" value="Thêm">Lưu</button>
+                <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery/maintenances.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn_edit").click(function () {
+            $("#btn_Add").hide();
+        });
+    })
+    $(document).ready(function () {
+        $("#btn_add_click").click(function () {
+            $("#btn_sua").hide();
+        });
+    })
+</script>
+
+
+
+

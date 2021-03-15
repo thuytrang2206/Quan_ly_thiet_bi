@@ -31,26 +31,27 @@ namespace Quan_ly_thiet_bi.Controllers
                 var model = db.USERs.Where(x=>x.STATUS==true).ToList();
                 return View(model);
             }
-
         }
-        public JsonResult Insert_user(USER u,string NAME, string EMAIL)
+        public JsonResult Insert_user(USER u,string STAFF_CODE, string EMAIL)
         {
             //System.Threading.Thread.Sleep(200);
-            var searchdata = db.USERs.Where(x => x.EMAIL == EMAIL).FirstOrDefault();
-            if (searchdata != null)
+          
+            var searchstaffcode = db.USERs.Where(x => x.STAFF_CODE == STAFF_CODE).FirstOrDefault();
+            if ( searchstaffcode != null)
             {
                 return Json(1);
             }
+                
             else
             {
-                    string id = Guid.NewGuid().ToString();
-                    u.ID_USER = id;
-                    u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
-                    u.STATUS = true;
-                    db.USERs.Add(u);
-                    db.SaveChanges();
-                    return Json(u);             
-            }  
+                string id = Guid.NewGuid().ToString();
+                u.ID_USER = id;
+                u.PASSWORD = Encryptor.MD5Hash(u.PASSWORD);
+                u.STATUS = true;
+                db.USERs.Add(u);
+                db.SaveChanges();
+                return Json(u);
+            }
         }
         public ActionResult Getuser(string ID_USER)
         {
@@ -147,13 +148,13 @@ namespace Quan_ly_thiet_bi.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ForgotPassword(string EMAIL)
+        public ActionResult ForgotPassword(string EMAIL, string STAFF_CODE)
         {
             string message = "";
             bool status = false;
-            var account = db.USERs.Where(a => a.EMAIL == EMAIL).FirstOrDefault();
+            var account = db.USERs.Where(a => a.STAFF_CODE == STAFF_CODE|| a.EMAIL==EMAIL).FirstOrDefault();
             if (account != null)
-            {
+            { 
                 string resetcode = Guid.NewGuid().ToString();
                 SendVerificationLinkEmail(account.EMAIL, resetcode, "ResetPassword");
                 account.RESETPASSWORD = resetcode;

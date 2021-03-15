@@ -23,5 +23,8 @@ namespace Quan_ly_thiet_bi.Models
         public string CONFIRMPASSWORD { set; get; }
 
         public string ID_RULE { set; get; }
+
+        [Required(ErrorMessage = "Bắt buộc mã code")]
+        public string STAFF_CODE { set; get; }
     }
 }

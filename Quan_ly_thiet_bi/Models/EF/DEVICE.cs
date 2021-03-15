@@ -19,13 +19,13 @@ namespace Quan_ly_thiet_bi.Models.EF
         [StringLength(50)]
         public string Id { get; set; }
 
-        public bool? IsUsing { get; set; }
-
         [StringLength(50)]
         public string FullCode { get; set; }
 
         [StringLength(50)]
         public string ScortCode { get; set; }
+
+        public bool? IsUsing { get; set; }
 
         [StringLength(50)]
         public string DeviceGroup { get; set; }
@@ -66,9 +66,6 @@ namespace Quan_ly_thiet_bi.Models.EF
 
         [StringLength(500)]
         public string Image1 { get; set; }
-
-        [StringLength(500)]
-        public string Image2 { get; set; }
 
         public int? Status { get; set; }
 

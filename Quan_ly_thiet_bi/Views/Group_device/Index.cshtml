@@ -1,12 +1,11 @@
-﻿
-@model IEnumerable<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>
+﻿@model IEnumerable<Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <form method="post" action="/Group_device/Edit_group">
     <div class="container-fluid">
-        <!-- Page Heading -->l
+        <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -52,7 +51,7 @@
                                 <tr>
                                     <td>@i</td>
                                     <td style="display:none;">@items.ID_GROUP</td>
-                                    <td><a href="/Group_device/Chi_tiet_thiet_bi/@items.ID_GROUP">@items.NAME</a></td>
+                                    <td><a href="/Group_device/Get_device_by_group/@items.ID_GROUP">@items.NAME</a></td>
                                     <td>@items.DESCIPTION</td>
                                     @if (Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION] != null)
                                     {
@@ -67,7 +66,6 @@
                                     }
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -97,7 +95,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                    <button type="button" class="btn btn-success" id="btn_Add" value="Thêm">Lưu</button>
                     <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
                 </div>
             </div>
@@ -106,7 +104,7 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
-<script src="~/Scripts/groupdevice.js"></script>
+<script src="~/Scripts/jquery/group_device.js"></script>
 <script>
     $(document).ready(function () {
         $("#btn_edit").click(function () {

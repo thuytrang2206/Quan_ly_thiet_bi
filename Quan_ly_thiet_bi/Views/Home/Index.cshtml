@@ -10,7 +10,6 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị</h1>
-
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -28,10 +27,10 @@
                             </button>
                         }
                     }
-                    @Html.ActionLink("ExportCSV", "ExportToCSV", "Home", new { @class = "btn btn-primary" })
+                    <a href="/Home/ExportListUsingEPPlus" class="btn btn-primary">Export to excel</a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" @*width="100%"*@ cellspacing="0" style="color:black;">
+                    <table class="table table-bordered" id="dataTable" cellspacing="0" style="color:black;">
                         <thead>
                             <tr>
                                 <th>STT</th>
@@ -53,7 +52,6 @@
                                         <th style="color:black;">Thao tác</th>
                                     }
                                 }
-
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +73,7 @@
                                     <td>
                                         @foreach (var u in list_user)
                                         {
-                                            if (u.ID_USER == @items.Creator)
+                                            if (u.ID_USER == items.Creator)
                                             {
                                                 @u.NAME
                                             }
@@ -118,17 +116,17 @@
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
                                 <label><b>Model</b></label>
-                                <input type="text" class="form-control" placeholder="Model" required id="Model" name="Model" />
+                                <input type="text" class="form-control" placeholder="Model"  id="Model" name="Model" />
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label><b>Serial</b></label>
-                                <input type="text" class="form-control" placeholder="Serial" required id="ScortCode" name="ScortCode" />
+                                <input type="text" class="form-control" placeholder="Serial"  id="ScortCode" name="ScortCode" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
                             <div class="col-6" style="float:left;">
                                 <label><b>Nhà cung cấp:</b></label>
-                                <input type="text" class="form-control" placeholder="Nhà cung cấp" required id="VendorName" name="VendorName" />
+                                <input type="text" class="form-control" placeholder="Nhà cung cấp" id="VendorName" name="VendorName" />
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label><b>Số lượng:</b></label>
@@ -148,7 +146,6 @@
                             <div class="col-6" style="float:left;">
                                 <label><b>Giá tiền:</b></label>
                                 <input type="text" class="form-control" id="DevicePrice" name="DevicePrice" />
-
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
@@ -165,11 +162,10 @@
                             </div>
                             <div class="col-6" style="float:left;">
                                 <label><b>Ghi chú:</b></label>
-                                <input type="text" class="form-control" required id="Remark" name="Remark" />
+                                <input type="text" class="form-control" id="Remark" name="Remark" />
                             </div>
                         </div>
                         <div class="container-modal" style="margin:5px 0px;">
-
                             <div class="col-12" style="float:left;">
                                 <label><b>Trạng thái</b></label><br />
                                 <input type="radio" id="Status" name="Status" value="1" /> Đang hoạt động
@@ -184,17 +180,15 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Thêm</button>
-                        <input type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu" />
+                        <button type="submit" class="btn btn-success"id="btn_Add" value="Thêm">Thêm</button>
+                        <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js" integrity="sha512-h3RrO+eudpiPUYFkwORXD2ppuy9jOXQ+MzVEIo7k+OuA7y9Ze5jsQ5WN/ZSgI+ZSIngT6pDSaqpgmnam2HPe1g==" crossorigin="anonymous"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery/device.js"></script>
-
+<script src="~/Scripts/jquery/device_manager.js"></script>

@@ -56,16 +56,20 @@
                                         @Html.AntiForgeryToken();
                                         @Html.ValidationSummary(false, "", "error");
                                         <div class="form-group">
+                                            <label>Mã nhân viên</label>
+                                            @Html.TextBoxFor(model => model.STAFF_CODE, new { @class = "form-control form-control-user", @autofocus = "autofocus", @style = "width: 200px;float: right; " })
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tên đăng ký</label>
-                                            @Html.TextBoxFor(model => model.NAME, new { @class = "form-control form-control-user", @autofocus = "autofocus", @style= "width: 200px;float: right; " })
+                                            @Html.TextBoxFor(model => model.NAME, new { @class = "form-control form-control-user", @autofocus = "autofocus", @style = "width: 200px;float: right; " })
                                         </div>
                                         <div class="form-group">
                                             <label>Email </label>
-                                            @Html.TextBoxFor(model => model.EMAIL, new { @class = "form-control form-control-user", @autofocus = "autofocus", @style = "width: 200px;float: right; ",@type="email"})
+                                            @Html.TextBoxFor(model => model.EMAIL, new { @class = "form-control form-control-user", @autofocus = "autofocus", @style = "width: 200px;float: right; ", @type = "email" })
                                         </div>
                                         <div class="form-group">
                                             <label>Mật khẩu</label>
-                                            @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control form-control-user",@style = "width: 200px;float: right; " })
+                                            @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control form-control-user", @style = "width: 200px;float: right; " })
                                         </div>
                                         <div class="form-group">
                                             <label>Xác nhận mật khẩu</label>
@@ -76,7 +80,7 @@
 
 
                                     <hr>
-                                  
+
                                     <div class="text-center">
                                         <a class="small" href="@Url.Action("Index", "Login")">Đăng nhập tài khoản</a>
                                     </div>

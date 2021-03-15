@@ -28,8 +28,7 @@
                             @for (x = 1; x <= 31; x++)
                             {
                                 <td>
-                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -27px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
-
+                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -12px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
                                         @foreach (var item_main in Model)
                                         {
                                             if (item_main.DatePlan != null && item_main.DatePlan.Value.Day == x && item_main.DatePlan.Value.Month == 3)
@@ -38,7 +37,7 @@
                                                 {
                                                     if (item_device.Id == item_main.Id_device)
                                                     {
-                                                        <tr>
+                                                        <tr style="height:150px;" >
                                                             <td>
                                                                 <a href="/PlanRepair/Detail_plan_maintenance/@item_main.Id_Maintenance" style="color:black;"><span style="color:black;">@item_device.DeviceName</span></a><br />
                                                             </td>
@@ -56,8 +55,7 @@
                             @for (x = 1; x <= 31; x++)
                             {
                                 <td>
-                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -27px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
-
+                                    <table style="min-width: 45px; margin-left: -12px;margin-right: -12px;margin-top: -12px; margin-bottom: -12px;min-height: 73px;">
                                         @foreach (var item_main in Model)
                                         {
                                             if (item_main.DateMaintenance != null && item_main.DateMaintenance.Value.Day == x && item_main.DateMaintenance.Value.Month == 3)
@@ -67,8 +65,8 @@
                                                     if (item_device.Id == item_main.Id_device)
                                                     {
                                                         <tr>
-                                                            <td>
-                                                                <a href="/Home/Detail_device/@item_device.Id"><span style="color:black;">@item_device.DeviceName</span></a>
+                                                            <td style="height:150px;">
+                                                                <a href="/Home/Detail_device/@item_main.Id_Maintenance"><span style="color:black;">@item_device.DeviceName</span></a>
                                                             </td>
                                                         </tr>
                                                     }
@@ -82,10 +80,7 @@
                     </tbody>
                 </table>
             </div>
-
-
         </div>
     </div>
-
 </div>
 

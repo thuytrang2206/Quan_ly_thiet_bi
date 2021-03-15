@@ -25,10 +25,10 @@ namespace Quan_ly_thiet_bi.Controllers
               
                 string password = Encryptor.MD5Hash(model.PASSWORD);
                 var dao = new UserDao();
-                var result = dao.Login(model.NAME, password);
+                var result = dao.Login(model.STAFF_CODE, password);
                 if (result==1)
                 {
-                    var user = dao.getbyID(model.NAME);
+                    var user = dao.getbyID(model.STAFF_CODE);
                     var userSession = new UserLogin();
                     userSession.NAME = user.NAME;
                     userSession.ID_USER = user.ID_USER;

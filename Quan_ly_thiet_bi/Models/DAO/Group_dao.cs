@@ -6,10 +6,14 @@ using System.Web;
 
 namespace Quan_ly_thiet_bi.Models.DAO
 {
-    public class Group_Device
+    public class Group_dao
     {
-        Manager_device db = new Manager_device();
-        public GROUP_DEVICE ViewDetail(string ID_GROUP)
+        Manager_device db;
+        public Group_dao()
+        {
+            db = new Manager_device();
+        }
+        public GROUP_DEVICE Get_group_by_ID(string ID_GROUP)
         {
             return db.GROUP_DEVICE.Find(ID_GROUP);
         }
@@ -27,11 +31,11 @@ namespace Quan_ly_thiet_bi.Models.DAO
                 db.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
-           
+
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿@model Quan_ly_thiet_bi.Models.EF.GROUP_DEVICE
+@{
+    ViewBag.Title = "Get_device_by_group";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list_device = (List<Quan_ly_thiet_bi.Models.EF.DEVICE>)ViewBag.list_device;
+    var list_user = (List<Quan_ly_thiet_bi.Models.EF.USER>)ViewBag.list_user;
+}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Danh sách thiết bị của nhóm thiết bị "@Model.NAME"</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" cellspacing="0" style="color:black;">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th style="display:none;"></th>
+                            <th>Tên thiết bị</th>
+                            <th>Hình ảnh</th>
+                            <th>Model</th>
+                            <th>Serial</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Số lượng</th>
+                            <th>Vị trí</th>
+                            <th>Thời gian lắp đặt</th>
+                            <th>Nhân viên</th>
+                    </thead>
+                    <tbody>
+                        @{int i = 0; }
+                        @foreach (var item_device in list_device)
+                        {
+                            if (item_device.DeviceGroup == Model.ID_GROUP)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td style="display:none;">@item_device.Id</td>
+                                    <td><a href="/Home/Maintenance/@item_device.Id">@item_device.DeviceName</a></td>
+                                    <td><img src="@item_device.Image1" style="width:120px;height:100px;" /></td>
+                                    <td>@item_device.Model</td>
+                                    <td>@item_device.ScortCode</td>
+                                    <td>@item_device.VendorName</td>
+                                    <td>@item_device.Qty</td>
+                                    <td>@item_device.Location</td>
+                                    <td>@Html.DisplayFor(m => item_device.Installtime)</td>
+                                    <td>
+                                        @foreach (var u in list_user)
+                                        {
+                                            if (u.ID_USER == item_device.Creator)
+                                            {
+                                                @u.NAME
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

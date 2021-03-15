@@ -111,7 +111,13 @@
                                                }
                                 </td>
                                 <td>
-                                    @Model.FrequencyCheck
+                                   @foreach (var item_check in list_check)
+                                   {
+                                       if (item_check.Id__Checkmaintenace == Model.Checkmaintenance)
+                                       {
+                                        @item_check.FrequencyCheck
+                                       }
+                                   }
                                 </td>
                                 <td>
                                     @Model.Personmaintenance
@@ -126,10 +132,17 @@
                                 <td>
                                         @foreach (var item_his in list_history)
                                         {
-                                                if (item_his.UPDATE_CHECK == Model.DateMaintenance && item_his.ID_DEVICE == Model.Id_device && item_his.STATUS == TaskType.Repair.ToString())
+                                            if (item_his.UPDATE_CHECK == Model.DateMaintenance && item_his.ID_DEVICE == Model.Id_device && item_his.STATUS == TaskType.Repair.ToString())
+                                            {
+                                                if(item_his.NOTE  == null)
                                                 {
-                                                            @item_his.NOTE
+                                                    <p>Đã bảo dưỡng</p>
                                                 }
+                                                else
+                                                {
+                                                    @item_his.NOTE
+                                                }
+                                            }
                                         }
                                 </td>
                             }

@@ -93,7 +93,7 @@
                                         {
                                             if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
                                             {
-                                                <tr style="height:73px;">
+                                                <tr style="height:100px;">
                                                     <td>
                                                         @item_check.Checkmaintenace
                                                     </td>
@@ -114,7 +114,7 @@
                                         {
                                             if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
                                             {
-                                                <tr style="height:73px;">
+                                                <tr style="height:100px;">
                                                     <td>
                                                         @item_check.Classifymaintenance
                                                     </td>
@@ -135,7 +135,7 @@
                                         {
                                             if (item_check.Id__Checkmaintenace == item_main.Checkmaintenance)
                                             {
-                                                <tr style="height:73px;">
+                                                <tr style="height:100px;">
                                                     <td>
                                                         @item_check.FrequencyCheck
                                                     </td>
@@ -153,7 +153,7 @@
                                     if (item_main.Id_device == Model.Id)
                                     {
                                         <tr>
-                                            <td style="height:73px;">
+                                            <td style="height:100px;">
                                                 @item_main.Personmaintenance
                                             </td>
                                         </tr>
@@ -168,7 +168,7 @@
                                     if (item_main.Id_device == Model.Id)
                                     {
                                         <tr>
-                                            <td style="height:73px;">
+                                            <td style="height:100px;">
                                                 @Html.DisplayFor(m => item_main.DatePlan)
                                             </td>
                                         </tr>
@@ -183,7 +183,7 @@
                                     if (item_main.Id_device == Model.Id)
                                     {
                                         <tr>
-                                            <td style="height:73px;">
+                                            <td style="height:100px;">
                                                 @Html.DisplayFor(m => item_main.DateMaintenance)
                                             </td>
                                         </tr>
@@ -217,22 +217,20 @@
                     </div>
                     <div class="container-modal" style="margin:5px 0px;">
                         <div class="col-12" style="float:left;">
-                            @*<label><b>Loại bảo dưỡng</b></label><br />
-                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng nhỏ" /> Bảo dưỡng nhỏ  <br />
-                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng lớn" /> Bảo dưỡng lớn<br />
-                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng 1 phần" /> Bảo dưỡng 1 phần  <br />
-                                <input type="radio" id="Classifymaintenance" name="Classifymaintenance" value="Bảo dưỡng toàn bộ" /> Bảo dưỡng toàn bộ*@
-                        </div>
-                        <div class="col-12" style="float:left;">
                             <label><b>Hạng mục kiểm tra</b></label>
                             <br />
                             @foreach (var items_ in list_check)
                             {
-                                if (items_.Type_Device == Model.DeviceGroup)
+                               if (items_.Type_Device == Model.DeviceGroup)
                                 {
-                                    <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="@items_.Id__Checkmaintenace" /> @items_.Checkmaintenace  <br />
+                                <div class="col-7" style="float:left;">
+                                    <input type="radio" id="Checkmaintenance" name="Checkmaintenance" value="@items_.Id__Checkmaintenace" /> @items_.Checkmaintenace    <br />         
+                                </div>
+                                <div class="col-5" style="float:left;">
+                                    &ndash; @items_.Classifymaintenance 
+                                </div>
+                                    }
                                 }
-                            }
                         </div>
                     </div>
                     <div class="col-12" style="margin:5px 0px;float:left;">
@@ -246,7 +244,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="">Thêm</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="">Thêm</button> 
                 </div>
             </div>
         </div>

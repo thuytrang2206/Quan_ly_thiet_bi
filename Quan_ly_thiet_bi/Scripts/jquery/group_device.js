@@ -15,7 +15,7 @@ $("body").on("click", "#btn_close", function () {
 
 $("body").on("click", "#btn_Add", function () {
 
-    if ($("#NAME").val() == "" || $("#DESCIPTION").val() == "" ) {
+    if ($("#NAME").val() == "" || $("#DESCIPTION").val() == "") {
         alert("Hãy nhập giá trị!");
     }
     else {
@@ -55,6 +55,7 @@ function Xoa(el) {
 function Sua(el) {
     event.preventDefault();
     $("#btn_sua").show();
+    $("#btn_Add").hide();
     var id = el.parentNode.parentNode.cells[1].textContent;
     $.ajax({
         url: "/Group_device/Get_group/?Id=" + id,

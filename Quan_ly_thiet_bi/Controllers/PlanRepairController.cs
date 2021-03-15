@@ -238,9 +238,21 @@ namespace Quan_ly_thiet_bi.Controllers
                     {
                         maintenance.DatePlan = date.AddDays(7);
                     }
-                    else if (item_check.FrequencyCheck == "1 tháng/lần")
+                    else if (item_check.FrequencyCheck == "2 tuần/lần")
+                    {
+                        maintenance.DatePlan = date.AddDays(14);
+                    }
+                    else if (item_check.FrequencyCheck == "3 tuần/lần")
+                    {
+                        maintenance.DatePlan = date.AddDays(21);
+                    }
+                    else if (item_check.FrequencyCheck == "1 tháng/lần" || item_check.FrequencyCheck == "4 tuần/lần")
                     {
                         maintenance.DatePlan = date.AddMonths(1);
+                    }
+                    else if (item_check.FrequencyCheck == "2 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(2);
                     }
                     else if (item_check.FrequencyCheck == "4 tháng/lần")
                     {
@@ -250,15 +262,39 @@ namespace Quan_ly_thiet_bi.Controllers
                     {
                         maintenance.DatePlan = date.AddMonths(3);
                     }
+                    else if (item_check.FrequencyCheck == "5 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(5);
+                    }
                     else if (item_check.FrequencyCheck == "6 tháng/lần")
                     {
                         maintenance.DatePlan = date.AddMonths(6);
+                    }
+                    else if (item_check.FrequencyCheck == "7 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(7);
+                    }
+                    else if (item_check.FrequencyCheck == "8 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(8);
+                    }
+                    else if (item_check.FrequencyCheck == "9 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(9);
+                    }
+                    else if (item_check.FrequencyCheck == "10 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(10);
+                    }
+                    else if (item_check.FrequencyCheck == "11 tháng/lần")
+                    {
+                        maintenance.DatePlan = date.AddMonths(11);
                     }
                     else if (item_check.FrequencyCheck == "2 năm/lần")
                     {
                         maintenance.DatePlan = date.AddYears(2);
                     }
-                    else if (item_check.FrequencyCheck == "1 năm/lần")
+                    else if (item_check.FrequencyCheck == "1 năm/lần" || item_check.FrequencyCheck == "12 tháng/lần")
                     {
                         maintenance.DatePlan = date.AddYears(1);
                     }
@@ -294,5 +330,5 @@ namespace Quan_ly_thiet_bi.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-
+    
 }

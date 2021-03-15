@@ -13,13 +13,13 @@ namespace Quan_ly_thiet_bi.Models.DAO
         {
             db = new Manager_device();
         }
-        public USER getbyID(string NAME)
+        public USER getbyID(string STAFF_CODE)
         {
-            return db.USERs.Where(x => x.NAME == NAME).FirstOrDefault();
+            return db.USERs.Where(x => x.STAFF_CODE == STAFF_CODE).FirstOrDefault();
         }
-        public int Login(string NAME, string PASSWORD)
+        public int Login(string STAFF_CODE, string PASSWORD)
         {
-            var result = db.USERs.SingleOrDefault(u => u.NAME == NAME && u.PASSWORD==PASSWORD);
+            var result = db.USERs.SingleOrDefault(u => u.STAFF_CODE == STAFF_CODE && u.PASSWORD==PASSWORD);
             if (result == null)
             {
                 return 0;
@@ -35,10 +35,10 @@ namespace Quan_ly_thiet_bi.Models.DAO
             db.SaveChanges();
             return u.ID_USER;
         }
-        
-        public bool Checkusername(string NAME)
+        public bool Checkusername(string STAFF_CODE)
         {
-            return db.USERs.Count(x => x.NAME == NAME)>0;
+            return db.USERs.Count(x => x.STAFF_CODE == STAFF_CODE)>0;
         }
+
     }
 }

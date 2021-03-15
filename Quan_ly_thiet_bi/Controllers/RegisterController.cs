@@ -32,9 +32,9 @@ namespace Quan_ly_thiet_bi.Controllers
             var dao = new UserDao();
             if (ModelState.IsValid)
             {
-                if (dao.Checkusername(model.NAME))
+                if (dao.Checkusername(model.STAFF_CODE))
                 {
-                    message = "Tên đăng nhập đã tồn tại";
+                    message = "Mã code đã tồn tại";
                 }
                 else
                 {
@@ -46,6 +46,8 @@ namespace Quan_ly_thiet_bi.Controllers
                     user.EMAIL = model.EMAIL;
                     user.PASSWORD = pass;
                     user.ID_RULE = "R002";
+                    user.STAFF_CODE = model.STAFF_CODE;
+                    user.STATUS = true;
                     var result = dao.Insert(user);
                     if (result != null)
                     {

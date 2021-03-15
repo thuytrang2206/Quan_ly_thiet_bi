@@ -53,16 +53,14 @@
                                     {
                                         @Html.ValidationSummary(false, "", "error");
                                         <div class="form-group">
-                                            @Html.TextBoxFor(model => model.NAME, new { @class = "form-control form-control-user", @autofocus = "autofocus" })
+                                            @Html.TextBoxFor(model => model.STAFF_CODE, new { @class = "form-control form-control-user", @autofocus = "autofocus", @required = "required", @placeholder="Mã nhân viên"})
                                         </div>
                                         <div class="form-group">
-                                            @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control form-control-user" })
+                                            @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control form-control-user", @required = "required", @placeholder = "Mật khẩu" })
                                         </div>
                                         
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Đăng nhập</button>
                                     }
-
-
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="@Url.Action("ForgotPassword", "User")">Quên mật khẩu?</a>

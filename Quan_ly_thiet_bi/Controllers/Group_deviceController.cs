@@ -49,6 +49,17 @@ namespace Quan_ly_thiet_bi.Controllers
             db.SaveChanges();
             return (Json(JsonRequestBehavior.AllowGet));
         }
+        public ActionResult Get_device_by_group(string Id)
+        {
+            var dao = new Group_dao();
+            var model = dao.Get_group_by_ID(Id);
+            List<DEVICE> list_device = db.DEVICEs.ToList();
+            ViewBag.list_device = list_device;
+            List<USER> list_user = db.USERs.ToList();
+            ViewBag.list_user = list_user;
+            return View(model);
+
+        }
         public ActionResult Get_group(string Id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -81,5 +92,6 @@ namespace Quan_ly_thiet_bi.Controllers
 
         }
      
+      
     }
 }

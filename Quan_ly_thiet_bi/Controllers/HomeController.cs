@@ -10,6 +10,8 @@ using Quan_ly_thiet_bi.Models;
 using Quan_ly_thiet_bi.Common;
 using System.IO;
 using System.Data.Entity;
+using System.Data;
+using OfficeOpenXml;
 
 namespace Quan_ly_thiet_bi.Controllers
 {
@@ -49,7 +51,35 @@ namespace Quan_ly_thiet_bi.Controllers
                 dev.IsUsing = true;
                 var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
                 dev.Creator = session.ID_USER;
-                db.DEVICEs.Add(dev);
+            if(dev.Model == null )
+            {
+                dev.Model = "N/A";
+            }
+            if (dev.VendorName == null)
+            {
+                dev.VendorName = "N/A";
+            }
+            if(dev.ScortCode == null)
+            {
+                dev.ScortCode = "N/A";
+            }
+            if (dev.Location == null)
+            {
+                dev.Location = "N/A";
+            }
+            if (dev.DevicePrice == null)
+            {
+                dev.DevicePrice = 0;
+            }
+            if (dev.Qty == null)
+            {
+                dev.Qty = 0;
+            }
+            if (dev.Installtime == null)
+            {
+                dev.Installtime = DateTime.Now;
+            }
+            db.DEVICEs.Add(dev);
                 if (id != null)
                 {
                     HISTORY his = new HISTORY();
@@ -86,6 +116,7 @@ namespace Quan_ly_thiet_bi.Controllers
         {
             var device = db.DEVICEs.SingleOrDefault(d => d.Id == id);
             device.Status = 0;
+            device.IsUsing = false;
             string id_his = Guid.NewGuid().ToString();
             his.ID_HISTORY = id_his;
             his.ID_DEVICE = id;
@@ -94,7 +125,8 @@ namespace Quan_ly_thiet_bi.Controllers
             his.STATUS = TaskType.Remove.ToString();
             var session = (Quan_ly_thiet_bi.Common.UserLogin)Session[Quan_ly_thiet_bi.Common.Constant.USER_SESSION];
             his.ID_USER = session.ID_USER;
-            db.HISTORies.Add(his);
+            db.Maintenances.RemoveRange(db.Maintenances.Where(w => w.Id_device == id));
+            db.HISTORies.Add(his); 
             db.SaveChanges();
             return (Json(JsonRequestBehavior.AllowGet));
         }
@@ -131,11 +163,11 @@ namespace Quan_ly_thiet_bi.Controllers
                     d.Status = dev.Status;
                     string id_his = Guid.NewGuid().ToString();
                     his.ID_HISTORY = id_his;
-                    his.ID_DEVICE = dev.Id;
-                    his.QUANTITY = dev.Qty;
+                    his.ID_DEVICE = d.Id;
+                    his.QUANTITY = d.Qty;
                     his.UPDATE_CHECK = DateTime.Now;
                     his.STATUS = TaskType.Update.ToString();
-                    his.ID_USER = dev.Creator;
+                    his.ID_USER =d.Creator;
                     db.HISTORies.Add(his);
                     db.SaveChanges();
                     dev = null;
@@ -158,7 +190,6 @@ namespace Quan_ly_thiet_bi.Controllers
                 ViewBag.list_user = list_user;
                 return View("Index", model);
             }
-
         }
         public ActionResult Maintenance(string Id)
         {
@@ -175,7 +206,6 @@ namespace Quan_ly_thiet_bi.Controllers
             List<Maintenance> list_main = db.Maintenances.ToList();
             ViewBag.list_main = list_main;
             return View(model);
-         
         }
         [HttpPost]
         public JsonResult Insert_maintenance(Maintenance main)
@@ -186,27 +216,25 @@ namespace Quan_ly_thiet_bi.Controllers
             db.SaveChanges();
             return Json(main);
         }
-
-        public FileContentResult ExportToCSV()
+        public void ExportListUsingEPPlus()
         {
-            var movie = db.DEVICEs.ToList();
-            StringWriter sw = new StringWriter();
-            sw.WriteLine("\"Mã thiết bị\",\"Tên thiết bị\",\"Model\",\"Serial\",\"Giá thiết bị\",\"Nhà cung cấp\",\"Số lượng\",\"Vị trí\"");
-            foreach (var mve in movie)
+            var data =( from d in db.DEVICEs
+                        join g in db.GROUP_DEVICE on d.DeviceGroup equals g.ID_GROUP
+                        join u in db.USERs on d.Creator equals u.ID_USER
+                        select new {d.Id, d.DeviceName, d.Model, d.ScortCode, d.VendorName, d.Qty,d.DevicePrice,d.Location,d.Installtime, d.Remark, d.Image1,Device_group= g.NAME,Creator= u.NAME,d.Status }).ToList();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage excel = new ExcelPackage();
+            var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+            workSheet.Cells[1, 1].LoadFromCollection(data, true);
+            using (var memoryStream = new MemoryStream())
             {
-                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"",
-                     mve.Id,
-                     mve.DeviceName,
-                     mve.Model,
-                     mve.ScortCode,
-                     mve.DevicePrice,
-                     mve.VendorName,
-                     mve.Qty,
-                     mve.Location));
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;  filename=List_device.xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
             }
-            var fileName = "Danh_sach_thiet_bi" + DateTime.Now.ToString() + ".csv";
-            return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
         }
     }
-   
 }

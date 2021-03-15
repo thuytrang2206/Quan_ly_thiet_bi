@@ -62,6 +62,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Admin\js\plugins\ckfinder\bin\Debug\CKFinder_Watermark.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=5.5.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.5.2\lib\net45\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -95,11 +99,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.3.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.3.6\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -222,6 +232,7 @@
     <Compile Include="Controllers\Group_deviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\PlanRepairController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -230,7 +241,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DAO\Device.cs" />
-    <Compile Include="Models\DAO\Group_Device.cs" />
+    <Compile Include="Models\DAO\Group_dao.cs" />
     <Compile Include="Models\DAO\Maintenances_dao.cs" />
     <Compile Include="Models\DAO\Rule.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
@@ -2778,9 +2789,9 @@
     <Content Include="Admin\js\plugins\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Admin\js\plugins\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Admin\js\plugins\ckfinder\userfiles\.htaccess" />
+    <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckfinder.js" />
-    <Content Include="Scripts\groupdevice.js" />
     <Content Include="Scripts\history.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2792,13 +2803,35 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jquery\device.js" />
+    <Content Include="Scripts\jquery\device_manager.js" />
+    <Content Include="Scripts\jquery\group_device.js" />
     <Content Include="Scripts\jquery\maintenance.js" />
-    <Content Include="Scripts\jquery\user.js" />
+    <Content Include="Scripts\jquery\maintenances.js" />
+    <Content Include="Scripts\jquery\users.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Upload\images\ảnh\avatar-default.png" />
+    <Content Include="Upload\images\ảnh\bơm nước lạnh.png" />
+    <Content Include="Upload\images\ảnh\chiller-tica.png" />
+    <Content Include="Upload\images\ảnh\Login.PNG" />
+    <Content Include="Upload\images\ảnh\máy biến áp.png" />
+    <Content Include="Upload\images\ảnh\máy nén khí hitachi.png" />
+    <Content Include="Upload\images\ảnh\máy nén khí kobelco.png" />
+    <Content Include="Upload\images\ảnh\Máy phát điện 1.png" />
+    <Content Include="Upload\images\ảnh\máy số 1.png" />
+    <Content Include="Upload\images\ảnh\tủ trung thế 1.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\avatar-default.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\bơm nước lạnh.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\chiller-tica.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\Login.PNG" />
+    <Content Include="Upload\_thumbs\Images\ảnh\máy biến áp.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\máy nén khí hitachi.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\máy nén khí kobelco.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\Máy phát điện 1.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\máy số 1.png" />
+    <Content Include="Upload\_thumbs\Images\ảnh\tủ trung thế 1.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2820,7 +2853,6 @@
     <Content Include="Views\PlanRepair\Detail_plan_repair.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Home\Maintenance.cshtml" />
-    <Content Include="Views\Register\Register_Acount.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Group_device\Index.cshtml" />
@@ -2838,10 +2870,14 @@
     <Content Include="Views\PlanRepair\Month_11.cshtml" />
     <Content Include="Views\PlanRepair\Month_12.cshtml" />
     <Content Include="Views\PlanRepair\Detail_plan_maintenance.cshtml" />
+    <Content Include="Views\Group_device\Get_device_by_group.cshtml" />
+    <Content Include="Views\Register\Register_Acount.cshtml" />
+    <Content Include="Views\Maintenance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Upload\" />
+    <Folder Include="Upload\files\" />
+    <Folder Include="Upload\flash\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

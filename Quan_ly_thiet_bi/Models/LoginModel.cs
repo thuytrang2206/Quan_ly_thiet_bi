@@ -9,7 +9,7 @@ namespace Quan_ly_thiet_bi.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "Mời bạn nhập UserName")]
-        public string NAME { set; get; }
+        public string STAFF_CODE { set; get; }
 
         [Required(ErrorMessage = "Mời bạn nhập PassWord")]
         public string PASSWORD { set; get; }

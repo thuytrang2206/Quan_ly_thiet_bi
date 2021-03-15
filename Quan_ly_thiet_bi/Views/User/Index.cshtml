@@ -30,6 +30,7 @@
                             <tr>
                                 <th>STT</th>
                                 <th style="display:none;"></th>
+                                <th>Mã code</th>
                                 <th>Tên nhân viên</th>
                                 <th>Email</th>
                                 <th>Mật khẩu</th>
@@ -51,6 +52,7 @@
                                 <tr>
                                     <td>@i</td>
                                     <td style="display:none;">@items.ID_USER</td>
+                                    <td>@items.STAFF_CODE</td>
                                     <td>@items.NAME</td>
                                     <td>@items.EMAIL</td>
                                     <td>@items.PASSWORD</td>
@@ -96,13 +98,16 @@
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Tên nhân viên:</label>
-                        <input type="text" class="form-control" required id="NAME" name="NAME" />
-                      
+                        <input type="text" class="form-control" id="NAME" name="NAME" required />
+                    </div>
+                    <div class="col-12" style="margin:5px 0px;">
+                        <label>Mã nhân viên:</label>
+                        <input type="text" class="form-control" id="STAFF_CODE" name="STAFF_CODE" required onchange="UserCheckSTAFF()"/>
+                        <span id="Statusstaff"></span>
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Email</label>
-                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com" onchange="UserCheck()" />
-                        <span id="Status"></span>
+                        <input type="email" class="form-control" required id="EMAIL" name="EMAIL" placeholder="abc@gmail.com"  />
                     </div>
                     <div class="col-12" style="margin:5px 0px;">
                         <label>Mật khẩu:</label>
@@ -120,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_close">Đóng</button>
-                    <button type="submit" class="btn btn-success" data-dismiss="modal" id="btn_Add" value="Thêm">Lưu</button>
+                    <button type="submit" class="btn btn-success" id="btn_Add" value="Thêm">Lưu</button>
                     <button type="submit" name="submit" class="btn btn-primary" id="btn_sua" value="Lưu">Lưu</button>
                 </div>
             </div>
@@ -132,19 +137,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">      </script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery/user.js"></script>
+<script src="~/Scripts/jquery/users.js"></script>
 <script>
-    function UserCheck() {
-        $("#Status").html("");
+    function UserCheckSTAFF() {
+        $("#Statusstaff").html("");
         $.post("@Url.Action("Insert_user", "User")",
     {
-        EMAIL: $("#EMAIL").val()
+        STAFF_CODE: $("#STAFF_CODE").val(),
+        EMAIL: $("#EMAIL").val(),
     },
     function (data) {
         if (data == 1) {
-            $("#Status").html('<font color="Red">Email đã tồn tại</font>');
+            $("#Statusstaff").html('<font color="Red">Mã nhân viên đã tồn tại</font>');
         }
-
+        
     });
     }
 </script>
